@@ -32,7 +32,7 @@ int main(int argc, char *argv[]) {
     
     GLView::setGLContextAttrs(glContextAttrs);
     
-    auto glview = GLViewImpl::createWithRect("skill_market", {0, 0, 480, 720});
+    auto glview = GLViewImpl::createWithRect("ttt_c_tracker", {0, 0, 480, 720});
     Director::getInstance()->setOpenGLView(glview);
     
     AppDelegate app;

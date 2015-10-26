@@ -55,12 +55,12 @@ bool LoginLayer::init() {
         this->addChild(_back, zBack);
     }
     
-    _btnLoginWithVK = MenuItemImage::create("btn_login_vk.png", "btn_login_vk_on.png", CC_CALLBACK_0(LoginLayer::onLoginWithVKBtnPresed, this));
-
-    _loginMenu = Menu::create(_btnLoginWithVK, nullptr);
-    _loginMenu->setPosition(visibleSize.width * 0.5f, visibleSize.height * 0.5f);
-    
-    this->addChild(_loginMenu);
+//    _btnLoginWithVK = MenuItemImage::create("btn_login_vk.png", "btn_login_vk_on.png", CC_CALLBACK_0(LoginLayer::onLoginWithVKBtnPresed, this));
+//
+//    _loginMenu = Menu::create(_btnLoginWithVK, nullptr);
+//    _loginMenu->setPosition(visibleSize.width * 0.5f, visibleSize.height * 0.5f);
+//    
+//    this->addChild(_loginMenu);
     
     this->restoreSessionIfAny();
     
