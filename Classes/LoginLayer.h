@@ -19,14 +19,6 @@ public:
     void onSignupWithVKBtnPressed();
     
 private:
-    void onLoggedIn();
-    void onFailedToLogIn(const std::string &error, const std::string &description);
-    
-    void fetchUserNameAndLastName();
-    
-    void onSignedUp();
-    void onFailedToSignUp(const std::string &error, const std::string &description);
-    
     void restoreSessionIfAny();
 private:
     cocos2d::Sprite *_back;

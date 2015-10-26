@@ -13,8 +13,8 @@
 
 #include "Types.h"
 
-#define kResponseStatusUserDoesNotExist "user_not_found"
-#define kResponseStatusUserAlreadyExists "user_already_exists"
+#define kAppKey "GEL3070XbPLwO7PTUXwOkeXg5CmH84rC4e9wIlJD"
+#define kClientKey "P11fWn0ifZpsdRm7ysAX6I9ENgkQbNmB0xUgRMkz"
 
 class ServerAPI {
 public:
@@ -25,19 +25,19 @@ public:
 public:
     static void purge();
 
-    static void wakeUp(OnLoggedInWithAPICallback logInCallback, OnFailedToLogInWithAPICallback failedToWakeUpCallback);
-    static void logIn(OnLoggedInWithAPICallback logInCallback, OnFailedToLogInWithAPICallback loginFailureCallback);
-    
-    static void fetchUserNameAndLastName(OnUserNameAndLastNameFetchedCallback userNameFetchedCallback,
-                                         OnFailedToFetchUserNameAndLastNameCallback userNameFetchFailureCallback);
-    
-    static void fetchAllSkills(OnSkillsFetchedCallback onSkillsFetchedCallback,
-                               OnFailedToFetchSkillsCallback onFailedToFetchSkillsCallback);
-    
-    static void fetchUserSkills(OnSkillsFetchedCallback onSkillsFetchedCallback,
-                                OnFailedToFetchSkillsCallback onFailedToFetchSkillsCallback);
-    
-    static void signUp(OnSignedUpCallback signUpCallback, OnFailedToSignUpCallback signUpFailureCallback);
+    static void wakeUp(OnLoggedInCallback logInCallback, OnFailedToLogInCallback failedToWakeUpCallback);
+//    static void logIn(OnLoggedInCallback logInCallback, OnFailedToLogInCallback loginFailureCallback);
+//    
+//    static void fetchUserNameAndLastName(OnUserNameAndLastNameFetchedCallback userNameFetchedCallback,
+//                                         OnFailedToFetchUserNameAndLastNameCallback userNameFetchFailureCallback);
+//    
+//    static void fetchAllSkills(OnSkillsFetchedCallback onSkillsFetchedCallback,
+//                               OnFailedToFetchSkillsCallback onFailedToFetchSkillsCallback);
+//    
+//    static void fetchUserSkills(OnSkillsFetchedCallback onSkillsFetchedCallback,
+//                                OnFailedToFetchSkillsCallback onFailedToFetchSkillsCallback);
+//    
+//    static void signUp(OnSignedUpCallback signUpCallback, OnFailedToSignUpCallback signUpFailureCallback);
     
     static ServerAPI* sharedInstance();
 private:
@@ -45,15 +45,13 @@ private:
     ServerAPI();
     virtual ~ServerAPI();
     
-    void onLoggedInWithSocialNetwork(const std::string &snUserId, const std::string &snAccessToken);
+//    void onLoggedInWithSocialNetwork(const std::string &snUserId, const std::string &snAccessToken);
 public:
-    void onHttpResponse(cocos2d::network::HttpClient *sender, cocos2d::network::HttpResponse *response);
+//    void onHttpResponse(cocos2d::network::HttpClient *sender, cocos2d::network::HttpResponse *response);
 private:
-    std::string _accessToken;
-    std::string _userId;
     
-    OnLoggedInWithAPICallback _logInCallback;
-    OnFailedToLogInWithAPICallback _logInFailureCallback;
+//    OnLoggedInCallback _logInCallback;
+//    OnFailedToLogInCallback _logInFailureCallback;
     
     static ServerAPI *__sharedInstance;
 };

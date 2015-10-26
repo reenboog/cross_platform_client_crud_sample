@@ -5,6 +5,7 @@
 #include "AppConfig.h"
 #include "Localized.h"
 #include "User.h"
+#include "ServerAPI.h"
 
 using namespace cocos2d;
 using namespace CocosDenshion;
@@ -14,6 +15,7 @@ AppDelegate::AppDelegate() {
 }
 
 AppDelegate::~AppDelegate()  {
+    ServerAPI::purge();
     Localized::purge();
     AppConfig::purge();
     User::purge();
