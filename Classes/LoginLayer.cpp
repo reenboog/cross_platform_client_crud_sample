@@ -1,5 +1,6 @@
 
 #include "LoginLayer.h"
+#include "LoginLayerOnKeyboardEnterExit.h"
 #include "SimpleAudioEngine.h"
 
 #include "ServerAPI.h"
@@ -12,6 +13,7 @@
 #define zBack 0
 
 using namespace cocos2d;
+using namespace ui;
 using namespace std;
 
 LoginLayer::~LoginLayer() {
@@ -30,6 +32,11 @@ LoginLayer::LoginLayer(): Layer() {
     
     _mntCridentials = nullptr;
     _unknownAvatar = nullptr;
+    
+    _textMail = nullptr;
+    _textPassword = nullptr;
+    
+    _layout = nullptr;
 }
 
 Scene* LoginLayer::scene() {
@@ -63,6 +70,13 @@ bool LoginLayer::init() {
     }
     
     {
+        // main layout
+        
+        _layout = Layer::create();
+        this->addChild(_layout);
+    }
+    
+    {
         // links
         _btnLinkLogin = MenuItemImage::create("btn_link_login.png", "btn_link_login_on.png", CC_CALLBACK_0(LoginLayer::onBtnLinkLoginPressed, this));
         _btnLinkLogin->setVisible(false);
@@ -88,7 +102,7 @@ bool LoginLayer::init() {
         
         _mntCridentials->setPosition({visibleSize.width * 0.5f, visibleSize.height * 0.5f + cridentialsSize.height * 0.5f});
         
-        this->addChild(_mntCridentials);
+        _layout->addChild(_mntCridentials);
         
         _btnLogin->setAnchorPoint({0.5f, 1.0f});
         _btnLogin->setPosition({visibleSize.width * 0.5f, _mntCridentials->getPositionY() - _mntCridentials->getContentSize().height});
@@ -101,13 +115,40 @@ bool LoginLayer::init() {
         
         _unknownAvatar->setPosition(visibleSize.width * 0.5f, visibleSize.height - (visibleSize.height - _mntCridentials->getPositionY()) / 2.0f);
         
-        this->addChild(_unknownAvatar);
+        _layout->addChild(_unknownAvatar);
+        
+        // text fields
+        // mail
+        _textMail = TextField::create("e-mail", "helvetica.ttf", 22);
+        _mntCridentials->addChild(_textMail);
+
+        _textMail->addEventListener(CC_CALLBACK_2(LoginLayer::onTextMailEvent, this));
+        _textMail->setPosition({_mntCridentials->getContentSize().width * 0.15f, _mntCridentials->getContentSize().height * 0.74f});
+        _textMail->setMaxLength(23);
+        _textMail->setMaxLengthEnabled(true);
+        _textMail->setAnchorPoint({0, 0.5});
+        _textMail->setColor({93, 93, 93});
+        _textMail->setPlaceHolderColor({93, 93, 93, 100});
+        
+        // pasword
+        _textPassword = TextField::create("password", "helvetica.ttf", 22);
+        _mntCridentials->addChild(_textPassword);
+        
+        _textPassword->addEventListener(CC_CALLBACK_2(LoginLayer::onTextPasswordEvent, this));
+        _textPassword->setPosition({_mntCridentials->getContentSize().width * 0.15f, _mntCridentials->getContentSize().height * 0.27f});
+        _textPassword->setMaxLength(20);
+        _textPassword->setMaxLengthEnabled(true);
+        _textPassword->setAnchorPoint({0, 0.5});
+        _textPassword->setColor({93, 93, 93});
+        _textPassword->setPlaceHolderColor({93, 93, 93, 100});
+        _textPassword->setPasswordEnabled(true);
+        _textPassword->setPasswordStyleText("*");
     }
     
     _menuLogin = Menu::create(_btnLinkLogin, _btnLinkSignup, _btnLogin, _btnSignup, nullptr);
     _menuLogin->setPosition({0, 0});
     
-    this->addChild(_menuLogin);
+    _layout->addChild(_menuLogin);
     
     //this->restoreSessionIfAny();
     
@@ -150,6 +191,24 @@ void LoginLayer::onBtnLoginPressed() {
 }
 
 void LoginLayer::onBtnSignupPressed() {
+}
+
+void LoginLayer::onTextMailEvent(cocos2d::Ref *sender, TextField::EventType event) {
+    switch(event) {
+        case TextField::EventType::ATTACH_WITH_IME:
+            this->onKeyboardEnter(); break;
+        case TextField::EventType::DETACH_WITH_IME:
+            this->onKeyboardExit(); break;
+    }
+}
+
+void LoginLayer::onTextPasswordEvent(cocos2d::Ref *sender, cocos2d::ui::TextField::EventType event) {
+    switch(event) {
+        case TextField::EventType::ATTACH_WITH_IME:
+            this->onKeyboardEnter(); break;
+        case TextField::EventType::DETACH_WITH_IME:
+            this->onKeyboardExit(); break;
+    }
 }
 
 //void LoginLayer::onLoginWithVKBtnPresed() {

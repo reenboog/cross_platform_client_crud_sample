@@ -3,6 +3,8 @@
 #define __GAME_LAYER_H__
 
 #include "cocos2d.h"
+#include "extensions/cocos-ext.h"
+#include "ui/CocosGUI.h"
 
 class LoginLayer: public cocos2d::Layer {
 public:
@@ -21,6 +23,12 @@ public:
     void onBtnLoginPressed();
     void onBtnSignupPressed();
     
+    void onTextMailEvent(cocos2d::Ref *sender, cocos2d::ui::TextField::EventType event);
+    void onTextPasswordEvent(cocos2d::Ref *sender, cocos2d::ui::TextField::EventType event);
+    
+    void onKeyboardEnter();
+    void onKeyboardExit();
+    
 private:
     void restoreSessionIfAny();
 private:
@@ -36,6 +44,11 @@ private:
     
     cocos2d::Sprite *_mntCridentials;
     cocos2d::Sprite *_unknownAvatar;
+    
+    cocos2d::ui::TextField *_textMail;
+    cocos2d::ui::TextField *_textPassword;
+    
+    cocos2d::Layer *_layout;
 };
 
 #endif

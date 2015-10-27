@@ -52,6 +52,7 @@
     [
         "Res/shared/audio/",
         "Res/shared/strings/",
-        "Res/shared/animations/"
+        "Res/shared/animations/",
+        "Res/shared/fonts/"
     ]
 }

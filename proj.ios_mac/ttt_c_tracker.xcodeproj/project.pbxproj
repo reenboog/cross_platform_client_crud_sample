@@ -207,6 +207,8 @@
 		B814A16E1BDE8199006F6E71 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
 		B814A1701BDE81A1006F6E71 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		B814A1721BDE81AC006F6E71 /* libsqlite3.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libsqlite3.dylib; path = usr/lib/libsqlite3.dylib; sourceTree = SDKROOT; };
+		B814A1791BDF77E7006F6E71 /* LoginLayerOnKeyboardEnterExit.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = LoginLayerOnKeyboardEnterExit.h; path = ios/LoginLayerOnKeyboardEnterExit.h; sourceTree = SOURCE_ROOT; };
+		B814A17A1BDF7BDF006F6E71 /* LoginLayerOnKeyboardEnterExit.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = LoginLayerOnKeyboardEnterExit.h; path = mac/LoginLayerOnKeyboardEnterExit.h; sourceTree = "<group>"; };
 		B82D045C1A641E8600BCEF26 /* AppDelegate.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = AppDelegate.cpp; sourceTree = "<group>"; };
 		B82D045D1A641E8600BCEF26 /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		B82D045E1A641E8600BCEF26 /* Constants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Constants.h; sourceTree = "<group>"; };
@@ -302,6 +304,7 @@
 		080E96DDFE201D6D7F000001 /* ios */ = {
 			isa = PBXGroup;
 			children = (
+				B814A1791BDF77E7006F6E71 /* LoginLayerOnKeyboardEnterExit.h */,
 				B8C616771B5635AA007519A8 /* ServerAPI.mm */,
 				B814A15F1BDE5E62006F6E71 /* Bolts.framework */,
 				B814A14B1BDE56FB006F6E71 /* Parse.framework */,
@@ -436,6 +439,7 @@
 				503AE0F517EB97AB00D1A890 /* Icons */,
 				503AE10317EB98FF00D1A890 /* main.cpp */,
 				503AE10417EB98FF00D1A890 /* Prefix.pch */,
+				B814A17A1BDF7BDF006F6E71 /* LoginLayerOnKeyboardEnterExit.h */,
 			);
 			name = mac;
 			sourceTree = "<group>";
