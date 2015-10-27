@@ -21,8 +21,15 @@ LoginLayer::~LoginLayer() {
 LoginLayer::LoginLayer(): Layer() {
     _back = nullptr;
  
-    _btnLoginWithVK = nullptr;
-    _loginMenu = nullptr;
+    _menuLogin = nullptr;
+    
+    _btnLinkLogin = nullptr;
+    _btnLinkSignup = nullptr;
+    _btnLogin = nullptr;
+    _btnSignup = nullptr;
+    
+    _mntCridentials = nullptr;
+    _unknownAvatar = nullptr;
 }
 
 Scene* LoginLayer::scene() {
@@ -55,14 +62,54 @@ bool LoginLayer::init() {
         this->addChild(_back, zBack);
     }
     
-//    _btnLoginWithVK = MenuItemImage::create("btn_login_vk.png", "btn_login_vk_on.png", CC_CALLBACK_0(LoginLayer::onLoginWithVKBtnPresed, this));
-//
-//    _loginMenu = Menu::create(_btnLoginWithVK, nullptr);
-//    _loginMenu->setPosition(visibleSize.width * 0.5f, visibleSize.height * 0.5f);
-//    
-//    this->addChild(_loginMenu);
+    {
+        // links
+        _btnLinkLogin = MenuItemImage::create("btn_link_login.png", "btn_link_login_on.png", CC_CALLBACK_0(LoginLayer::onBtnLinkLoginPressed, this));
+        _btnLinkLogin->setVisible(false);
+        _btnLinkLogin->setPosition({visibleSize.width * 0.5f, 0});
+        _btnLinkLogin->setAnchorPoint({0.5f, 0});
+        
+        _btnLinkSignup = MenuItemImage::create("btn_link_signup.png", "btn_link_signup_on.png", CC_CALLBACK_0(LoginLayer::onBtnLinkSignupPressed, this));
+        _btnLinkSignup->setPosition(_btnLinkLogin->getPosition());
+        _btnLinkSignup->setAnchorPoint(_btnLinkLogin->getAnchorPoint());
+    }
     
-    this->restoreSessionIfAny();
+    {
+        // buttons & mounts
+        _btnLogin = MenuItemImage::create("btn_login.png", "btn_login_on.png", CC_CALLBACK_0(LoginLayer::onBtnLoginPressed, this));
+
+        _btnSignup = MenuItemImage::create("btn_signup.png", "btn_signup_on.png", CC_CALLBACK_0(LoginLayer::onBtnSignupPressed, this));
+        _btnSignup->setVisible(false);
+        
+        _mntCridentials = Sprite::create("mnt_cridentials.png");
+        _mntCridentials->setAnchorPoint({0.5f, 1});
+        
+        Size cridentialsSize(_mntCridentials->getContentSize().width + _btnLogin->getContentSize().width, _mntCridentials->getContentSize().height + _btnLogin->getContentSize().height);
+        
+        _mntCridentials->setPosition({visibleSize.width * 0.5f, visibleSize.height * 0.5f + cridentialsSize.height * 0.5f});
+        
+        this->addChild(_mntCridentials);
+        
+        _btnLogin->setAnchorPoint({0.5f, 1.0f});
+        _btnLogin->setPosition({visibleSize.width * 0.5f, _mntCridentials->getPositionY() - _mntCridentials->getContentSize().height});
+        
+        _btnSignup->setAnchorPoint(_btnLogin->getAnchorPoint());
+        _btnSignup->setPosition(_btnLogin->getPosition());
+        
+        // unknown avatar
+        _unknownAvatar = Sprite::create("unknown_avatar.png");
+        
+        _unknownAvatar->setPosition(visibleSize.width * 0.5f, visibleSize.height - (visibleSize.height - _mntCridentials->getPositionY()) / 2.0f);
+        
+        this->addChild(_unknownAvatar);
+    }
+    
+    _menuLogin = Menu::create(_btnLinkLogin, _btnLinkSignup, _btnLogin, _btnSignup, nullptr);
+    _menuLogin->setPosition({0, 0});
+    
+    this->addChild(_menuLogin);
+    
+    //this->restoreSessionIfAny();
     
     return true;
 }
@@ -82,18 +129,41 @@ void LoginLayer::restoreSessionIfAny() {
     ServerAPI::wakeUp(onWakeUp, onFailedToWakeUp);
 }
 
-void LoginLayer::onLoginWithVKBtnPresed() {
-    LayerBlocker::block(this, 10);
-    Toast::show(this, "Logging in...");
+void LoginLayer::onBtnLinkLoginPressed() {
+    _btnLinkSignup->setVisible(true);
+    _btnLinkLogin->setVisible(false);
     
-    auto onLoggedIn = [=]() {
-        //this->onLoggedIn();
-    };
-    
-    auto onFailedToLogIn = [=](const string &error, const string &description) {
-        //this->onFailedToLogIn(error, description);
-    };
-    
-    // todo
-    //ServerAPI::logIn(onLoggedIn, onFailedToLogIn);
+    _btnSignup->setVisible(false);
+    _btnLogin->setVisible(true);
 }
+
+void LoginLayer::onBtnLinkSignupPressed() {
+    _btnLinkSignup->setVisible(false);
+    _btnLinkLogin->setVisible(true);
+    
+    _btnSignup->setVisible(true);
+    _btnLogin->setVisible(false);
+}
+
+void LoginLayer::onBtnLoginPressed() {
+    
+}
+
+void LoginLayer::onBtnSignupPressed() {
+}
+
+//void LoginLayer::onLoginWithVKBtnPresed() {
+//    LayerBlocker::block(this, 10);
+//    Toast::show(this, "Logging in...");
+//    
+//    auto onLoggedIn = [=]() {
+//        //this->onLoggedIn();
+//    };
+//    
+//    auto onFailedToLogIn = [=](const string &error, const string &description) {
+//        //this->onFailedToLogIn(error, description);
+//    };
+//    
+//    // todo
+//    //ServerAPI::logIn(onLoggedIn, onFailedToLogIn);
+//}

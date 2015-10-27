@@ -15,16 +15,27 @@ public:
     
     CREATE_FUNC(LoginLayer);
     
-    void onLoginWithVKBtnPresed();
-    void onSignupWithVKBtnPressed();
+    void onBtnLinkLoginPressed();
+    void onBtnLinkSignupPressed();
+    
+    void onBtnLoginPressed();
+    void onBtnSignupPressed();
     
 private:
     void restoreSessionIfAny();
 private:
     cocos2d::Sprite *_back;
     
-    cocos2d::Menu *_loginMenu;
-    cocos2d::MenuItemImage *_btnLoginWithVK;
+    cocos2d::Menu *_menuLogin;
+    
+    cocos2d::MenuItemImage *_btnLinkSignup;
+    cocos2d::MenuItemImage *_btnLinkLogin;
+    
+    cocos2d::MenuItemImage *_btnSignup;
+    cocos2d::MenuItemImage *_btnLogin;
+    
+    cocos2d::Sprite *_mntCridentials;
+    cocos2d::Sprite *_unknownAvatar;
 };
 
 #endif
