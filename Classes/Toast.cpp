@@ -37,25 +37,33 @@ bool Toast::init(const string &str, float delay) {
     this->addChild(mount);
     
     mount->setScaleX(visibleSize.width / mount->getContentSize().width);
-    mount->setPosition({visibleSize.width * 0.5f, visibleSize.height * 0.1f});
-    mount->setColor({60, 91, 122});
+    //mount->setAnchorPoint({0.5, 0});
+    mount->setPosition({visibleSize.width * 0.5f, visibleSize.height + mount->getContentSize().height * 0.5f});
     mount->setOpacity(0);
     
     // add label
-    Label *label = Label::createWithBMFont("clearSansThin_28.fnt", str);
+    Label *label = Label::createWithTTF(str, "helvetica.ttf", 20);
+    label->setColor({255, 255, 255});
+    
     this->addChild(label);
     
     label->setPosition(mount->getPosition());
     label->setOpacity(0);
     
-    mount->runAction(Sequence::create(FadeTo::create(kToastFadeInTime, 200),
+    mount->runAction(Sequence::create(Spawn::create(FadeTo::create(kToastFadeInTime, 255),
+                                                    MoveBy::create(kToastFadeInTime, -Vec2(0, mount->getContentSize().height)),
+                                                    NULL),
                                       DelayTime::create(delay),
-                                      FadeTo::create(kToastFadeOutTime, 0),
+                                      Spawn::create(MoveBy::create(kToastFadeInTime, Vec2(0, mount->getContentSize().height)),
+                                                    NULL),
                                       NULL));
     
-    label->runAction(Sequence::create(FadeTo::create(kToastFadeInTime, 255),
+    label->runAction(Sequence::create(Spawn::create(FadeTo::create(kToastFadeInTime, 255),
+                                                    MoveBy::create(kToastFadeInTime, -Vec2(0, mount->getContentSize().height)),
+                                                    NULL),
                                       DelayTime::create(delay),
-                                      FadeTo::create(kToastFadeOutTime, 0),
+                                      Spawn::create(MoveBy::create(kToastFadeInTime, Vec2(0, mount->getContentSize().height)),
+                                                    NULL),
                                       NULL));
     
     this->runAction(Sequence::create(DelayTime::create(delay + kToastFadeInTime + kToastFadeOutTime),

@@ -69,6 +69,8 @@
 		B814A1731BDE81AC006F6E71 /* libsqlite3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = B814A1721BDE81AC006F6E71 /* libsqlite3.dylib */; };
 		B814A1751BDE8253006F6E71 /* Parse.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = B814A1621BDE8065006F6E71 /* Parse.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		B814A1761BDE8259006F6E71 /* Bolts.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = B814A1611BDE8065006F6E71 /* Bolts.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		B814A17D1BDFB679006F6E71 /* MealsLayer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B814A17B1BDFB676006F6E71 /* MealsLayer.cpp */; };
+		B814A17E1BDFB67C006F6E71 /* MealsLayer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B814A17B1BDFB676006F6E71 /* MealsLayer.cpp */; };
 		B82D04681A641E8600BCEF26 /* AppDelegate.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B82D045C1A641E8600BCEF26 /* AppDelegate.cpp */; };
 		B82D04691A641E8600BCEF26 /* AppDelegate.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B82D045C1A641E8600BCEF26 /* AppDelegate.cpp */; };
 		B82D046A1A641E8600BCEF26 /* AppConfig.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B82D04601A641E8600BCEF26 /* AppConfig.cpp */; };
@@ -209,6 +211,8 @@
 		B814A1721BDE81AC006F6E71 /* libsqlite3.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libsqlite3.dylib; path = usr/lib/libsqlite3.dylib; sourceTree = SDKROOT; };
 		B814A1791BDF77E7006F6E71 /* LoginLayerOnKeyboardEnterExit.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = LoginLayerOnKeyboardEnterExit.h; path = ios/LoginLayerOnKeyboardEnterExit.h; sourceTree = SOURCE_ROOT; };
 		B814A17A1BDF7BDF006F6E71 /* LoginLayerOnKeyboardEnterExit.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = LoginLayerOnKeyboardEnterExit.h; path = mac/LoginLayerOnKeyboardEnterExit.h; sourceTree = "<group>"; };
+		B814A17B1BDFB676006F6E71 /* MealsLayer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = MealsLayer.cpp; sourceTree = "<group>"; };
+		B814A17C1BDFB678006F6E71 /* MealsLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MealsLayer.h; sourceTree = "<group>"; };
 		B82D045C1A641E8600BCEF26 /* AppDelegate.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = AppDelegate.cpp; sourceTree = "<group>"; };
 		B82D045D1A641E8600BCEF26 /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		B82D045E1A641E8600BCEF26 /* Constants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Constants.h; sourceTree = "<group>"; };
@@ -501,6 +505,8 @@
 				B82D04631A641E8600BCEF26 /* LoginLayer.h */,
 				B845C8A41B615DD200551122 /* MainLayer.cpp */,
 				B845C8A51B615DD200551122 /* MainLayer.h */,
+				B814A17B1BDFB676006F6E71 /* MealsLayer.cpp */,
+				B814A17C1BDFB678006F6E71 /* MealsLayer.h */,
 			);
 			name = layers;
 			sourceTree = "<group>";
@@ -654,6 +660,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B814A17D1BDFB679006F6E71 /* MealsLayer.cpp in Sources */,
 				B845C8A61B615DD200551122 /* MainLayer.cpp in Sources */,
 				B82D04681A641E8600BCEF26 /* AppDelegate.cpp in Sources */,
 				503AE10017EB989F00D1A890 /* AppController.mm in Sources */,
@@ -680,6 +687,7 @@
 				B8624D711B5A0DF3006B3E3D /* LayerBlocker.cpp in Sources */,
 				B82D04711A641E8600BCEF26 /* Shared.cpp in Sources */,
 				B82D046F1A641E8600BCEF26 /* Localized.cpp in Sources */,
+				B814A17E1BDFB67C006F6E71 /* MealsLayer.cpp in Sources */,
 				B845C8A71B615DD200551122 /* MainLayer.cpp in Sources */,
 				B82D046B1A641E8600BCEF26 /* AppConfig.cpp in Sources */,
 				B82D046D1A641E8600BCEF26 /* LoginLayer.cpp in Sources */,

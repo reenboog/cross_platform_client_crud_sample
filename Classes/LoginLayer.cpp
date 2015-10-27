@@ -10,6 +10,8 @@
 
 #include "User.h"
 
+#include "MealsLayer.h"
+
 #define zBack 0
 
 using namespace cocos2d;
@@ -236,20 +238,25 @@ void LoginLayer::onTextPasswordEvent(cocos2d::Ref *sender, cocos2d::ui::TextFiel
 #pragma mark - Log in callbacks
 
 void LoginLayer::onSignedUp() {
-    CCLOG("Signed Up!");
+    Director::getInstance()->replaceScene(MealsLayer::scene());
 }
 
 void LoginLayer::onFailedToSignUp(const std::string &error, const std::string &description) {
     CCLOG("Failed to sign up!");
+    
+    Toast::show(this, "Error signing up");
+    
+    LayerBlocker::unblock(this);
 }
 
 void LoginLayer::onLoggedIn() {
-    CCLOG("Logged in!");
+    Director::getInstance()->replaceScene(MealsLayer::scene());
 }
 
 void LoginLayer::onFailedToLogIn(const std::string &error, const std::string &description) {
     LayerBlocker::unblock(this);
-    // show toast
+    
+    Toast::show(this, "Error logging in");
 
     CCLOG("Failed to log in!");
 }
