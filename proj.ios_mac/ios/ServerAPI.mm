@@ -47,25 +47,56 @@ void ServerAPI::purge() {
 //};
 //
 //
-//void ServerAPI::logIn(OnLoggedInCallback logInCallback, OnFailedToLogInCallback logInFailureCallback) {
-//    if(__sharedInstance == nullptr) {
-//        ServerAPI::sharedInstance();
-//    }
-//}
-//
+void ServerAPI::logIn(const string &mail, const string &password, OnLoggedInCallback logInCallback, OnFailedToLogInCallback logInFailureCallback) {
+    if(__sharedInstance == nullptr) {
+        ServerAPI::sharedInstance();
+    }
+    
+    [PFUser logInWithUsernameInBackground: [NSString stringWithUTF8String: mail.c_str()]
+                                 password: [NSString stringWithUTF8String: password.c_str()]
+                                    block:^(PFUser *user, NSError *error) {
+                                        if(user) {
+                                            logInCallback();
+                                        } else {
+                                            NSString *errorString = [error userInfo][@"error"];
+
+                                            logInFailureCallback("error", [errorString UTF8String]);
+                                        }
+                                    }];
+}
+
 void ServerAPI::wakeUp(OnLoggedInCallback logInCallback, OnFailedToLogInCallback failedToWakeUpCallback) {
     if(__sharedInstance == nullptr) {
         ServerAPI::sharedInstance();
     }
     
-    
+    PFUser *currentUser = [PFUser currentUser];
+    if(currentUser) {
+        logInCallback();
+    } else {
+        failedToWakeUpCallback("", "");
+    }
 }
-//
-//void ServerAPI::signUp(OnSignedUpCallback signUpCallback, OnFailedToSignUpCallback signUpFailureCallback) {
-//    if(__sharedInstance == nullptr) {
-//        ServerAPI::sharedInstance();
-//    }
-//}
+
+void ServerAPI::signUp(const string &mail, const string &password, OnSignedUpCallback signUpCallback, OnFailedToSignUpCallback signUpFailureCallback) {
+    if(__sharedInstance == nullptr) {
+        ServerAPI::sharedInstance();
+    }
+    
+    PFUser *user = [PFUser user];
+    user.username = [NSString stringWithUTF8String: mail.c_str()];
+    user.password = [NSString stringWithUTF8String: password.c_str()];
+    
+    [user signUpInBackgroundWithBlock: ^(BOOL succeeded, NSError *error) {
+        if(!error) {
+            signUpCallback();
+        } else {
+            NSString *errorString = [error userInfo][@"error"];
+            
+            signUpFailureCallback("error", [errorString UTF8String]);
+        }
+    }];
+}
 //
 //void ServerAPI::fetchUserNameAndLastName(OnUserNameAndLastNameFetchedCallback userNameFetchedCallback,
 //                              OnFailedToFetchUserNameAndLastNameCallback userNameFetchFailureCallback) {

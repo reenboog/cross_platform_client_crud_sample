@@ -29,6 +29,14 @@ public:
     void onKeyboardEnter();
     void onKeyboardExit();
     
+    // server API callbacks
+private:
+    void onSignedUp();
+    void onFailedToSignUp(const std::string &error, const std::string &description);
+    
+    void onLoggedIn();
+    void onFailedToLogIn(const std::string &error, const std::string &description);
+    
 private:
     void restoreSessionIfAny();
 private:

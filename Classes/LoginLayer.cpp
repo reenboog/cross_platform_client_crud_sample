@@ -150,7 +150,7 @@ bool LoginLayer::init() {
     
     _layout->addChild(_menuLogin);
     
-    //this->restoreSessionIfAny();
+    this->restoreSessionIfAny();
     
     return true;
 }
@@ -159,14 +159,15 @@ void LoginLayer::restoreSessionIfAny() {
     LayerBlocker::block(this);
     
     auto onWakeUp = [this]() {
-        //this->onLoggedIn();
+        this->onLoggedIn();
     };
     
     auto onFailedToWakeUp = [this](const string &error, const string &message) {
+        // no session found
+        // just present the UI as usual
         LayerBlocker::unblock(this);
     };
     
-    // todo
     ServerAPI::wakeUp(onWakeUp, onFailedToWakeUp);
 }
 
@@ -187,10 +188,31 @@ void LoginLayer::onBtnLinkSignupPressed() {
 }
 
 void LoginLayer::onBtnLoginPressed() {
+    LayerBlocker::block(this);
     
+    auto onLoggedIn = [=]() {
+        this->onLoggedIn();
+    };
+    
+    auto onFailedToLogIn = [=](const string &error, const string &description) {
+        this->onFailedToLogIn(error, description);
+    };
+    
+    ServerAPI::logIn(_textMail->getString(), _textPassword->getString(), onLoggedIn, onFailedToLogIn);
 }
 
 void LoginLayer::onBtnSignupPressed() {
+    LayerBlocker::block(this);
+    
+    auto onSignedUp = [=]() {
+        this->onSignedUp();
+    };
+
+    auto onFailedToSignUp = [=](const string &error, const string &description) {
+        this->onFailedToSignUp(error, description);
+    };
+
+    ServerAPI::signUp(_textMail->getString(), _textPassword->getString(), onSignedUp, onFailedToSignUp);
 }
 
 void LoginLayer::onTextMailEvent(cocos2d::Ref *sender, TextField::EventType event) {
@@ -211,18 +233,23 @@ void LoginLayer::onTextPasswordEvent(cocos2d::Ref *sender, cocos2d::ui::TextFiel
     }
 }
 
-//void LoginLayer::onLoginWithVKBtnPresed() {
-//    LayerBlocker::block(this, 10);
-//    Toast::show(this, "Logging in...");
-//    
-//    auto onLoggedIn = [=]() {
-//        //this->onLoggedIn();
-//    };
-//    
-//    auto onFailedToLogIn = [=](const string &error, const string &description) {
-//        //this->onFailedToLogIn(error, description);
-//    };
-//    
-//    // todo
-//    //ServerAPI::logIn(onLoggedIn, onFailedToLogIn);
-//}
+#pragma mark - Log in callbacks
+
+void LoginLayer::onSignedUp() {
+    CCLOG("Signed Up!");
+}
+
+void LoginLayer::onFailedToSignUp(const std::string &error, const std::string &description) {
+    CCLOG("Failed to sign up!");
+}
+
+void LoginLayer::onLoggedIn() {
+    CCLOG("Logged in!");
+}
+
+void LoginLayer::onFailedToLogIn(const std::string &error, const std::string &description) {
+    LayerBlocker::unblock(this);
+    // show toast
+
+    CCLOG("Failed to log in!");
+}

@@ -26,8 +26,8 @@ public:
     static void purge();
 
     static void wakeUp(OnLoggedInCallback logInCallback, OnFailedToLogInCallback failedToWakeUpCallback);
-//    static void logIn(OnLoggedInCallback logInCallback, OnFailedToLogInCallback loginFailureCallback);
-//    
+    static void logIn(const std::string &mail, const std::string &password, OnLoggedInCallback logInCallback, OnFailedToLogInCallback loginFailureCallback);
+//
 //    static void fetchUserNameAndLastName(OnUserNameAndLastNameFetchedCallback userNameFetchedCallback,
 //                                         OnFailedToFetchUserNameAndLastNameCallback userNameFetchFailureCallback);
 //    
@@ -37,7 +37,7 @@ public:
 //    static void fetchUserSkills(OnSkillsFetchedCallback onSkillsFetchedCallback,
 //                                OnFailedToFetchSkillsCallback onFailedToFetchSkillsCallback);
 //    
-//    static void signUp(OnSignedUpCallback signUpCallback, OnFailedToSignUpCallback signUpFailureCallback);
+    static void signUp(const std::string &mail, const std::string &password, OnSignedUpCallback signUpCallback, OnFailedToSignUpCallback signUpFailureCallback);
     
     static ServerAPI* sharedInstance();
 private:
