@@ -83,8 +83,6 @@
 		B82D04711A641E8600BCEF26 /* Shared.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B82D04661A641E8600BCEF26 /* Shared.cpp */; };
 		B82D04731A641EB400BCEF26 /* Res in Resources */ = {isa = PBXBuildFile; fileRef = B82D04721A641EB400BCEF26 /* Res */; };
 		B82D04741A641EB400BCEF26 /* Res in Resources */ = {isa = PBXBuildFile; fileRef = B82D04721A641EB400BCEF26 /* Res */; };
-		B845C8A21B60CD9700551122 /* Skills.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B845C8A01B60CD9700551122 /* Skills.cpp */; };
-		B845C8A31B60CD9700551122 /* Skills.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B845C8A01B60CD9700551122 /* Skills.cpp */; };
 		B845C8A61B615DD200551122 /* MainLayer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B845C8A41B615DD200551122 /* MainLayer.cpp */; };
 		B845C8A71B615DD200551122 /* MainLayer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B845C8A41B615DD200551122 /* MainLayer.cpp */; };
 		B8624D6C1B596794006B3E3D /* Toast.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B8624D6A1B596794006B3E3D /* Toast.cpp */; };
@@ -92,6 +90,16 @@
 		B8624D701B5A0DF3006B3E3D /* LayerBlocker.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B8624D6E1B5A0DF3006B3E3D /* LayerBlocker.cpp */; };
 		B8624D711B5A0DF3006B3E3D /* LayerBlocker.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B8624D6E1B5A0DF3006B3E3D /* LayerBlocker.cpp */; };
 		B8C616781B5635AA007519A8 /* ServerAPI.mm in Sources */ = {isa = PBXBuildFile; fileRef = B8C616771B5635AA007519A8 /* ServerAPI.mm */; };
+		B8FAA4AA1BE11236002639AE /* Meal.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B8FAA4A81BE11236002639AE /* Meal.cpp */; };
+		B8FAA4AB1BE11236002639AE /* Meal.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B8FAA4A81BE11236002639AE /* Meal.cpp */; };
+		B8FAA4AE1BE11289002639AE /* Date.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B8FAA4AC1BE11289002639AE /* Date.cpp */; };
+		B8FAA4AF1BE11289002639AE /* Date.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B8FAA4AC1BE11289002639AE /* Date.cpp */; };
+		B8FAA4B21BE11B22002639AE /* Goal.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B8FAA4B01BE11B22002639AE /* Goal.cpp */; };
+		B8FAA4B31BE11B22002639AE /* Goal.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B8FAA4B01BE11B22002639AE /* Goal.cpp */; };
+		B8FAA4B61BE11C9E002639AE /* MealGroup.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B8FAA4B41BE11C9E002639AE /* MealGroup.cpp */; };
+		B8FAA4B71BE11C9E002639AE /* MealGroup.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B8FAA4B41BE11C9E002639AE /* MealGroup.cpp */; };
+		B8FAA4BA1BE12171002639AE /* Tests.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B8FAA4B81BE12171002639AE /* Tests.cpp */; };
+		B8FAA4BB1BE12171002639AE /* Tests.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B8FAA4B81BE12171002639AE /* Tests.cpp */; };
 		BF171245129291EC00B8313A /* OpenGLES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BF170DB012928DE900B8313A /* OpenGLES.framework */; };
 		BF1712471292920000B8313A /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = BF170DB412928DE900B8313A /* libz.dylib */; };
 		BF1C47F01293687400B63C5D /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BF1C47EA1293683800B63C5D /* QuartzCore.framework */; };
@@ -226,8 +234,6 @@
 		B82D04661A641E8600BCEF26 /* Shared.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Shared.cpp; sourceTree = "<group>"; };
 		B82D04671A641E8600BCEF26 /* Shared.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Shared.h; sourceTree = "<group>"; };
 		B82D04721A641EB400BCEF26 /* Res */ = {isa = PBXFileReference; lastKnownFileType = folder; name = Res; path = ../Res; sourceTree = "<group>"; };
-		B845C8A01B60CD9700551122 /* Skills.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Skills.cpp; sourceTree = "<group>"; };
-		B845C8A11B60CD9700551122 /* Skills.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Skills.h; sourceTree = "<group>"; };
 		B845C8A41B615DD200551122 /* MainLayer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = MainLayer.cpp; sourceTree = "<group>"; };
 		B845C8A51B615DD200551122 /* MainLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MainLayer.h; sourceTree = "<group>"; };
 		B8624D651B5915D9006B3E3D /* Types.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Types.h; sourceTree = "<group>"; };
@@ -237,6 +243,16 @@
 		B8624D6F1B5A0DF3006B3E3D /* LayerBlocker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LayerBlocker.h; sourceTree = "<group>"; };
 		B8C616671B561C63007519A8 /* ServerAPI.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ServerAPI.h; sourceTree = "<group>"; };
 		B8C616771B5635AA007519A8 /* ServerAPI.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = ServerAPI.mm; path = ios/ServerAPI.mm; sourceTree = SOURCE_ROOT; };
+		B8FAA4A81BE11236002639AE /* Meal.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Meal.cpp; sourceTree = "<group>"; };
+		B8FAA4A91BE11236002639AE /* Meal.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Meal.h; sourceTree = "<group>"; };
+		B8FAA4AC1BE11289002639AE /* Date.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Date.cpp; sourceTree = "<group>"; };
+		B8FAA4AD1BE11289002639AE /* Date.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Date.h; sourceTree = "<group>"; };
+		B8FAA4B01BE11B22002639AE /* Goal.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Goal.cpp; sourceTree = "<group>"; };
+		B8FAA4B11BE11B22002639AE /* Goal.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Goal.h; sourceTree = "<group>"; };
+		B8FAA4B41BE11C9E002639AE /* MealGroup.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = MealGroup.cpp; sourceTree = "<group>"; };
+		B8FAA4B51BE11C9E002639AE /* MealGroup.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MealGroup.h; sourceTree = "<group>"; };
+		B8FAA4B81BE12171002639AE /* Tests.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Tests.cpp; sourceTree = "<group>"; };
+		B8FAA4B91BE12171002639AE /* Tests.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Tests.h; sourceTree = "<group>"; };
 		BF170DB012928DE900B8313A /* OpenGLES.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGLES.framework; path = System/Library/Frameworks/OpenGLES.framework; sourceTree = SDKROOT; };
 		BF170DB412928DE900B8313A /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = usr/lib/libz.dylib; sourceTree = SDKROOT; };
 		BF1C47EA1293683800B63C5D /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
@@ -405,6 +421,7 @@
 		46880B8319C43A87006E1F66 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
+				B8FAA4BC1BE12178002639AE /* tests */,
 				B8041DA61B5E368D002A4C14 /* models */,
 				B8624D691B596778006B3E3D /* ui */,
 				B8C616661B561BD8007519A8 /* api */,
@@ -480,8 +497,14 @@
 			children = (
 				B8041DAA1B5E4782002A4C14 /* User.cpp */,
 				B8041DAB1B5E4782002A4C14 /* User.h */,
-				B845C8A01B60CD9700551122 /* Skills.cpp */,
-				B845C8A11B60CD9700551122 /* Skills.h */,
+				B8FAA4A81BE11236002639AE /* Meal.cpp */,
+				B8FAA4A91BE11236002639AE /* Meal.h */,
+				B8FAA4B41BE11C9E002639AE /* MealGroup.cpp */,
+				B8FAA4B51BE11C9E002639AE /* MealGroup.h */,
+				B8FAA4AC1BE11289002639AE /* Date.cpp */,
+				B8FAA4AD1BE11289002639AE /* Date.h */,
+				B8FAA4B01BE11B22002639AE /* Goal.cpp */,
+				B8FAA4B11BE11B22002639AE /* Goal.h */,
 			);
 			name = models;
 			sourceTree = "<group>";
@@ -517,6 +540,15 @@
 				B8C616671B561C63007519A8 /* ServerAPI.h */,
 			);
 			name = api;
+			sourceTree = "<group>";
+		};
+		B8FAA4BC1BE12178002639AE /* tests */ = {
+			isa = PBXGroup;
+			children = (
+				B8FAA4B81BE12171002639AE /* Tests.cpp */,
+				B8FAA4B91BE12171002639AE /* Tests.h */,
+			);
+			name = tests;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -666,15 +698,19 @@
 				503AE10017EB989F00D1A890 /* AppController.mm in Sources */,
 				B82D04701A641E8600BCEF26 /* Shared.cpp in Sources */,
 				B8624D701B5A0DF3006B3E3D /* LayerBlocker.cpp in Sources */,
+				B8FAA4B61BE11C9E002639AE /* MealGroup.cpp in Sources */,
 				B82D046E1A641E8600BCEF26 /* Localized.cpp in Sources */,
 				B8624D6C1B596794006B3E3D /* Toast.cpp in Sources */,
+				B8FAA4AE1BE11289002639AE /* Date.cpp in Sources */,
+				B8FAA4AA1BE11236002639AE /* Meal.cpp in Sources */,
+				B8FAA4BA1BE12171002639AE /* Tests.cpp in Sources */,
 				B82D046A1A641E8600BCEF26 /* AppConfig.cpp in Sources */,
 				503AE10217EB989F00D1A890 /* RootViewController.mm in Sources */,
 				B8041DAC1B5E4782002A4C14 /* User.cpp in Sources */,
 				503AE10117EB989F00D1A890 /* main.m in Sources */,
 				B8C616781B5635AA007519A8 /* ServerAPI.mm in Sources */,
 				B82D046C1A641E8600BCEF26 /* LoginLayer.cpp in Sources */,
-				B845C8A21B60CD9700551122 /* Skills.cpp in Sources */,
+				B8FAA4B21BE11B22002639AE /* Goal.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -684,16 +720,20 @@
 			files = (
 				B8041DAD1B5E4782002A4C14 /* User.cpp in Sources */,
 				B814A1661BDE80F3006F6E71 /* ServerAPI.mm in Sources */,
+				B8FAA4AB1BE11236002639AE /* Meal.cpp in Sources */,
 				B8624D711B5A0DF3006B3E3D /* LayerBlocker.cpp in Sources */,
 				B82D04711A641E8600BCEF26 /* Shared.cpp in Sources */,
 				B82D046F1A641E8600BCEF26 /* Localized.cpp in Sources */,
 				B814A17E1BDFB67C006F6E71 /* MealsLayer.cpp in Sources */,
 				B845C8A71B615DD200551122 /* MainLayer.cpp in Sources */,
 				B82D046B1A641E8600BCEF26 /* AppConfig.cpp in Sources */,
+				B8FAA4B31BE11B22002639AE /* Goal.cpp in Sources */,
+				B8FAA4B71BE11C9E002639AE /* MealGroup.cpp in Sources */,
+				B8FAA4AF1BE11289002639AE /* Date.cpp in Sources */,
 				B82D046D1A641E8600BCEF26 /* LoginLayer.cpp in Sources */,
 				B82D04691A641E8600BCEF26 /* AppDelegate.cpp in Sources */,
-				B845C8A31B60CD9700551122 /* Skills.cpp in Sources */,
 				B8624D6D1B596794006B3E3D /* Toast.cpp in Sources */,
+				B8FAA4BB1BE12171002639AE /* Tests.cpp in Sources */,
 				503AE10517EB98FF00D1A890 /* main.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

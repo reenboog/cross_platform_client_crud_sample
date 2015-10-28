@@ -8,6 +8,9 @@
 #include "ServerAPI.h"
 #include "MealsLayer.h"
 
+// tests
+#include "Tests.h"
+
 using namespace cocos2d;
 using namespace CocosDenshion;
 using namespace std;
@@ -63,6 +66,11 @@ bool AppDelegate::applicationDidFinishLaunching() {
 //    };
 //    
 //    ServerAPI::wakeUp(onWakeUp, onFailedToWakeUp);
+    
+    // *************************************************
+    // run some models tests
+    test();
+    // *************************************************
     
     director->runWithScene(MealsLayer::scene());
 

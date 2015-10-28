@@ -35,10 +35,30 @@ void User::setName(const string &name) {
     _name = name;
 }
 
+#pragma mark - Roles
+
 User::Role User::getRole() const {
     return _role;
 }
 
 void User::setRole(User::Role role) {
     _role = role;
+}
+
+#pragma mark - Meal group
+
+void User::addMeal(const Meal &m) {
+    _allMealConsumed.add(m);
+}
+
+Meal* User::getMeal(const std::string &mealId) {
+    return _allMealConsumed.getById(mealId);
+}
+
+bool User::setMealConsumed(const std::string &mealId, const Meal &m) {
+    return _allMealConsumed.update(mealId, m);
+}
+
+bool User::removeMeal(const std::string &mealId) {
+    return _allMealConsumed.remove(mealId);
 }

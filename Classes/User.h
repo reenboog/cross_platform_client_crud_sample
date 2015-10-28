@@ -9,6 +9,9 @@
 #ifndef __skill_market__User__
 #define __skill_market__User__
 
+#include "Goal.h"
+#include "MealGroup.h"
+
 class User {
 public:
     enum Role {
@@ -26,6 +29,17 @@ public:
     Role getRole() const;
     void setRole(Role role);
     
+    void setGoal(const Goal &g);
+    const Goal& getGoal() const;
+    
+    // meal
+    void addMeal(const Meal &m);
+    Meal* getMeal(const std::string &mealId);
+    bool setMealConsumed(const std::string &mealId, const Meal &m);
+    bool removeMeal(const std::string &mealId);
+    //
+    
+    
     User(Role role, const std::string &name) {
         _role = role;
         _name = name;
@@ -38,6 +52,8 @@ private:
 private:
     std::string _name;
     Role _role;
+    Goal _goal;
+    MealGroup _allMealConsumed;
     
     static User *__sharedInstance;
 };

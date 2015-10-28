@@ -2,7 +2,6 @@
 #include "ServerAPI.h"
 
 #include "User.h"
-#include "Skills.h"
 
 #include "json/document.h"
 
