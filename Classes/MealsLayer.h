@@ -36,6 +36,7 @@ private:
     cocos2d::Sprite *_mntHead;
     cocos2d::MenuItemImage *_btnSettings;
     cocos2d::Label *_labelMail;
+    cocos2d::Label *_labelCaloriesConsumed;
 };
 
 #endif /* defined(__ttt_c_tracker__MealsLayer__) */

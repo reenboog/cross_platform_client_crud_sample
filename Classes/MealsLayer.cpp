@@ -28,6 +28,7 @@ MealsLayer::MealsLayer(): Layer() {
     _headingNode = nullptr;
     _btnSettings = nullptr;
     _labelMail = nullptr;
+    _labelCaloriesConsumed = nullptr;
 }
 
 Scene* MealsLayer::scene() {
@@ -98,6 +99,14 @@ bool MealsLayer::init() {
         _labelMail->setPosition({visibleSize.width * 0.03f, visibleSize.height * 0.98f});
         
         _headingNode->addChild(_labelMail);
+        
+        // calories consumed
+        _labelCaloriesConsumed = Label::createWithTTF("2300 / 4500", "helvetica.ttf", 40);
+        _labelCaloriesConsumed->setColor({53, 172, 225});
+        _labelCaloriesConsumed->setAnchorPoint({0, 1});
+        _labelCaloriesConsumed->setPosition({visibleSize.width * 0.03f, visibleSize.height * 0.98f - _labelMail->getContentSize().height});
+        
+        _headingNode->addChild(_labelCaloriesConsumed);
 
     }
     
