@@ -39,6 +39,7 @@ private:
     cocos2d::Label *_labelCaloriesConsumed;
     cocos2d::Sprite *_bgProgressCalories;
     cocos2d::ProgressTimer *_progressCaloriesConsumed;
+    cocos2d::Sprite *_mntDate;
     
 };
 

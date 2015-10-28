@@ -31,6 +31,7 @@ MealsLayer::MealsLayer(): Layer() {
     _labelCaloriesConsumed = nullptr;
     _bgProgressCalories = nullptr;
     _progressCaloriesConsumed = nullptr;
+    _mntDate = nullptr;
 }
 
 Scene* MealsLayer::scene() {
@@ -88,10 +89,10 @@ bool MealsLayer::init() {
         _btnSettings->setAnchorPoint({1, 1});
         _btnSettings->setPosition({visibleSize.width, visibleSize.height});
         
-        Menu *menu = Menu::create(_btnSettings, nullptr);
-        menu->setPosition({0, 0});
+        Menu *settingsMenu = Menu::create(_btnSettings, nullptr);
+        settingsMenu->setPosition({0, 0});
 
-        _headingNode->addChild(menu);
+        _headingNode->addChild(settingsMenu);
         
         // mail label
         _labelMail = Label::createWithTTF("alex.gievsky@gmail.com", "helvetica.ttf", 18);
@@ -128,6 +129,13 @@ bool MealsLayer::init() {
         _progressCaloriesConsumed->setPercentage(70);
         
         _bgProgressCalories->addChild(_progressCaloriesConsumed);
+        
+        // date mount
+        _mntDate = Sprite::create("mnt_meals_list_date.png");
+        _mntDate->setAnchorPoint({0, 1});
+        _mntDate->setPosition({0, _bgProgressCalories->getPositionY() - _bgProgressCalories->getContentSize().height});
+        
+        _headingNode->addChild(_mntDate);
 
     }
     
