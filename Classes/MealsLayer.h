@@ -44,6 +44,7 @@ private:
     cocos2d::Sprite *_mntDate;
     cocos2d::MenuItemImage *_btnDateSelect;
     cocos2d::MenuItemImage *_btnAddItem;
+    cocos2d::Label *_labelDate;
     
 };
 

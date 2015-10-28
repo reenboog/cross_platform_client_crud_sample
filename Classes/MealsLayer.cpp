@@ -34,6 +34,7 @@ MealsLayer::MealsLayer(): Layer() {
     _mntDate = nullptr;
     _btnDateSelect = nullptr;
     _btnAddItem = nullptr;
+    _labelDate = nullptr;
 }
 
 Scene* MealsLayer::scene() {
@@ -158,6 +159,13 @@ bool MealsLayer::init() {
         addItemMenu->setPosition({0, 0});
         
         _mntDate->addChild(addItemMenu);
+        
+        // date label
+        _labelDate = Label::createWithTTF("28.10.2015", "helvetica.ttf", 18);
+        _labelDate->setColor({255, 255, 255});
+        _labelDate->setPosition({_mntDate->getContentSize().width * 0.5f, _mntDate->getContentSize().height * 0.5f});
+        
+        _mntDate->addChild(_labelDate);
     }
     
     
