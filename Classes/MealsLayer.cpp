@@ -33,6 +33,7 @@ MealsLayer::MealsLayer(): Layer() {
     _progressCaloriesConsumed = nullptr;
     _mntDate = nullptr;
     _btnDateSelect = nullptr;
+    _btnAddItem = nullptr;
 }
 
 Scene* MealsLayer::scene() {
@@ -149,6 +150,14 @@ bool MealsLayer::init() {
         _mntDate->addChild(dateSelectMenu);
 
         // new item button
+        _btnAddItem = MenuItemImage::create("btn_new_item.png", "btn_new_item_on.png", CC_CALLBACK_0(MealsLayer::onBtnAddItemPressed, this));
+        _btnAddItem->setAnchorPoint({1, 1});
+        _btnAddItem->setPosition({_mntDate->getContentSize().width, _mntDate->getContentSize().height});
+
+        Menu *addItemMenu = Menu::create(_btnAddItem, nullptr);
+        addItemMenu->setPosition({0, 0});
+        
+        _mntDate->addChild(addItemMenu);
     }
     
     

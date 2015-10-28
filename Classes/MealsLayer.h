@@ -43,6 +43,7 @@ private:
     cocos2d::ProgressTimer *_progressCaloriesConsumed;
     cocos2d::Sprite *_mntDate;
     cocos2d::MenuItemImage *_btnDateSelect;
+    cocos2d::MenuItemImage *_btnAddItem;
     
 };
 
