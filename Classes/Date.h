@@ -12,7 +12,7 @@
 class Date {
 public:
     virtual ~Date() {}
-    Date(int year, int month, int day, int hours = 0, int minutes = 0, int seconds = 0);
+    Date(int year, int month, int day);
     
     bool isLeapYear();
     bool isValid();
@@ -28,27 +28,12 @@ public:
     unsigned int getDay() const {
         return _day;
     }
-    
-    unsigned int getHours() const {
-        return _hours;
-    }
-    
-    unsigned int getMinutes() const {
-        return _minutes;
-    }
-    
-    unsigned int getSeconds() const {
-        return _seconds;
-    }
 private:
     Date() {}
 private:
     unsigned int _year;
     unsigned int _month;
     unsigned int _day;
-    unsigned int _hours;
-    unsigned int _minutes;
-    unsigned int _seconds;
 };
 
 #endif /* defined(__ttt_c_tracker__Date__) */

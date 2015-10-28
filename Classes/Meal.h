@@ -20,6 +20,12 @@ public:
     Meal(const Meal &r);
     Meal& operator=(const Meal &r);
     
+    //
+    void setConsumptionTime(unsigned int time);
+    void setCaption(const std::string &c);
+    void setCalories(int c);
+    //
+    
     const Date& getConsumptioDate() const;
     unsigned int getConsumptionTime() const;
     const std::string& getCaption() const;

@@ -71,3 +71,15 @@ unsigned int Meal::getCalories() const {
 const std::string Meal::getId() const {
     return _id;
 }
+
+void Meal::setConsumptionTime(unsigned int time) {
+    _consumptionTime = time;
+}
+
+void Meal::setCaption(const string &c) {
+    _caption = c;
+}
+
+void Meal::setCalories(int c) {
+    _calories = c;
+}

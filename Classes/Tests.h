@@ -83,9 +83,61 @@ static void testDates() {
     }
 }
 
+static void testMeals() {
+    // Meal(const Date &date, unsigned int time, const std::string &caption, const std::string userId, unsigned int calories, const std::string mealId);
+    {
+        Meal m(Date(2015, 10, 28), 13, "m1", "123", 999, "111");
+        
+        Assert("consumption time check.", m.getConsumptionTime() == 13);
+    }
+    
+    {
+        Meal m(Date(2015, 10, 28), 13, "m1", "123", 999, "111");
+        
+        Assert("id check", m.getId() == "111");
+    }
+    
+    {
+        Meal m(Date(2015, 10, 28), 13, "m1", "123", 999, "111");
+        
+        Assert("user id check", m.getUserId() == "123");
+    }
+    
+    {
+        Meal m(Date(2015, 10, 28), 13, "m1", "123", 999, "111");
+        m.setConsumptionTime(20);
+        
+        Assert("consumption time change", m.getConsumptionTime() == 20);
+    }
+    
+    {
+        Meal m(Date(2015, 10, 28), 13, "m1", "123", 999, "111");
+        m.setCalories(5000);
+        
+        Assert("calories change", m.getCalories() == 5000);
+    }
+    
+    {
+        Meal m(Date(2015, 10, 28), 13, "m1", "123", 999, "111");
+        m.setCaption("qqq");
+        
+        Assert("caption change", m.getCaption() == "qqq");
+    }
+}
+
+static void testMealGroups() {
+    {
+        MealGroup m;
+        
+        Assert("caption change", 1);
+    }
+}
+
 static  void test() {
     Test("GOALS", testGoals);
     Test("DATES", testDates);
+    Test("MEALS", testMeals);
+    Test("MEAL GROUPS", testMealGroups);
 }
 
 #endif /* defined(__ttt_c_tracker__Tests__) */
