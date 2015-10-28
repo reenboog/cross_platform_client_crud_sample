@@ -29,6 +29,8 @@ MealsLayer::MealsLayer(): Layer() {
     _btnSettings = nullptr;
     _labelMail = nullptr;
     _labelCaloriesConsumed = nullptr;
+    _bgProgressCalories = nullptr;
+    _progressCaloriesConsumed = nullptr;
 }
 
 Scene* MealsLayer::scene() {
@@ -107,6 +109,25 @@ bool MealsLayer::init() {
         _labelCaloriesConsumed->setPosition({visibleSize.width * 0.03f, visibleSize.height * 0.98f - _labelMail->getContentSize().height});
         
         _headingNode->addChild(_labelCaloriesConsumed);
+        
+        // calories progress
+        _bgProgressCalories = Sprite::create("bg_progress_calories.png");
+        _bgProgressCalories->setAnchorPoint({0, 1});
+        _bgProgressCalories->setPosition({0.0f, visibleSize.height - _mntHead->getContentSize().height});
+        
+        _headingNode->addChild(_bgProgressCalories);
+        
+        // calories progress
+        _progressCaloriesConsumed = ProgressTimer::create(Sprite::create("progress_calories.png"));
+        
+        _progressCaloriesConsumed->setPosition(_bgProgressCalories->getContentSize().width / 2.0, _bgProgressCalories->getContentSize().height / 2.0);
+        _progressCaloriesConsumed->setType(ProgressTimer::Type::BAR);
+        _progressCaloriesConsumed->setMidpoint({0, 0});
+        _progressCaloriesConsumed->setBarChangeRate({1, 0});
+        
+        _progressCaloriesConsumed->setPercentage(70);
+        
+        _bgProgressCalories->addChild(_progressCaloriesConsumed);
 
     }
     

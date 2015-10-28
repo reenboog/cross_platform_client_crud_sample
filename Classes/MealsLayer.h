@@ -37,6 +37,9 @@ private:
     cocos2d::MenuItemImage *_btnSettings;
     cocos2d::Label *_labelMail;
     cocos2d::Label *_labelCaloriesConsumed;
+    cocos2d::Sprite *_bgProgressCalories;
+    cocos2d::ProgressTimer *_progressCaloriesConsumed;
+    
 };
 
 #endif /* defined(__ttt_c_tracker__MealsLayer__) */
