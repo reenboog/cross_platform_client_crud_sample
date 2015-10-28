@@ -32,6 +32,7 @@ MealsLayer::MealsLayer(): Layer() {
     _bgProgressCalories = nullptr;
     _progressCaloriesConsumed = nullptr;
     _mntDate = nullptr;
+    _btnDateSelect = nullptr;
 }
 
 Scene* MealsLayer::scene() {
@@ -136,7 +137,18 @@ bool MealsLayer::init() {
         _mntDate->setPosition({0, _bgProgressCalories->getPositionY() - _bgProgressCalories->getContentSize().height});
         
         _headingNode->addChild(_mntDate);
+        
+        // date select btn
+        _btnDateSelect = MenuItemImage::create("btn_date_select.png", "btn_date_select_on.png", CC_CALLBACK_0(MealsLayer::onBtnDateSelectPressed, this));
+        _btnDateSelect->setAnchorPoint({0, 1});
+        _btnDateSelect->setPosition({0, _mntDate->getContentSize().height});
+        
+        Menu *dateSelectMenu = Menu::create(_btnDateSelect, nullptr);
+        dateSelectMenu->setPosition({0, 0});
+        
+        _mntDate->addChild(dateSelectMenu);
 
+        // new item button
     }
     
     
@@ -162,5 +174,13 @@ void MealsLayer::createMeal(const std::string &caption, int calories) {
 #pragma mark - UI callbacks
 
 void MealsLayer::onBtnSettingsPressed() {
+    
+}
+
+void MealsLayer::onBtnDateSelectPressed() {
+    
+}
+
+void MealsLayer::onBtnAddItemPressed() {
     
 }

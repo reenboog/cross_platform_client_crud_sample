@@ -25,6 +25,8 @@ public:
     void createMeal(const std::string &caption, int calories);
     
     void onBtnSettingsPressed();
+    void onBtnDateSelectPressed();
+    void onBtnAddItemPressed();
     
     CREATE_FUNC(MealsLayer);
 private:
@@ -40,6 +42,7 @@ private:
     cocos2d::Sprite *_bgProgressCalories;
     cocos2d::ProgressTimer *_progressCaloriesConsumed;
     cocos2d::Sprite *_mntDate;
+    cocos2d::MenuItemImage *_btnDateSelect;
     
 };
 
