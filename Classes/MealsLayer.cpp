@@ -7,6 +7,7 @@
 //
 
 #include "MealsLayer.h"
+#include "ServerAPI.h"
 
 #define zBack 0
 
@@ -23,6 +24,10 @@ MealsLayer::MealsLayer(): Layer() {
     _back = nullptr;
     
     _layout = nullptr;
+    _mntHead = nullptr;
+    _headingNode = nullptr;
+    _btnSettings = nullptr;
+    _labelMail = nullptr;
 }
 
 Scene* MealsLayer::scene() {
@@ -62,5 +67,62 @@ bool MealsLayer::init() {
         this->addChild(_layout);
     }
     
+    {
+        // heading
+        _headingNode = Node::create();
+        _headingNode->setPosition({0, 0});
+
+        this->addChild(_headingNode);
+        
+        _mntHead = Sprite::create("mnt_meals_list_head.png");
+        _mntHead->setAnchorPoint({0.0f, 1.0f});
+        _mntHead->setPosition({0, visibleSize.height});
+        
+        _headingNode->addChild(_mntHead);
+        
+        // settings button
+        _btnSettings = MenuItemImage::create("btn_settings.png", "btn_settings_on.png", CC_CALLBACK_0(MealsLayer::onBtnSettingsPressed, this));
+        _btnSettings->setAnchorPoint({1, 1});
+        _btnSettings->setPosition({visibleSize.width, visibleSize.height});
+        
+        Menu *menu = Menu::create(_btnSettings, nullptr);
+        menu->setPosition({0, 0});
+
+        _headingNode->addChild(menu);
+        
+        // mail label
+        _labelMail = Label::createWithTTF("alex.gievsky@gmail.com", "helvetica.ttf", 18);
+        _labelMail->setOpacity(255 * 0.5f);
+        _labelMail->setColor({93, 93, 93});
+        _labelMail->setAnchorPoint({0, 1});
+        _labelMail->setPosition({visibleSize.width * 0.03f, visibleSize.height * 0.98f});
+        
+        _headingNode->addChild(_labelMail);
+
+    }
+    
+    
+    ///////////
+    
+    //this->createMeal("test", CCRANDOM_0_1() * 100);
+    
     return true;
+}
+
+void MealsLayer::createMeal(const std::string &caption, int calories) {
+    auto onMealCreated = [=]() {
+        CCLOG("created!");
+    };
+    
+    auto onFailedToCreateMEal = [=](const string &error, const string &description) {
+        CCLOG("failed to create!");
+    };
+    
+    ServerAPI::createMeal(caption, calories, onMealCreated, onFailedToCreateMEal);
+}
+
+#pragma mark - UI callbacks
+
+void MealsLayer::onBtnSettingsPressed() {
+    
 }

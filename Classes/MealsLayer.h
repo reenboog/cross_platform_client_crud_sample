@@ -22,10 +22,20 @@ public:
     
     virtual bool init();
     
+    void createMeal(const std::string &caption, int calories);
+    
+    void onBtnSettingsPressed();
+    
     CREATE_FUNC(MealsLayer);
 private:
     cocos2d::Sprite *_back;
     cocos2d::Layer *_layout;
+    
+    // heading
+    cocos2d::Node *_headingNode;
+    cocos2d::Sprite *_mntHead;
+    cocos2d::MenuItemImage *_btnSettings;
+    cocos2d::Label *_labelMail;
 };
 
 #endif /* defined(__ttt_c_tracker__MealsLayer__) */

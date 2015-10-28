@@ -11,6 +11,11 @@
 
 class User {
 public:
+    enum Role {
+        UR_User,
+        UR_Manager
+    };
+    
     static void purge();
     
     static User* sharedInstance();
@@ -18,16 +23,21 @@ public:
     std::string getName() const;
     void setName(const std::string &name);
     
-    std::string getLastName() const;
-    void setLastName(const std::string &lastName);
+    Role getRole() const;
+    void setRole(Role role);
     
-    void save();
+    User(Role role, const std::string &name) {
+        _role = role;
+        _name = name;
+    }
 private:
     virtual ~User() {}
-    User() {}
+    User() {
+        _role = UR_User;
+    }
 private:
     std::string _name;
-    std::string _lastName;
+    Role _role;
     
     static User *__sharedInstance;
 };

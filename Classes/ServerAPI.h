@@ -38,6 +38,7 @@ public:
 //                                OnFailedToFetchSkillsCallback onFailedToFetchSkillsCallback);
 //    
     static void signUp(const std::string &mail, const std::string &password, OnSignedUpCallback signUpCallback, OnFailedToSignUpCallback signUpFailureCallback);
+    static void createMeal(const std::string &caption, int calories, OnMealCreatedCallback createdCallback, onFailedToCreateMeal failedToCreateCallback);
     
     static ServerAPI* sharedInstance();
 private:

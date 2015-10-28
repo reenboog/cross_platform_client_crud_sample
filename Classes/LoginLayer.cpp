@@ -152,25 +152,9 @@ bool LoginLayer::init() {
     
     _layout->addChild(_menuLogin);
     
-    this->restoreSessionIfAny();
+    //this->restoreSessionIfAny();
     
     return true;
-}
-
-void LoginLayer::restoreSessionIfAny() {
-    LayerBlocker::block(this);
-    
-    auto onWakeUp = [this]() {
-        this->onLoggedIn();
-    };
-    
-    auto onFailedToWakeUp = [this](const string &error, const string &message) {
-        // no session found
-        // just present the UI as usual
-        LayerBlocker::unblock(this);
-    };
-    
-    ServerAPI::wakeUp(onWakeUp, onFailedToWakeUp);
 }
 
 void LoginLayer::onBtnLinkLoginPressed() {

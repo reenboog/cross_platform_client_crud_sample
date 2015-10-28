@@ -89,14 +89,62 @@ void ServerAPI::signUp(const string &mail, const string &password, OnSignedUpCal
     
     [user signUpInBackgroundWithBlock: ^(BOOL succeeded, NSError *error) {
         if(!error) {
-            signUpCallback();
+            ///
+            
+            PFQuery *queryRole = [PFRole query];
+            
+            [queryRole whereKey: @"name" equalTo: @"user"];
+            [queryRole getFirstObjectInBackgroundWithBlock: ^(PFObject *object, NSError *error) {
+                PFRole *role = (PFRole *)object;
+                
+                [role.users addObject: [PFUser currentUser]];
+                [role saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
+                    if(!error) {
+                        signUpCallback();
+                    } else {
+                        NSString *errorString = [error userInfo][@"error"];
+                        
+                        signUpFailureCallback("error", [errorString UTF8String]);
+                    }
+                }];
+            }];
         } else {
             NSString *errorString = [error userInfo][@"error"];
             
             signUpFailureCallback("error", [errorString UTF8String]);
         }
     }];
+    
+    
 }
+
+void ServerAPI::createMeal(const string &caption, int calories, OnMealCreatedCallback createdCallback, onFailedToCreateMeal failedToCreateCallback) {
+    if(__sharedInstance == nullptr) {
+        ServerAPI::sharedInstance();
+    }
+    
+    //
+    
+    // start parse stuff here
+    PFObject *meal = [PFObject objectWithClassName: @"Meal"];
+    [meal setObject: [NSString stringWithUTF8String: caption.c_str()] forKey: @"caption"];
+    [meal setObject: [PFUser currentUser] forKey: @"consumedBy"];
+    [meal setObject: [NSNumber numberWithInt: calories] forKey: @"calories"];
+    
+    [meal saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
+        // Kick off the new query, refresh the table, and then - once that's all
+        // taken care of - re-enable the item entry UI.
+        if(!error) {
+            createdCallback();
+        } else {
+            NSString *errorString = [error userInfo][@"error"];
+            
+            failedToCreateCallback("error", [errorString UTF8String]);
+        }
+        
+    }];
+}
+
 //
 //void ServerAPI::fetchUserNameAndLastName(OnUserNameAndLastNameFetchedCallback userNameFetchedCallback,
 //                              OnFailedToFetchUserNameAndLastNameCallback userNameFetchFailureCallback) {

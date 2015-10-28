@@ -6,9 +6,11 @@
 #include "Localized.h"
 #include "User.h"
 #include "ServerAPI.h"
+#include "MealsLayer.h"
 
 using namespace cocos2d;
 using namespace CocosDenshion;
+using namespace std;
 
 AppDelegate::AppDelegate() {
 
@@ -51,8 +53,18 @@ bool AppDelegate::applicationDidFinishLaunching() {
     AppConfig::sharedInstance()->load();
     
     Localized::load();
-
-    director->runWithScene(LoginLayer::scene());
+    
+//    auto onWakeUp = [=]() {
+//        director->runWithScene(MealsLayer::scene());
+//    };
+//    
+//    auto onFailedToWakeUp = [=](const string &error, const string &message) {
+//        director->runWithScene(LoginLayer::scene());
+//    };
+//    
+//    ServerAPI::wakeUp(onWakeUp, onFailedToWakeUp);
+    
+    director->runWithScene(MealsLayer::scene());
 
     return true;
 }

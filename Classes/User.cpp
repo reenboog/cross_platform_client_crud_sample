@@ -35,15 +35,10 @@ void User::setName(const string &name) {
     _name = name;
 }
 
-std::string User::getLastName() const {
-    return _lastName;
+User::Role User::getRole() const {
+    return _role;
 }
 
-void User::setLastName(const string &lastName) {
-    _lastName = lastName;
-}
-
-void User::save() {
-    // user Defaults here
-    //UserDefault::getInstance()
+void User::setRole(User::Role role) {
+    _role = role;
 }

@@ -38,8 +38,6 @@ private:
     void onFailedToLogIn(const std::string &error, const std::string &description);
     
 private:
-    void restoreSessionIfAny();
-private:
     cocos2d::Sprite *_back;
     
     cocos2d::Menu *_menuLogin;

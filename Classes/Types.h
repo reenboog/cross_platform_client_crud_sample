@@ -9,6 +9,9 @@ typedef std::function <void (void)> OnSignedUpCallback;
 typedef std::function <void (const std::string&, const std::string&)> OnFailedToSignUpCallback;
 typedef std::function <void (void)> OnLoggedOutCallback;
 
+typedef std::function <void (void)> OnMealCreatedCallback;
+typedef std::function <void (const std::string&, const std::string&)> onFailedToCreateMeal;
+
 //
 //typedef std::function <void (const std::string&, const std::string&)> OnUserNameAndLastNameFetchedCallback;
 //typedef std::function <void (const std::string&, const std::string&)> OnFailedToFetchUserNameAndLastNameCallback;
