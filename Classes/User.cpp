@@ -35,6 +35,27 @@ void User::setName(const string &name) {
     _name = name;
 }
 
+void User::setId(const std::string &userId) {
+    _id = userId;
+
+    // keep ids synced
+    _goal = Goal(_goal.getCalories(), _id);
+}
+
+const std::string& User::getId() const {
+    return _id;
+}
+
+#pragma mark - goals
+
+void User::setGoal(const Goal &g) {
+    _goal = g;
+}
+
+const Goal& User::getGoal() const {
+    return _goal;
+}
+
 #pragma mark - Roles
 
 User::Role User::getRole() const {
@@ -55,10 +76,14 @@ Meal* User::getMeal(const std::string &mealId) {
     return _allMealConsumed.getById(mealId);
 }
 
-bool User::setMealConsumed(const std::string &mealId, const Meal &m) {
+bool User::setMeal(const std::string &mealId, const Meal &m) {
     return _allMealConsumed.update(mealId, m);
 }
 
 bool User::removeMeal(const std::string &mealId) {
     return _allMealConsumed.remove(mealId);
+}
+
+const MealGroup& User::getAllMeal() const {
+    return _allMealConsumed;
 }

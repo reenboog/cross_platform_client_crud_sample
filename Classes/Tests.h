@@ -229,11 +229,100 @@ static void testMealGroups() {
     }
 }
 
+static void testUsers() {
+    {
+        User u(User::Role::UR_User, "alex");
+        
+        Assert("role", u.getRole() == User::Role::UR_User);
+    }
+    
+    {
+        User u(User::Role::UR_User, "alex");
+        
+        Assert("name", u.getName() == "alex");
+    }
+    
+    {
+        User u(User::Role::UR_User, "alex");
+        u.setName("max");
+        
+        Assert("set name", u.getName() == "max");
+    }
+    
+    {
+        User u(User::Role::UR_User, "alex");
+        u.setRole(User::Role::UR_Manager);
+        
+        Assert("set role", u.getRole() == User::Role::UR_Manager);
+    }
+    
+    {
+        User u(User::Role::UR_User, "alex");
+        u.setRole(User::Role::UR_Manager);
+        
+        Assert("default goal", u.getGoal().getCalories() == kAverageCaloriesPerDay);
+    }
+    
+    {
+        User u(User::Role::UR_User, "alex");
+        
+        u.setId("111");
+        
+        Assert("set user id", u.getId() == "111");
+    }
+    
+    {
+        User u(User::Role::UR_User, "alex");
+        u.setGoal(Goal(3000, "555"));
+        u.setId("333");
+        
+        Assert("user-goal id sync", u.getId() == u.getGoal().getUserId());
+    }
+    
+    {
+        User u(User::Role::UR_User, "alex");
+        u.setId("qq");
+        
+        u.addMeal(Meal(Date(2015, 2, 1), 12, "Meal 1", "qq", 111, "1"));
+        u.addMeal(Meal(Date(2015, 3, 1), 120, "Meal 2", "qq", 500, "2"));
+        u.addMeal(Meal(Date(2015, 4, 1), 120, "Meal 3", "qq", 99, "3"));
+        
+        Assert("add 3 meals", u.getAllMeal().size() == 3);
+    }
+    
+    {
+        User u(User::Role::UR_User, "alex");
+        u.setId("qq");
+        
+        u.addMeal(Meal(Date(2015, 2, 1), 12, "Meal 1", "qq", 111, "1"));
+        u.addMeal(Meal(Date(2015, 3, 1), 120, "Meal 2", "qq", 500, "2"));
+        u.addMeal(Meal(Date(2015, 4, 1), 120, "Meal 3", "qq", 99, "3"));
+        
+        u.setMeal("2", Meal(Date(2015, 4, 10), 0, "Meal Updated", "qq", 9999, "2"));
+        
+        Assert("update meal", u.getMeal("2")->getCaption() == "Meal Updated");
+    }
+    
+    {
+        User u(User::Role::UR_User, "alex");
+        u.setId("qq");
+        
+        u.addMeal(Meal(Date(2015, 2, 1), 12, "Meal 1", "qq", 111, "1"));
+        u.addMeal(Meal(Date(2015, 3, 1), 120, "Meal 2", "qq", 500, "2"));
+        u.addMeal(Meal(Date(2015, 4, 1), 120, "Meal 3", "qq", 99, "3"));
+        
+        u.removeMeal("2");
+        
+        Assert("delete meal", u.getMeal("2") == nullptr && u.getAllMeal().size() == 2);
+    }
+}
+
 static  void test() {
     Test("GOALS", testGoals);
     Test("DATES", testDates);
     Test("MEALS", testMeals);
     Test("MEAL GROUPS", testMealGroups);
+    Test("USERS", testUsers);
 }
 
 #endif /* defined(__ttt_c_tracker__Tests__) */
