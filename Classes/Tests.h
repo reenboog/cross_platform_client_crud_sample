@@ -127,9 +127,105 @@ static void testMeals() {
 
 static void testMealGroups() {
     {
-        MealGroup m;
+        MealGroup g;
         
-        Assert("caption change", 1);
+        Meal m1(Date(2015, 10, 28), 13, "m1", "123", 999, "111");
+        Meal m2(Date(2015, 10, 29), 13, "m2", "124", 111, "222");
+        
+        g.add(m1);
+        g.add(m2);
+        
+        Assert("get by index", g.get(1).getUserId() == "124");
+    }
+    
+    {
+        MealGroup g;
+        
+        Meal m1(Date(2015, 10, 28), 13, "m1", "123", 999, "111");
+        Meal m2(Date(2015, 10, 29), 13, "m2", "124", 111, "222");
+        Meal m3(Date(2015, 10, 29), 13, "m2", "125", 111, "223");
+        
+        g.add(m1);
+        g.add(m2);
+        g.add(m3);
+        
+        Assert("get by id", g.getById("222")->getUserId() == "124");
+    }
+    
+    {
+        MealGroup g;
+        
+        Meal m1(Date(2015, 10, 28), 13, "m1", "123", 999, "111");
+        Meal m2(Date(2015, 10, 29), 13, "m2", "124", 111, "222");
+        Meal m3(Date(2015, 10, 29), 13, "m2", "125", 111, "223");
+        
+        g.add(m1);
+        g.add(m2);
+        g.add(m3);
+        
+        Assert("count", g.size() == 3);
+    }
+    
+    {
+        MealGroup g;
+        
+        Meal m1(Date(2015, 10, 28), 13, "m1", "123", 999, "111");
+        Meal m2(Date(2015, 10, 29), 13, "m2", "124", 111, "222");
+        Meal m3(Date(2015, 10, 29), 13, "m2", "125", 111, "223");
+        
+        g.add(m1);
+        g.add(m2);
+        g.add(m3);
+        
+        g.update("111", m3);
+        
+        Assert("update", g.get(0).getUserId() == "125");
+    }
+    
+    {
+        MealGroup g;
+        
+        Meal m1(Date(2015, 10, 28), 13, "m1", "123", 999, "111");
+        Meal m2(Date(2015, 10, 29), 13, "m2", "124", 111, "222");
+        Meal m3(Date(2015, 10, 29), 13, "m2", "125", 111, "223");
+        
+        g.add(m1);
+        g.add(m2);
+        g.add(m3);
+        
+        Assert("fake update", g.update("111111", m3) == false);
+    }
+    
+    {
+        MealGroup g;
+        
+        Meal m1(Date(2015, 10, 28), 13, "m1", "123", 999, "111");
+        Meal m2(Date(2015, 10, 29), 13, "m2", "124", 111, "222");
+        Meal m3(Date(2015, 10, 29), 13, "m2", "125", 111, "223");
+        
+        g.add(m1);
+        g.add(m2);
+        g.add(m3);
+        
+        g.remove("222");
+        
+        Assert("delete", g.size() == 2);
+    }
+    
+    {
+        MealGroup g;
+        
+        Meal m1(Date(2015, 10, 28), 13, "m1", "123", 999, "111");
+        Meal m2(Date(2015, 10, 29), 13, "m2", "124", 111, "222");
+        Meal m3(Date(2015, 10, 29), 13, "m2", "125", 111, "223");
+        
+        g.add(m1);
+        g.add(m2);
+        g.add(m3);
+        
+        g.update("111111", m3);
+        
+        Assert("fake delete", g.size() == 3);
     }
 }
 
