@@ -7,6 +7,7 @@
 #include "User.h"
 #include "ServerAPI.h"
 #include "MealsLayer.h"
+#include "Layers.h"
 
 // tests
 #include "Tests.h"
@@ -58,7 +59,8 @@ bool AppDelegate::applicationDidFinishLaunching() {
     Localized::load();
     
     auto onWakeUp = [=]() {
-        director->runWithScene(MealsLayer::scene());
+        // check roles here
+        LayerManager::showScreenForRole(User::sharedInstance()->getRole(), false);
     };
     
     auto onFailedToWakeUp = [=](const string &error, const string &message) {

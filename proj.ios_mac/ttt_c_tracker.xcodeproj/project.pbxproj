@@ -95,6 +95,8 @@
 		B8BBDCE81BE25630001363BA /* Bolts.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = B8BBDCE31BE2560E001363BA /* Bolts.framework */; };
 		B8BBDCEB1BE2946B001363BA /* EditMealItemLayer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B8BBDCE91BE2946B001363BA /* EditMealItemLayer.cpp */; };
 		B8BBDCEC1BE2946B001363BA /* EditMealItemLayer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B8BBDCE91BE2946B001363BA /* EditMealItemLayer.cpp */; };
+		B8BBDCF01BE2B753001363BA /* ManagerLayer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B8BBDCEE1BE2B753001363BA /* ManagerLayer.cpp */; };
+		B8BBDCF11BE2B753001363BA /* ManagerLayer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B8BBDCEE1BE2B753001363BA /* ManagerLayer.cpp */; };
 		B8C616781B5635AA007519A8 /* ServerAPI.mm in Sources */ = {isa = PBXBuildFile; fileRef = B8C616771B5635AA007519A8 /* ServerAPI.mm */; };
 		B8FAA4AA1BE11236002639AE /* Meal.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B8FAA4A81BE11236002639AE /* Meal.cpp */; };
 		B8FAA4AB1BE11236002639AE /* Meal.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B8FAA4A81BE11236002639AE /* Meal.cpp */; };
@@ -258,6 +260,9 @@
 		B8BBDCE91BE2946B001363BA /* EditMealItemLayer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = EditMealItemLayer.cpp; sourceTree = "<group>"; };
 		B8BBDCEA1BE2946B001363BA /* EditMealItemLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EditMealItemLayer.h; sourceTree = "<group>"; };
 		B8BBDCED1BE294D5001363BA /* IOnItemModified.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IOnItemModified.h; sourceTree = "<group>"; };
+		B8BBDCEE1BE2B753001363BA /* ManagerLayer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ManagerLayer.cpp; sourceTree = "<group>"; };
+		B8BBDCEF1BE2B753001363BA /* ManagerLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ManagerLayer.h; sourceTree = "<group>"; };
+		B8BBDCF21BE2B89D001363BA /* Layers.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Layers.h; sourceTree = "<group>"; };
 		B8C616671B561C63007519A8 /* ServerAPI.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ServerAPI.h; sourceTree = "<group>"; };
 		B8C616771B5635AA007519A8 /* ServerAPI.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = ServerAPI.mm; path = ios/ServerAPI.mm; sourceTree = SOURCE_ROOT; };
 		B8FAA4A81BE11236002639AE /* Meal.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Meal.cpp; sourceTree = "<group>"; };
@@ -559,6 +564,9 @@
 				B840C8021BE2331500116E94 /* CreateMealItemLayer.h */,
 				B8BBDCE91BE2946B001363BA /* EditMealItemLayer.cpp */,
 				B8BBDCEA1BE2946B001363BA /* EditMealItemLayer.h */,
+				B8BBDCEE1BE2B753001363BA /* ManagerLayer.cpp */,
+				B8BBDCEF1BE2B753001363BA /* ManagerLayer.h */,
+				B8BBDCF21BE2B89D001363BA /* Layers.h */,
 			);
 			name = layers;
 			sourceTree = "<group>";
@@ -747,6 +755,7 @@
 				B8FAA4BA1BE12171002639AE /* Tests.cpp in Sources */,
 				B8BBDCEB1BE2946B001363BA /* EditMealItemLayer.cpp in Sources */,
 				B82D046A1A641E8600BCEF26 /* AppConfig.cpp in Sources */,
+				B8BBDCF01BE2B753001363BA /* ManagerLayer.cpp in Sources */,
 				503AE10217EB989F00D1A890 /* RootViewController.mm in Sources */,
 				B8041DAC1B5E4782002A4C14 /* User.cpp in Sources */,
 				503AE10117EB989F00D1A890 /* main.m in Sources */,
@@ -779,6 +788,7 @@
 				B82D04691A641E8600BCEF26 /* AppDelegate.cpp in Sources */,
 				B8624D6D1B596794006B3E3D /* Toast.cpp in Sources */,
 				B8FAA4BB1BE12171002639AE /* Tests.cpp in Sources */,
+				B8BBDCF11BE2B753001363BA /* ManagerLayer.cpp in Sources */,
 				503AE10517EB98FF00D1A890 /* main.cpp in Sources */,
 				B840C8041BE2331600116E94 /* CreateMealItemLayer.cpp in Sources */,
 			);

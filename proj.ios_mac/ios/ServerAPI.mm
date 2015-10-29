@@ -4,6 +4,7 @@
 #include "User.h"
 
 #include "json/document.h"
+#include "AppConfig.h"
 
 #import <Parse/Parse.h>
 
@@ -46,29 +47,57 @@ void ServerAPI::logIn(const string &mail, const string &password, OnLoggedInCall
         ServerAPI::sharedInstance();
     }
     
+    // get the role here
+    
     [PFUser logInWithUsernameInBackground: [NSString stringWithUTF8String: mail.c_str()]
                                  password: [NSString stringWithUTF8String: password.c_str()]
                                     block:^(PFUser *user, NSError *error) {
                                         if(user) {
                                             User::sharedInstance()->setName(mail);
                                             User::sharedInstance()->setId([[PFUser currentUser].objectId UTF8String]);
-                                            // get goals
-                                            PFQuery *query = [PFQuery queryWithClassName: @"DailyGoal"];
-                                            [query whereKey: @"userId" equalTo: user.objectId];
-                                            [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
-                                                if(!error) {
-                                                    int goal = kAverageKCaloriesPerDay;
-                                                    if([objects count] != 0) {
-                                                        PFObject *goalObj = [objects firstObject];
-                                                        
-                                                        goal = [goalObj[@"caloriesToConsume"] intValue];
-                                                    }
-                                                    
-                                                    User::sharedInstance()->setGoal(goal);
-                                                }
+                                            
+                                            PFQuery *queryRole = [PFRole query];
+                                            
+                                            [queryRole whereKey: @"name" equalTo: @"manager"];
+                                            [queryRole getFirstObjectInBackgroundWithBlock: ^(PFObject *object, NSError *error) {
+                                                PFRole *role = (PFRole *)object;
+                                                PFRelation *managersRelation = [role users];
                                                 
-                                                logInCallback();
+                                                PFQuery *queryManagers = [managersRelation query];
+                                                [queryManagers whereKey: @"objectId" equalTo: [PFUser currentUser].objectId];
+                                                [queryManagers getFirstObjectInBackgroundWithBlock:^(PFObject *object, NSError *error) {
+                                                    if(!error && [object.objectId isEqualToString: [PFUser currentUser].objectId]) {
+                                                        // manager
+                                                        User::sharedInstance()->setRole(User::Role::UR_Manager);
+                                                        AppConfig::sharedInstance()->save();
+                                                        
+                                                        logInCallback();
+                                                    } else {
+                                                        // user
+                                                        // get goals
+                                                        User::sharedInstance()->setRole(User::Role::UR_User);
+
+                                                        PFQuery *query = [PFQuery queryWithClassName: @"DailyGoal"];
+                                                        [query whereKey: @"userId" equalTo: user.objectId];
+                                                        [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
+                                                            if(!error) {
+                                                                int goal = kAverageKCaloriesPerDay;
+                                                                if([objects count] != 0) {
+                                                                    PFObject *goalObj = [objects firstObject];
+                                                                    
+                                                                    goal = [goalObj[@"caloriesToConsume"] intValue];
+                                                                }
+                                                                
+                                                                User::sharedInstance()->setGoal(goal);
+                                                            }
+                                                            
+                                                            logInCallback();
+                                                        }];
+                                                    }
+                                                }];
                                             }];
+                                            
+                                            //
                                         } else {
                                             NSString *errorString = [error userInfo][@"error"];
                                             

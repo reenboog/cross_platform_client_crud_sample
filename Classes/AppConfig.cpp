@@ -17,6 +17,7 @@
 #include <string>
 
 #define kUserGoalKey "userGoal"
+#define kUserRoleKey "userRole"
 
 using namespace std;
 using namespace cocos2d;
@@ -51,10 +52,15 @@ void AppConfig::load() {
     if(goal != 0) {
         User::sharedInstance()->setGoal(goal);
     }
+    
+    User::Role role = (User::Role)UserDefault::getInstance()->getIntegerForKey(kUserRoleKey, 0);
+    
+    User::sharedInstance()->setRole(role);
 }
 
 void AppConfig::save() {
     UserDefault::getInstance()->setIntegerForKey(kUserGoalKey, User::sharedInstance()->getGoal().getCalories());
+    UserDefault::getInstance()->setIntegerForKey(kUserRoleKey, User::sharedInstance()->getRole());
 }
 
 void AppConfig::loadFilePaths() {

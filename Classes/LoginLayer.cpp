@@ -11,6 +11,7 @@
 #include "User.h"
 
 #include "MealsLayer.h"
+#include "Layers.h"
 
 #define zBack 0
 
@@ -234,7 +235,7 @@ void LoginLayer::onFailedToSignUp(const std::string &error, const std::string &d
 }
 
 void LoginLayer::onLoggedIn() {
-    Director::getInstance()->replaceScene(MealsLayer::scene());
+    LayerManager::showScreenForRole(User::sharedInstance()->getRole(), true);
 }
 
 void LoginLayer::onFailedToLogIn(const std::string &error, const std::string &description) {
