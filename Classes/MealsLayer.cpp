@@ -113,7 +113,7 @@ bool MealsLayer::init() {
         _headingNode->addChild(settingsMenu);
         
         // mail label
-        _labelMail = Label::createWithTTF("alex.gievsky@gmail.com", "helvetica.ttf", 18);
+        _labelMail = Label::createWithTTF(User::sharedInstance()->getName(), "helvetica.ttf", 18);
         _labelMail->setOpacity(255 * 0.5f);
         _labelMail->setColor({93, 93, 93});
         _labelMail->setAnchorPoint({0, 1});
@@ -303,7 +303,7 @@ void MealsLayer::onItemDeleted(const string &itemId) {
 }
 
 void MealsLayer::onItemUpdated(const string &itemId, const string &newCaption, int newCalories) {
-    
+    this->setMealsUpToDate();
 }
 
 #pragma mark - IOnGoalChanged

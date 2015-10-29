@@ -11,6 +11,8 @@
 #include "ServerAPI.h"
 #include "Goal.h"
 #include "User.h"
+#include "LayerBlocker.h"
+#include "Toast.h"
 
 #define zBack 0
 
@@ -199,7 +201,34 @@ void EditMealItemLayer::onBtnBackPressed() {
 }
 
 void EditMealItemLayer::onBtnSavePressed() {
-    // call api
+    LayerBlocker::block(this);
+    
+    Toast::show(this, "Updating...", 2);
+    
+    auto onItemUpdated = [this](const string &itemId, const string &newCaption, int newCalories) {
+        LayerBlocker::unblock(this);
+        
+        Meal meal = *User::sharedInstance()->getMeal(_itemId);
+        meal.setCaption(newCaption);
+        meal.setCalories(newCalories);
+        
+        User::sharedInstance()->setMeal(_itemId, meal);
+        
+        // call delegates
+        _delegate->onItemUpdated(itemId, newCaption, newCalories);
+        
+        Toast::show(static_cast<Layer*>(this->getParent()), "Updated", 1);
+        
+        this->removeFromParent();
+    };
+    
+    auto onFailedToUpdateItem = [=](const string &error, const string &description) {
+        LayerBlocker::unblock(this);
+        
+        Toast::show(this, description);
+    };
+    
+    ServerAPI::updateMeal(_itemId, _textCaption->getString(), _sliderCalories->getValue() * kMaxKCaloriesPerIntake, onItemUpdated, onFailedToUpdateItem);
 }
 
 void EditMealItemLayer::onBtnDeletePressed() {

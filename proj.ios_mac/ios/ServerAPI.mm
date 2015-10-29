@@ -50,6 +50,7 @@ void ServerAPI::logIn(const string &mail, const string &password, OnLoggedInCall
                                  password: [NSString stringWithUTF8String: password.c_str()]
                                     block:^(PFUser *user, NSError *error) {
                                         if(user) {
+                                            User::sharedInstance()->setName(mail);
                                             User::sharedInstance()->setId([[PFUser currentUser].objectId UTF8String]);
                                             // get goals
                                             PFQuery *query = [PFQuery queryWithClassName: @"DailyGoal"];
@@ -91,6 +92,9 @@ void ServerAPI::wakeUp(OnLoggedInCallback logInCallback, OnFailedToLogInCallback
     PFUser *currentUser = [PFUser currentUser];
     if(currentUser) {
         User::sharedInstance()->setId([currentUser.objectId UTF8String]);
+        string name = currentUser.username ? [currentUser.username UTF8String] : "";
+        User::sharedInstance()->setName(name);
+        
         logInCallback();
     } else {
         failedToWakeUpCallback("", "");
@@ -110,6 +114,7 @@ void ServerAPI::signUp(const string &mail, const string &password, OnSignedUpCal
         if(!error) {
             // get user id
             NSString *userId = [PFUser currentUser].objectId;
+            User::sharedInstance()->setName(mail);
             User::sharedInstance()->setId([userId UTF8String]);
             
             ServerAPI::sharedInstance()->applyDefaultRole(signUpCallback, signUpFailureCallback);
@@ -304,6 +309,38 @@ void ServerAPI::fetchAvailableMeals(OnMealsFetchedCallback mealsFetchedCallback,
             string errorStr = errorString ? [errorString UTF8String] : "Error fetching meals.";
             
             mealsFetchFailedCallback("error", errorStr);
+        }
+    }];
+}
+
+void ServerAPI::updateMeal(const string &itemId, const string &caption, int calories,
+                OnMealItemUpdatedCallback updatedCallback, onFailedToUpdateMealItemCallback failedToUpdateCallback) {
+    if(__sharedInstance == nullptr) {
+        ServerAPI::sharedInstance();
+    }
+    
+    PFQuery *query = [PFQuery queryWithClassName: @"Meal"];
+    [query getObjectInBackgroundWithId: [NSString stringWithUTF8String: itemId.c_str()] block:^(PFObject *obj, NSError *error) {
+        if(!error) {
+            obj[@"caption"] = [NSString stringWithUTF8String: caption.c_str()];
+            obj[@"calories"] = [NSNumber numberWithInt: calories];
+            
+            [obj saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
+                if(succeeded) {
+                    updatedCallback(itemId, caption, calories);
+                } else {
+                    NSString *errorString = [error userInfo][@"error"];
+                    
+                    string errorStr = errorString ? [errorString UTF8String] : "Error updating object.";
+                    
+                    failedToUpdateCallback("error", errorStr);
+                }
+            }];
+        } else {
+            NSString *errorString = [error userInfo][@"error"];
+            
+            string errorStr = errorString ? [errorString UTF8String] : "Error updating a goal.";
+            failedToUpdateCallback("error", errorStr);
         }
     }];
 }
