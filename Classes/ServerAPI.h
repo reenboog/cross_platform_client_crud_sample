@@ -36,6 +36,8 @@ public:
     static void updateMeal(const std::string &itemId, const std::string &caption, int calories,
                            OnMealItemUpdatedCallback updatedCallback, onFailedToUpdateMealItemCallback failedToUpdateCallback);
     
+    static void deleteMeal(const std::string &itemId, OnMealItemDeletedCallback deletedCallback, onFailedToDeleteMealItemCallback failedToDeleteCallback);
+    
     // goals
     static void updateGoal(int calories, OnGoalUpdatedCallback goalUpdatedCallback, onFailedToUpdateGoalCallback failedToUpdateGoalCallback);
     static void updateGoalForUser(const std::string &userId, int calories, OnGoalUpdatedCallback goalUpdatedCallback, onFailedToUpdateGoalCallback failedToUpdateGoalCallback);

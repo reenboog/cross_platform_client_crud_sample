@@ -21,10 +21,10 @@ typedef std::function <void (const std::string&, const std::string&)> onFailedTo
 typedef std::function <void (unsigned int)> OnGoalUpdatedCallback;
 typedef std::function <void (const std::string&, const std::string&)> onFailedToUpdateGoalCallback;
 
-typedef std::function <void (const std::string &, const std::string &, int)> OnMealItemUpdatedCallback;
+typedef std::function <void (const std::string&, const std::string&, int)> OnMealItemUpdatedCallback;
 typedef std::function <void (const std::string&, const std::string&)> onFailedToUpdateMealItemCallback;
 
-typedef std::function <void (const std::string &)> OnMealItemDeletedCallback;
+typedef std::function <void (const std::string&)> OnMealItemDeletedCallback;
 typedef std::function <void (const std::string&, const std::string&)> onFailedToDeleteMealItemCallback;
 
 //

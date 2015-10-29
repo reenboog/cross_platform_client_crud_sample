@@ -232,7 +232,30 @@ void EditMealItemLayer::onBtnSavePressed() {
 }
 
 void EditMealItemLayer::onBtnDeletePressed() {
-    // call api
+    LayerBlocker::block(this);
+    
+    Toast::show(this, "Deleting...", 2);
+    
+    auto onItemDeleted = [this](const string &itemId) {
+        LayerBlocker::unblock(this);
+        
+        User::sharedInstance()->removeMeal(itemId);
+        
+        // call delegates
+        _delegate->onItemDeleted(itemId);
+        
+        Toast::show(static_cast<Layer*>(this->getParent()), "Deleted", 1);
+        
+        this->removeFromParent();
+    };
+    
+    auto onFailedToDeleteItem = [=](const string &error, const string &description) {
+        LayerBlocker::unblock(this);
+        
+        Toast::show(this, description);
+    };
+    
+    ServerAPI::deleteMeal(_itemId, onItemDeleted, onFailedToDeleteItem);
 }
 
 void EditMealItemLayer::onSliderCaloriesChanged(Ref *sender, Control::EventType controlEvent) {

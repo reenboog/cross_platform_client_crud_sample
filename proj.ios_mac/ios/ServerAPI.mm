@@ -339,8 +339,37 @@ void ServerAPI::updateMeal(const string &itemId, const string &caption, int calo
         } else {
             NSString *errorString = [error userInfo][@"error"];
             
-            string errorStr = errorString ? [errorString UTF8String] : "Error updating a goal.";
+            string errorStr = errorString ? [errorString UTF8String] : "Error updating an object.";
             failedToUpdateCallback("error", errorStr);
         }
     }];
+}
+
+void ServerAPI::deleteMeal(const std::string &itemId, OnMealItemDeletedCallback deletedCallback, onFailedToDeleteMealItemCallback failedToDeleteCallback) {
+    if(__sharedInstance == nullptr) {
+        ServerAPI::sharedInstance();
+    }
+    
+    PFQuery *query = [PFQuery queryWithClassName: @"Meal"];
+    [query getObjectInBackgroundWithId: [NSString stringWithUTF8String: itemId.c_str()] block:^(PFObject *obj, NSError *error) {
+        if(!error) {
+            [obj deleteInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
+                if(succeeded) {
+                    deletedCallback(itemId);
+                } else {
+                    NSString *errorString = [error userInfo][@"error"];
+                    
+                    string errorStr = errorString ? [errorString UTF8String] : "Error updating object.";
+                    
+                    failedToDeleteCallback("error", errorStr);
+                }
+            }];
+        } else {
+            NSString *errorString = [error userInfo][@"error"];
+            
+            string errorStr = errorString ? [errorString UTF8String] : "Error deleting an object.";
+            failedToDeleteCallback("error", errorStr);
+        }
+    }];
+
 }

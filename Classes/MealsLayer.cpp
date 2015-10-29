@@ -299,7 +299,7 @@ void MealsLayer::onItemCreationCanceled() {
 }
 
 void MealsLayer::onItemDeleted(const string &itemId) {
-    
+    this->setMealsUpToDate();
 }
 
 void MealsLayer::onItemUpdated(const string &itemId, const string &newCaption, int newCalories) {
