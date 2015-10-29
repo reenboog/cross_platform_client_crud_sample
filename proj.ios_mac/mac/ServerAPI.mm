@@ -116,7 +116,9 @@ void ServerAPI::signUp(const string &mail, const string &password, OnSignedUpCal
         } else {
             NSString *errorString = [error userInfo][@"error"];
             
-            signUpFailureCallback("error", [errorString UTF8String]);
+            string errorStr = errorString ? [errorString UTF8String] : "Error signing up.";
+            
+            signUpFailureCallback("error", errorStr);
         }
     }];
 }
@@ -139,7 +141,9 @@ void ServerAPI::applyDefaultRole(OnSignedUpCallback signUpCallback, OnFailedToSi
             } else {
                 NSString *errorString = [error userInfo][@"error"];
                 
-                signUpFailureCallback("error", [errorString UTF8String]);
+                string errorStr = errorString ? [errorString UTF8String] : "Error applying a role.";
+                
+                signUpFailureCallback("error", errorStr);
             }
         }];
     }];
@@ -158,7 +162,10 @@ void ServerAPI::createDefaultGoal(OnSignedUpCallback signUpCallback, OnFailedToS
             signUpCallback();
         } else {
             NSString *errorString = [error userInfo][@"error"];
-            signUpFailureCallback("error", [errorString UTF8String]);
+            
+            string errorStr = errorString ? [errorString UTF8String] : "Error creating a goal.";
+            
+            signUpFailureCallback("error", errorStr);
         }
     }];
 }
@@ -187,12 +194,17 @@ void ServerAPI::updateGoalForUser(const string &userId, int calories, OnGoalUpda
                     goalUpdatedCallback(calories);
                 } else {
                     NSString *errorString = [error userInfo][@"error"];
-                    failedToUpdateGoalCallback("error", [errorString UTF8String]);
+                    
+                    string errorStr = errorString ? [errorString UTF8String] : "Error loading in.";
+
+                    failedToUpdateGoalCallback("error", errorStr);
                 }
             }];
         } else {
             NSString *errorString = [error userInfo][@"error"];
-            failedToUpdateGoalCallback("error", [errorString UTF8String]);
+            
+            string errorStr = errorString ? [errorString UTF8String] : "Error updating a goal.";
+            failedToUpdateGoalCallback("error", errorStr);
         }
     }];
 }
@@ -220,7 +232,9 @@ void ServerAPI::createMeal(const string &caption, int calories, OnMealCreatedCal
         } else {
             NSString *errorString = [error userInfo][@"error"];
             
-            failedToCreateCallback("error", [errorString UTF8String]);
+            string errorStr = errorString ? [errorString UTF8String] : "Error creating a meal.";
+            
+            failedToCreateCallback("error", errorStr);
         }
         
     }];
