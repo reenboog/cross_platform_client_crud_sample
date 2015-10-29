@@ -101,6 +101,8 @@
 		B8BBDCF61BE2CE08001363BA /* UserItemCell.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B8BBDCF31BE2CE08001363BA /* UserItemCell.cpp */; };
 		B8BBDCF91BE2E142001363BA /* ManagerSettingsLayer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B8BBDCF71BE2E142001363BA /* ManagerSettingsLayer.cpp */; };
 		B8BBDCFA1BE2E142001363BA /* ManagerSettingsLayer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B8BBDCF71BE2E142001363BA /* ManagerSettingsLayer.cpp */; };
+		B8BBDCFD1BE2E47A001363BA /* ManagerToUserSettingsLayer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B8BBDCFB1BE2E47A001363BA /* ManagerToUserSettingsLayer.cpp */; };
+		B8BBDCFE1BE2E47A001363BA /* ManagerToUserSettingsLayer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B8BBDCFB1BE2E47A001363BA /* ManagerToUserSettingsLayer.cpp */; };
 		B8C616781B5635AA007519A8 /* ServerAPI.mm in Sources */ = {isa = PBXBuildFile; fileRef = B8C616771B5635AA007519A8 /* ServerAPI.mm */; };
 		B8FAA4AA1BE11236002639AE /* Meal.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B8FAA4A81BE11236002639AE /* Meal.cpp */; };
 		B8FAA4AB1BE11236002639AE /* Meal.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B8FAA4A81BE11236002639AE /* Meal.cpp */; };
@@ -271,6 +273,8 @@
 		B8BBDCF41BE2CE08001363BA /* UserItemCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserItemCell.h; sourceTree = "<group>"; };
 		B8BBDCF71BE2E142001363BA /* ManagerSettingsLayer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ManagerSettingsLayer.cpp; sourceTree = "<group>"; };
 		B8BBDCF81BE2E142001363BA /* ManagerSettingsLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ManagerSettingsLayer.h; sourceTree = "<group>"; };
+		B8BBDCFB1BE2E47A001363BA /* ManagerToUserSettingsLayer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ManagerToUserSettingsLayer.cpp; sourceTree = "<group>"; };
+		B8BBDCFC1BE2E47A001363BA /* ManagerToUserSettingsLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ManagerToUserSettingsLayer.h; sourceTree = "<group>"; };
 		B8C616671B561C63007519A8 /* ServerAPI.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ServerAPI.h; sourceTree = "<group>"; };
 		B8C616771B5635AA007519A8 /* ServerAPI.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = ServerAPI.mm; path = ios/ServerAPI.mm; sourceTree = SOURCE_ROOT; };
 		B8FAA4A81BE11236002639AE /* Meal.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Meal.cpp; sourceTree = "<group>"; };
@@ -577,6 +581,8 @@
 				B8BBDCF21BE2B89D001363BA /* Layers.h */,
 				B8BBDCF71BE2E142001363BA /* ManagerSettingsLayer.cpp */,
 				B8BBDCF81BE2E142001363BA /* ManagerSettingsLayer.h */,
+				B8BBDCFB1BE2E47A001363BA /* ManagerToUserSettingsLayer.cpp */,
+				B8BBDCFC1BE2E47A001363BA /* ManagerToUserSettingsLayer.h */,
 			);
 			name = layers;
 			sourceTree = "<group>";
@@ -751,6 +757,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				B814A17D1BDFB679006F6E71 /* MealsLayer.cpp in Sources */,
+				B8BBDCFD1BE2E47A001363BA /* ManagerToUserSettingsLayer.cpp in Sources */,
 				B845C8A61B615DD200551122 /* MainLayer.cpp in Sources */,
 				B82D04681A641E8600BCEF26 /* AppDelegate.cpp in Sources */,
 				B8FAA4C01BE1A1BC002639AE /* MealItemCell.cpp in Sources */,
@@ -788,6 +795,7 @@
 				B8BBDCFA1BE2E142001363BA /* ManagerSettingsLayer.cpp in Sources */,
 				B8FAA4AB1BE11236002639AE /* Meal.cpp in Sources */,
 				B8FAA4C11BE1A1BC002639AE /* MealItemCell.cpp in Sources */,
+				B8BBDCFE1BE2E47A001363BA /* ManagerToUserSettingsLayer.cpp in Sources */,
 				B8624D711B5A0DF3006B3E3D /* LayerBlocker.cpp in Sources */,
 				B840C7FF1BE1CBA300116E94 /* UserSettingsLayer.cpp in Sources */,
 				B82D04711A641E8600BCEF26 /* Shared.cpp in Sources */,

@@ -229,7 +229,7 @@ void ServerAPI::updateGoalForUser(const string &userId, int calories, OnGoalUpda
                 } else {
                     NSString *errorString = [error userInfo][@"error"];
                     
-                    string errorStr = errorString ? [errorString UTF8String] : "Error loading in.";
+                    string errorStr = errorString ? [errorString UTF8String] : "Error loading goals.";
                     
                     failedToUpdateGoalCallback("error", errorStr);
                 }

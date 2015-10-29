@@ -14,4 +14,9 @@ public:
     virtual void onGoalChanged(int newGoal) = 0;
 };
 
+class IOnGoalChangedForUser {
+public:
+    virtual void onGoalChanged(const std::string &userId, int newGoal) = 0;
+};
+
 #endif

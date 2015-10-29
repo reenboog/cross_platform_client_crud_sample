@@ -13,6 +13,7 @@
 #include "Toast.h"
 #include "ServerAPI.h"
 #include "ManagerSettingsLayer.h"
+#include "ManagerToUserSettingsLayer.h"
 
 #define zBack 0
 #define zSettings 10
@@ -159,6 +160,16 @@ void ManagerLayer::onBtnSettingsPressed() {
     this->addChild(settings, zSettings);
 }
 
+#pragma mark - users
+
+void ManagerLayer::onGoalChanged(const std::string &userId, int newGoal) {
+    for(int i = 0; i < _users.size(); ++i) {
+        if(_users[i].getId() == userId) {
+            _users[i].setGoal(newGoal);
+        }
+    }
+}
+
 #pragma mark - Table delegates
 
 void ManagerLayer::scrollViewDidScroll(cocos2d::extension::ScrollView *view) {
@@ -176,6 +187,8 @@ void ManagerLayer::tableCellTouched(TableView *table, TableViewCell *cell) {
 //    EditMealItemLayer *editLayer = EditMealItemLayer::create(this, _meals.get(idx).getId());
 //    
 //    this->addChild(editLayer, zEditItem);
+    ManagerToUserSettingsLayer *settings = ManagerToUserSettingsLayer::create(this, _users[idx].getId(), _users[idx].getGoal().getCalories());
+    this->addChild(settings);
 }
 
 ssize_t ManagerLayer::numberOfCellsInTableView(TableView *table) {

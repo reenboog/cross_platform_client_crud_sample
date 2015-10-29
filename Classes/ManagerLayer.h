@@ -15,7 +15,9 @@
 #include "MealGroup.h"
 #include "User.h"
 
-class ManagerLayer: public cocos2d::Layer, public cocos2d::extension::TableViewDataSource, public cocos2d::extension::TableViewDelegate {
+#include "IOnGoalChanged.h"
+
+class ManagerLayer: public cocos2d::Layer, public cocos2d::extension::TableViewDataSource, public cocos2d::extension::TableViewDelegate, public IOnGoalChangedForUser {
 public:
     ManagerLayer();
     virtual ~ManagerLayer();
@@ -34,6 +36,10 @@ public:
     cocos2d::Size tableCellSizeForIndex(cocos2d::extension::TableView *table, ssize_t idx);
     cocos2d::extension::TableViewCell* tableCellAtIndex(cocos2d::extension::TableView *table, ssize_t idx);
     ssize_t numberOfCellsInTableView(cocos2d::extension::TableView *table);
+    //
+    
+    // user modifications
+    void onGoalChanged(const std::string &userId, int newGoal);
     //
     
     void fetchUsers();
