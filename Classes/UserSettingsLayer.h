@@ -27,6 +27,8 @@ public:
     
     CREATE_FUNC(UserSettingsLayer);
 private:
+    void setCaloriesToConsume(unsigned int calories);
+private:
     cocos2d::Sprite *_back;
     cocos2d::Sprite *_mntHeading;
     cocos2d::MenuItemImage *_btnBack;
@@ -35,6 +37,7 @@ private:
     cocos2d::Node *_sliderGroupNode;
     cocos2d::extension::ControlSlider *_sliderCalories;
     cocos2d::Label *_labelSliderCaption;
+    cocos2d::Label *_labelCaloriesToConsumeCaption;
 };
 
 #endif /* defined(__ttt_c_tracker__UserSettingsLayer__) */

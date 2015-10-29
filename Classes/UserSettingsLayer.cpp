@@ -29,6 +29,7 @@ UserSettingsLayer::UserSettingsLayer(): Layer() {
     _sliderGroupNode = nullptr;
     _sliderCalories = nullptr;
     _labelSliderCaption = nullptr;
+    _labelCaloriesToConsumeCaption = nullptr;
 }
 
 bool UserSettingsLayer::init() {
@@ -117,7 +118,18 @@ bool UserSettingsLayer::init() {
         _labelSliderCaption->setPosition({-_sliderCalories->getContentSize().width * 0.5f, _labelSliderCaption->getContentSize().height});
         
         _sliderGroupNode->addChild(_labelSliderCaption);
-
+    }
+    
+    {
+        _labelCaloriesToConsumeCaption = Label::createWithTTF("10000", "helvetica.ttf", 25);
+        _labelCaloriesToConsumeCaption->setColor({93, 93, 93});
+        _labelCaloriesToConsumeCaption->setOpacity(0.7f * 255);
+        _labelCaloriesToConsumeCaption->setAnchorPoint({0.5, 1});
+        _labelCaloriesToConsumeCaption->setPosition({0, -_labelCaloriesToConsumeCaption->getContentSize().height});
+        
+        _sliderGroupNode->addChild(_labelCaloriesToConsumeCaption);
+        
+        this->setCaloriesToConsume(User::sharedInstance()->getGoal().getCalories());
     }
 
     return true;
@@ -138,4 +150,10 @@ void UserSettingsLayer::onBtnSavePressed() {
 }
 
 void UserSettingsLayer::onSliderCaloriesChanged(Ref *sender, Control::EventType controlEvent) {
+    float value = static_cast<ControlSlider*>(sender)->getValue();
+    this->setCaloriesToConsume(kMaxKCaloriesPerDay * value);
+}
+
+void UserSettingsLayer::setCaloriesToConsume(unsigned int calories) {
+    _labelCaloriesToConsumeCaption->setString(StringUtils::format("%i kCal", calories));
 }
