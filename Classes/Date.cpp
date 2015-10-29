@@ -7,6 +7,10 @@
 //
 
 #include "Date.h"
+#include "cocos2d.h"
+
+using namespace std;
+using namespace cocos2d;
 
 Date::Date(int year, int month, int day) {
     _year = year;
@@ -34,4 +38,23 @@ bool Date::isValid() {
     }
     
     return true;
+}
+
+string Date::timeStrForSeconds(int s) {
+    string time;
+    
+    int hours = s / 3600;
+    int minutes = (s - (hours * 3600)) / 60;
+    
+    time += StringUtils::format("%i", hours);
+
+    time += ':';
+    
+    if(minutes < 10) {
+        time += '0';
+    }
+    
+    time += StringUtils::format("%i", minutes);
+    
+    return time;
 }

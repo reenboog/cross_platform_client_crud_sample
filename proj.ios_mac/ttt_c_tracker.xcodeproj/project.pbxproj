@@ -100,6 +100,8 @@
 		B8FAA4B71BE11C9E002639AE /* MealGroup.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B8FAA4B41BE11C9E002639AE /* MealGroup.cpp */; };
 		B8FAA4BA1BE12171002639AE /* Tests.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B8FAA4B81BE12171002639AE /* Tests.cpp */; };
 		B8FAA4BB1BE12171002639AE /* Tests.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B8FAA4B81BE12171002639AE /* Tests.cpp */; };
+		B8FAA4C01BE1A1BC002639AE /* MealItemCell.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B8FAA4BE1BE1A1BC002639AE /* MealItemCell.cpp */; };
+		B8FAA4C11BE1A1BC002639AE /* MealItemCell.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B8FAA4BE1BE1A1BC002639AE /* MealItemCell.cpp */; };
 		BF171245129291EC00B8313A /* OpenGLES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BF170DB012928DE900B8313A /* OpenGLES.framework */; };
 		BF1712471292920000B8313A /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = BF170DB412928DE900B8313A /* libz.dylib */; };
 		BF1C47F01293687400B63C5D /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BF1C47EA1293683800B63C5D /* QuartzCore.framework */; };
@@ -253,6 +255,8 @@
 		B8FAA4B51BE11C9E002639AE /* MealGroup.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MealGroup.h; sourceTree = "<group>"; };
 		B8FAA4B81BE12171002639AE /* Tests.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Tests.cpp; sourceTree = "<group>"; };
 		B8FAA4B91BE12171002639AE /* Tests.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Tests.h; sourceTree = "<group>"; };
+		B8FAA4BE1BE1A1BC002639AE /* MealItemCell.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = MealItemCell.cpp; sourceTree = "<group>"; };
+		B8FAA4BF1BE1A1BC002639AE /* MealItemCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MealItemCell.h; sourceTree = "<group>"; };
 		BF170DB012928DE900B8313A /* OpenGLES.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGLES.framework; path = System/Library/Frameworks/OpenGLES.framework; sourceTree = SDKROOT; };
 		BF170DB412928DE900B8313A /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = usr/lib/libz.dylib; sourceTree = SDKROOT; };
 		BF1C47EA1293683800B63C5D /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
@@ -524,6 +528,7 @@
 		B8624D721B5A16C5006B3E3D /* layers */ = {
 			isa = PBXGroup;
 			children = (
+				B8FAA4BD1BE1A16C002639AE /* views */,
 				B82D04621A641E8600BCEF26 /* LoginLayer.cpp */,
 				B82D04631A641E8600BCEF26 /* LoginLayer.h */,
 				B845C8A41B615DD200551122 /* MainLayer.cpp */,
@@ -549,6 +554,15 @@
 				B8FAA4B91BE12171002639AE /* Tests.h */,
 			);
 			name = tests;
+			sourceTree = "<group>";
+		};
+		B8FAA4BD1BE1A16C002639AE /* views */ = {
+			isa = PBXGroup;
+			children = (
+				B8FAA4BE1BE1A1BC002639AE /* MealItemCell.cpp */,
+				B8FAA4BF1BE1A1BC002639AE /* MealItemCell.h */,
+			);
+			name = views;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -695,6 +709,7 @@
 				B814A17D1BDFB679006F6E71 /* MealsLayer.cpp in Sources */,
 				B845C8A61B615DD200551122 /* MainLayer.cpp in Sources */,
 				B82D04681A641E8600BCEF26 /* AppDelegate.cpp in Sources */,
+				B8FAA4C01BE1A1BC002639AE /* MealItemCell.cpp in Sources */,
 				503AE10017EB989F00D1A890 /* AppController.mm in Sources */,
 				B82D04701A641E8600BCEF26 /* Shared.cpp in Sources */,
 				B8624D701B5A0DF3006B3E3D /* LayerBlocker.cpp in Sources */,
@@ -721,6 +736,7 @@
 				B8041DAD1B5E4782002A4C14 /* User.cpp in Sources */,
 				B814A1661BDE80F3006F6E71 /* ServerAPI.mm in Sources */,
 				B8FAA4AB1BE11236002639AE /* Meal.cpp in Sources */,
+				B8FAA4C11BE1A1BC002639AE /* MealItemCell.cpp in Sources */,
 				B8624D711B5A0DF3006B3E3D /* LayerBlocker.cpp in Sources */,
 				B82D04711A641E8600BCEF26 /* Shared.cpp in Sources */,
 				B82D046F1A641E8600BCEF26 /* Localized.cpp in Sources */,

@@ -8,10 +8,12 @@
 
 #include "MealsLayer.h"
 #include "ServerAPI.h"
+#include "MealItemCell.h"
 
 #define zBack 0
 
 using namespace cocos2d;
+using namespace cocos2d::extension;
 //using namespace ui;
 using namespace std;
 
@@ -35,6 +37,8 @@ MealsLayer::MealsLayer(): Layer() {
     _btnDateSelect = nullptr;
     _btnAddItem = nullptr;
     _labelDate = nullptr;
+    
+    _mealsTableView = nullptr;
 }
 
 Scene* MealsLayer::scene() {
@@ -166,6 +170,47 @@ bool MealsLayer::init() {
         _labelDate->setPosition({_mntDate->getContentSize().width * 0.5f, _mntDate->getContentSize().height * 0.5f});
         
         _mntDate->addChild(_labelDate);
+        
+        //
+        {
+            // table view
+            Sprite *mealCell = Sprite::create("bg_item.png");
+
+            _mealCellSize = Size(mealCell->getContentSize().width, mealCell->getContentSize().height);
+            _mealsTableView = TableView::create(this, Size(_mealCellSize.width,
+                                                           visibleSize.height - _mntHead->getContentSize().height -
+                                                           _bgProgressCalories->getContentSize().height - _mntDate->getContentSize().height));
+            _mealsTableView->setDirection(ScrollView::Direction::VERTICAL);
+            _mealsTableView->setPosition(Point(0, 0));
+            _mealsTableView->setDelegate(this);
+            _mealsTableView->setVerticalFillOrder(TableView::VerticalFillOrder::TOP_DOWN);
+            
+            this->addChild(_mealsTableView);
+            
+            
+            // fake data
+            ///////////
+            
+            Meal m1(Date(2015, 10, 28), 13, "Some soup", "111", 999, "111");
+            Meal m2(Date(2015, 10, 29), 0, "A glass of orange juice", "112", 450, "222");
+            Meal m3(Date(2015, 10, 29), 63, "Fried chicken", "113", 120, "333");
+            Meal m4(Date(2015, 10, 29), 5520, "Veggi pizza", "114", 1000, "444");
+            Meal m5(Date(2015, 10, 29), 39720, "m5", "115", 70, "555");
+            Meal m6(Date(2015, 10, 29), 13, "Glass of milk", "116", 111, "666");
+            Meal m7(Date(2015, 10, 29), 39725, "m7", "117", 111, "777");
+            
+            _meals.add(m1);
+            _meals.add(m2);
+            _meals.add(m3);
+            _meals.add(m4);
+            _meals.add(m5);
+            _meals.add(m6);
+            _meals.add(m7);
+            
+            _mealsTableView->reloadData();
+            ///////////
+            //
+        }
     }
     
     
@@ -200,4 +245,41 @@ void MealsLayer::onBtnDateSelectPressed() {
 
 void MealsLayer::onBtnAddItemPressed() {
     
+}
+
+#pragma mark - Table delegates
+
+void MealsLayer::scrollViewDidScroll(cocos2d::extension::ScrollView *view) {
+}
+
+void MealsLayer::scrollViewDidZoom(ScrollView *view) {
+}
+
+void MealsLayer::tableCellTouched(TableView *table, TableViewCell *cell) {
+    // a button pressed?
+    CCLOG("touched: %i", cell->getTag());
+}
+
+ssize_t MealsLayer::numberOfCellsInTableView(TableView *table) {
+    //return _requests.size();
+    return _meals.size();
+}
+
+Size MealsLayer::tableCellSizeForIndex(TableView *table, ssize_t idx) {
+    return this->_mealCellSize;
+}
+
+extension::TableViewCell* MealsLayer::tableCellAtIndex(TableView *table, ssize_t idx) {
+    TableViewCell *cell = table->cellAtIndex(idx);
+    
+    if(cell == nullptr) {
+        string caption = _meals.get(idx).getCaption();
+        int calories = _meals.get(idx).getCalories();
+        int time = _meals.get(idx).getConsumptionTime();
+        
+        cell = MealItemCell::create(caption, calories, time, this);
+        cell->setTag(idx);
+    }
+    
+    return cell;
 }

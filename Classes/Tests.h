@@ -81,6 +81,22 @@ static void testDates() {
         Date d(2015, 12, 32);
         Assert("is invalid (2015.12.32).", d.isValid() == false);
     }
+    
+    {
+        Assert("time check: 1:32", Date::timeStrForSeconds(5520) == "1:32");
+    }
+    
+    {
+        Assert("time check: 0:00", Date::timeStrForSeconds(0) == "0:00");
+    }
+    
+    {
+        Assert("time check: 11:02", Date::timeStrForSeconds(39720) == "11:02");
+    }
+    
+    {
+        Assert("time check: 11:02 (additional seconds)", Date::timeStrForSeconds(39725) == "11:02");
+    }
 }
 
 static void testMeals() {

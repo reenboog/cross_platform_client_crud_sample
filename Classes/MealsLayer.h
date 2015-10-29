@@ -12,8 +12,9 @@
 #include "cocos2d.h"
 #include "extensions/cocos-ext.h"
 #include "ui/CocosGUI.h"
+#include "MealGroup.h"
 
-class MealsLayer: public cocos2d::Layer {
+class MealsLayer: public cocos2d::Layer, public cocos2d::extension::TableViewDataSource, public cocos2d::extension::TableViewDelegate {
 public:
     MealsLayer();
     ~MealsLayer();
@@ -28,10 +29,28 @@ public:
     void onBtnDateSelectPressed();
     void onBtnAddItemPressed();
     
+    // table view
+    // table view methods
+    void scrollViewDidScroll(cocos2d::extension::ScrollView *view);
+    void scrollViewDidZoom(cocos2d::extension::ScrollView *view);
+    
+    void onMealIemPressed(const std::string &reqId);
+    
+    void tableCellTouched(cocos2d::extension::TableView *table, cocos2d::extension::TableViewCell *cell);
+    
+    cocos2d::Size tableCellSizeForIndex(cocos2d::extension::TableView *table, ssize_t idx);
+    cocos2d::extension::TableViewCell* tableCellAtIndex(cocos2d::extension::TableView *table, ssize_t idx);
+    ssize_t numberOfCellsInTableView(cocos2d::extension::TableView *table);
+    //
+    
     CREATE_FUNC(MealsLayer);
 private:
     cocos2d::Sprite *_back;
     cocos2d::Layer *_layout;
+    
+    // table
+    cocos2d::extension::TableView *_mealsTableView;
+    cocos2d::Size _mealCellSize;
     
     // heading
     cocos2d::Node *_headingNode;
@@ -46,6 +65,8 @@ private:
     cocos2d::MenuItemImage *_btnAddItem;
     cocos2d::Label *_labelDate;
     
+    // local model
+    MealGroup _meals;
 };
 
 #endif /* defined(__ttt_c_tracker__MealsLayer__) */

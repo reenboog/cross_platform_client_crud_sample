@@ -14,6 +14,8 @@ public:
     virtual ~Date() {}
     Date(int year, int month, int day);
     
+    static std::string timeStrForSeconds(int s);
+    
     bool isLeapYear();
     bool isValid();
     
