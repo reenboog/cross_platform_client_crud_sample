@@ -29,6 +29,7 @@ public:
     void onBtnDeletePressed();
     
     void onSliderCaloriesChanged(cocos2d::Ref *sender, cocos2d::extension::Control::EventType controlEvent);
+    void onTextMailEvent(cocos2d::Ref *sender, cocos2d::ui::TextField::EventType event);
 private:
     void setCaloriesToConsume(unsigned int calories);
 private:
@@ -45,6 +46,8 @@ private:
     cocos2d::extension::ControlSlider *_sliderCalories;
     cocos2d::Label *_labelSliderCaption;
     cocos2d::Label *_labelCaloriesToConsumeCaption;
+    cocos2d::Sprite *_mntText;
+    cocos2d::ui::TextField *_textCaption;
 };
 
 #endif /* defined(__ttt_c_tracker__EditMealItemLayer__) */

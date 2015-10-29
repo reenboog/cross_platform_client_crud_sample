@@ -16,6 +16,7 @@
 
 using namespace cocos2d;
 using namespace cocos2d::extension;
+using namespace ui;
 using namespace std;
 
 EditMealItemLayer::~EditMealItemLayer() {
@@ -33,6 +34,9 @@ EditMealItemLayer::EditMealItemLayer(): Layer() {
     _sliderGroupNode = nullptr;
     _labelSliderCaption = nullptr;
     _labelCaloriesToConsumeCaption = nullptr;
+    
+    _mntText = nullptr;
+    _textCaption = nullptr;
 }
 
 EditMealItemLayer* EditMealItemLayer::create(IOnItemModified *delegate, const string &itemId) {
@@ -162,6 +166,29 @@ bool EditMealItemLayer::init(IOnItemModified *delegate, const string &itemId) {
         
         _sliderCalories->setValue(1.0f * User::sharedInstance()->getMeal(_itemId)->getCalories() / kMaxKCaloriesPerIntake);
     }
+    
+    {
+        // text
+        _mntText = Sprite::create("mnt_edit_item_text.png");
+        _mntText->setPosition({visibleSize.width * 0.5f, _sliderGroupNode->getPositionY() + _btnDelete->getContentSize().height * 1.6f});
+        
+        this->addChild(_mntText);
+    }
+    
+    {
+        // caption
+        _textCaption = TextField::create("A short description", "helvetica.ttf", 22);
+        _mntText->addChild(_textCaption);
+        
+        _textCaption->addEventListener(CC_CALLBACK_2(EditMealItemLayer::onTextMailEvent, this));
+        _textCaption->setPosition({_mntText->getContentSize().width * 0.025f, _mntHeading->getContentSize().height * 0.38f});
+        _textCaption->setMaxLength(26);
+        _textCaption->setString(User::sharedInstance()->getMeal(_itemId)->getCaption());
+        _textCaption->setMaxLengthEnabled(true);
+        _textCaption->setAnchorPoint({0, 0.5});
+        _textCaption->setColor({93, 93, 93});
+        _textCaption->setPlaceHolderColor({93, 93, 93, 100});
+    }
 
  
     return true;
@@ -186,4 +213,8 @@ void EditMealItemLayer::onSliderCaloriesChanged(Ref *sender, Control::EventType 
 
 void EditMealItemLayer::setCaloriesToConsume(unsigned int calories) {
     _labelCaloriesToConsumeCaption->setString(StringUtils::format("%i kCal", calories));
+}
+
+void EditMealItemLayer::onTextMailEvent(cocos2d::Ref *sender, cocos2d::ui::TextField::EventType event) {
+    
 }
