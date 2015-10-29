@@ -11,6 +11,7 @@
 
 #define kMaxKCaloriesPerDay 10000
 #define kAverageCaloriesPerDay 2500
+#define kMinCaloriesPerDay 800
 
 class Goal {
 public:

@@ -23,11 +23,17 @@ public:
     void onBtnBackPressed();
     void onBtnSavePressed();
     
+    void onSliderCaloriesChanged(cocos2d::Ref *sender, cocos2d::extension::Control::EventType controlEvent);
+    
     CREATE_FUNC(UserSettingsLayer);
 private:
     cocos2d::Sprite *_back;
     cocos2d::Sprite *_mntHeading;
     cocos2d::MenuItemImage *_btnBack;
+    cocos2d::MenuItemImage *_btnSave;
+    
+    cocos2d::Node *_sliderGroupNode;
+    cocos2d::extension::ControlSlider *_sliderCalories;
 };
 
 #endif /* defined(__ttt_c_tracker__UserSettingsLayer__) */
