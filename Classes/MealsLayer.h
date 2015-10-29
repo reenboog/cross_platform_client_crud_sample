@@ -31,6 +31,11 @@ public:
     void onBtnDateSelectPressed();
     void onBtnAddItemPressed();
     
+    void setTotalCaloriesConsumed(int calories);
+    
+    // items CRUD
+    void onItemCreated(const Meal &item);
+    
     // IOnGOalCHanged delegates
     void onGoalChanged(int newGoal);
     
@@ -69,6 +74,9 @@ private:
     cocos2d::MenuItemImage *_btnDateSelect;
     cocos2d::MenuItemImage *_btnAddItem;
     cocos2d::Label *_labelDate;
+    
+    // selection data
+    int _currentCalories;
     
     // local model
     MealGroup _meals;

@@ -10,6 +10,7 @@
 #include "ServerAPI.h"
 #include "MealItemCell.h"
 #include "UserSettingsLayer.h"
+#include "User.h"
 
 #define zBack 0
 #define zSettings 10
@@ -41,6 +42,8 @@ MealsLayer::MealsLayer(): Layer() {
     _labelDate = nullptr;
     
     _mealsTableView = nullptr;
+    
+    _currentCalories = 0;
 }
 
 Scene* MealsLayer::scene() {
@@ -212,10 +215,19 @@ bool MealsLayer::init() {
             _mealsTableView->reloadData();
             ///////////
             
+            // fetch data for today
+            // cal total calories for today
+            // rolead data
+            
+            
+            
             // add settings layer
             // just for tests
             UserSettingsLayer *s = UserSettingsLayer::create(this);
             this->addChild(s);
+            
+            this->setTotalCaloriesConsumed(1500);
+            
             //
         }
     }
@@ -253,7 +265,27 @@ void MealsLayer::onBtnDateSelectPressed() {
 }
 
 void MealsLayer::onBtnAddItemPressed() {
+    // pop up CreateMealItemLayer
+}
+
+#pragma mark - Meal CRUD
+
+void MealsLayer::setTotalCaloriesConsumed(int calories) {
+    int goal = User::sharedInstance()->getGoal().getCalories();
+    _currentCalories = calories;
+
+    _progressCaloriesConsumed->setPercentage(100.0f * _currentCalories / goal);
+    _labelCaloriesConsumed->setString(StringUtils::format("%i / %i", _currentCalories, goal));
     
+    if(_currentCalories > goal) {
+        _labelCaloriesConsumed->setColor({219, 44, 44});
+    } else {
+        _labelCaloriesConsumed->setColor({53, 172, 225});
+    }
+}
+
+void MealsLayer::onItemCreated(const Meal &item) {
+    //
 }
 
 #pragma mark - IOnGoalChanged
@@ -261,6 +293,7 @@ void MealsLayer::onBtnAddItemPressed() {
 void MealsLayer::onGoalChanged(int newGoal) {
     // recalc the data here
     // move the progress
+    this->setTotalCaloriesConsumed(_currentCalories);
 }
 
 #pragma mark - Table delegates
