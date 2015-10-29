@@ -42,6 +42,9 @@ public:
     
     static ServerAPI* sharedInstance();
 private:
+    void applyDefaultRole(OnSignedUpCallback signUpCallback, OnFailedToSignUpCallback signUpFailureCallback);
+    void createDefaultGoal(OnSignedUpCallback signUpCallback, OnFailedToSignUpCallback signUpFailureCallback);
+private:
     
     ServerAPI();
     virtual ~ServerAPI();

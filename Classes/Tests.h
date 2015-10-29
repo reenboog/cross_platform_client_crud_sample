@@ -289,10 +289,11 @@ static void testUsers() {
     
     {
         User u(User::Role::UR_User, "alex");
-        u.setGoal(Goal(3000, "555"));
         u.setId("333");
         
-        Assert("user-goal id sync", u.getId() == u.getGoal().getUserId());
+        u.setGoal(3000);
+        
+        Assert("user-goal id sync", u.getGoal().getCalories() == 3000);
     }
     
     {

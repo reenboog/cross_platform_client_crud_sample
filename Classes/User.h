@@ -36,7 +36,7 @@ public:
     void setRole(Role role);
     
     // goals
-    void setGoal(const Goal &g);
+    void setGoal(int c);
     const Goal& getGoal() const;
     
     // meal

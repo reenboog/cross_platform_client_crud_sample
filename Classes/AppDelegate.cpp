@@ -57,22 +57,22 @@ bool AppDelegate::applicationDidFinishLaunching() {
     
     Localized::load();
     
-//    auto onWakeUp = [=]() {
-//        director->runWithScene(MealsLayer::scene());
-//    };
-//    
-//    auto onFailedToWakeUp = [=](const string &error, const string &message) {
-//        director->runWithScene(LoginLayer::scene());
-//    };
-//    
-//    ServerAPI::wakeUp(onWakeUp, onFailedToWakeUp);
+    auto onWakeUp = [=]() {
+        director->runWithScene(MealsLayer::scene());
+    };
+    
+    auto onFailedToWakeUp = [=](const string &error, const string &message) {
+        director->runWithScene(LoginLayer::scene());
+    };
+    
+    ServerAPI::wakeUp(onWakeUp, onFailedToWakeUp);
     
     // *************************************************
     // run some models tests
-    test();
+    //test();
     // *************************************************
     
-    director->runWithScene(MealsLayer::scene());
+    //director->runWithScene(MealsLayer::scene());
 
     return true;
 }

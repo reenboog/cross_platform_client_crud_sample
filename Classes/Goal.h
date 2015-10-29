@@ -22,6 +22,8 @@ public:
     const std::string& getUserId() const;
     int getCalories() const;
     
+    void setCalories(int c);
+    
     Goal() {
         _calories = kAverageCaloriesPerDay;
     }

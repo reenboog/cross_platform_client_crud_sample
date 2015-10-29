@@ -88,33 +88,17 @@ void ServerAPI::signUp(const string &mail, const string &password, OnSignedUpCal
     
     [user signUpInBackgroundWithBlock: ^(BOOL succeeded, NSError *error) {
         if(!error) {
-            ///
+            // get user id
+            NSString *userId = [PFUser currentUser].objectId;
+            User::sharedInstance()->setId([userId UTF8String]);
             
-            PFQuery *queryRole = [PFRole query];
-            
-            [queryRole whereKey: @"name" equalTo: @"user"];
-            [queryRole getFirstObjectInBackgroundWithBlock: ^(PFObject *object, NSError *error) {
-                PFRole *role = (PFRole *)object;
-                
-                [role.users addObject: [PFUser currentUser]];
-                [role saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
-                    if(!error) {
-                        signUpCallback();
-                    } else {
-                        NSString *errorString = [error userInfo][@"error"];
-                        
-                        signUpFailureCallback("error", [errorString UTF8String]);
-                    }
-                }];
-            }];
+            ServerAPI::sharedInstance()->applyDefaultRole(signUpCallback, signUpFailureCallback);
         } else {
             NSString *errorString = [error userInfo][@"error"];
             
             signUpFailureCallback("error", [errorString UTF8String]);
         }
     }];
-    
-    
 }
 
 void ServerAPI::createMeal(const string &caption, int calories, OnMealCreatedCallback createdCallback, onFailedToCreateMeal failedToCreateCallback) {
@@ -144,27 +128,40 @@ void ServerAPI::createMeal(const string &caption, int calories, OnMealCreatedCal
     }];
 }
 
-//
-//void ServerAPI::fetchUserNameAndLastName(OnUserNameAndLastNameFetchedCallback userNameFetchedCallback,
-//                              OnFailedToFetchUserNameAndLastNameCallback userNameFetchFailureCallback) {
-//    
-//    if(__sharedInstance == nullptr) {
-//        ServerAPI::sharedInstance();
-//    }
-//    
-//    
-//}
-//
-//void ServerAPI::fetchAllSkills(OnSkillsFetchedCallback onSkillsFetchedCallback,
-//                                    OnFailedToFetchSkillsCallback onFailedToFetchSkillsCallback) {
-//    if(__sharedInstance == nullptr) {
-//        ServerAPI::sharedInstance();
-//    }
-//}
-//
-//void ServerAPI::fetchUserSkills(OnSkillsFetchedCallback onSkillsFetchedCallback,
-//                            OnFailedToFetchSkillsCallback onFailedToFetchSkillsCallback) {
-//    if(__sharedInstance == nullptr) {
-//        ServerAPI::sharedInstance();
-//    }
-//}
+void ServerAPI::applyDefaultRole(OnSignedUpCallback signUpCallback, OnFailedToSignUpCallback signUpFailureCallback) {
+    PFQuery *queryRole = [PFRole query];
+    
+    [queryRole whereKey: @"name" equalTo: @"user"];
+    [queryRole getFirstObjectInBackgroundWithBlock: ^(PFObject *object, NSError *error) {
+        PFRole *role = (PFRole *)object;
+        
+        [role.users addObject: [PFUser currentUser]];
+        [role saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
+            if(!error) {
+                User::sharedInstance()->setRole(User::Role::UR_User);
+                
+                ServerAPI::sharedInstance()->createDefaultGoal(signUpCallback, signUpFailureCallback);
+            } else {
+                NSString *errorString = [error userInfo][@"error"];
+                
+                signUpFailureCallback("error", [errorString UTF8String]);
+            }
+        }];
+    }];
+}
+
+void ServerAPI::createDefaultGoal(OnSignedUpCallback signUpCallback, OnFailedToSignUpCallback signUpFailureCallback) {
+    PFObject *goalObj = [PFObject objectWithClassName: @"DailyGoal"];
+
+    goalObj[@"caloriesToConsume"] = [NSNumber numberWithInt: User::sharedInstance()->getGoal().getCalories()];
+    goalObj[@"userId"] = [NSString stringWithUTF8String: User::sharedInstance()->getId().c_str()];
+
+    [goalObj saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
+        if(succeeded) {
+            signUpCallback();
+        } else {
+            NSString *errorString = [error userInfo][@"error"];
+            signUpFailureCallback("error", [errorString UTF8String]);
+        }
+    }];
+}

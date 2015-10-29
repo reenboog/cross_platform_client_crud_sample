@@ -48,8 +48,8 @@ const std::string& User::getId() const {
 
 #pragma mark - goals
 
-void User::setGoal(const Goal &g) {
-    _goal = g;
+void User::setGoal(int c) {
+    _goal.setCalories(c);
 }
 
 const Goal& User::getGoal() const {

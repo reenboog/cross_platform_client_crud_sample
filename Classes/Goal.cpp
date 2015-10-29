@@ -22,3 +22,7 @@ const string& Goal::getUserId() const {
 int Goal::getCalories() const {
     return _calories;
 }
+
+void Goal::setCalories(int c) {
+    _calories = c;
+}
