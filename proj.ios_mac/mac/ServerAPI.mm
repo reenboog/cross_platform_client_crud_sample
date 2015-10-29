@@ -71,7 +71,9 @@ void ServerAPI::logIn(const string &mail, const string &password, OnLoggedInCall
                                         } else {
                                             NSString *errorString = [error userInfo][@"error"];
                                             
-                                            logInFailureCallback("error", [errorString UTF8String]);
+                                            string errorStr = errorString ? [errorString UTF8String] : "Error loading in.";
+                                            
+                                            logInFailureCallback("error", errorStr);
                                         }
                                     }];
 }
