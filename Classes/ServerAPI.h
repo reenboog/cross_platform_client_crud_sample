@@ -42,6 +42,9 @@ public:
     static void updateGoal(int calories, OnGoalUpdatedCallback goalUpdatedCallback, onFailedToUpdateGoalCallback failedToUpdateGoalCallback);
     static void updateGoalForUser(const std::string &userId, int calories, OnGoalUpdatedCallback goalUpdatedCallback, onFailedToUpdateGoalCallback failedToUpdateGoalCallback);
     
+    // users
+    static void fetchUsers(OnUsersFetchedCallback usersFetchedCallback, OnFailedToFetchUsersCallback failedToFetchUsersCallback);
+    
     static ServerAPI* sharedInstance();
 private:
     void applyDefaultRole(OnSignedUpCallback signUpCallback, OnFailedToSignUpCallback signUpFailureCallback);

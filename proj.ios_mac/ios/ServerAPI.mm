@@ -402,3 +402,69 @@ void ServerAPI::deleteMeal(const std::string &itemId, OnMealItemDeletedCallback 
     }];
 
 }
+
+void ServerAPI::fetchUsers(OnUsersFetchedCallback usersFetchedCallback, OnFailedToFetchUsersCallback failedToFetchUsersCallback) {
+    if(__sharedInstance == nullptr) {
+        ServerAPI::sharedInstance();
+    }
+    
+    PFQuery *query = [PFQuery queryWithClassName: @"DailyGoal"];
+    [query whereKey: @"userId" notEqualTo: [PFUser currentUser].objectId];
+    [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
+        vector<User> tUsers;
+        
+        if(!error) {
+            for(PFObject *object in objects) {
+                int goalCalories = [object[@"caloriesToConsume"] intValue];
+                string userId = object[@"userId"] ? [object[@"userId"] UTF8String] : "unknown";
+                
+                User user(User::Role::UR_User, "");
+                user.setId(userId);
+                user.setGoal(goalCalories);
+                
+                tUsers.push_back(user);
+            }
+            
+            PFQuery *queryRole = [PFRole query];
+            
+            [queryRole whereKey: @"name" equalTo: @"user"];
+            [queryRole getFirstObjectInBackgroundWithBlock: ^(PFObject *object, NSError *error) {
+                
+                PFRole *role = (PFRole *)object;
+                PFRelation *managersRelation = [role users];
+                
+                PFQuery *queryManagers = [managersRelation query];
+                [queryManagers findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
+                    vector<User> users = tUsers;
+                    
+                    if(!error) {
+                        for(PFObject *obj in objects) {
+                            string usrName = obj[@"username"] ? [obj[@"username"] UTF8String] : "none";
+                            string usrId = obj.objectId ? [obj.objectId UTF8String] : "none";
+                            
+                            for(int i = 0; i < users.size(); ++i) {
+                                if(users[i].getId() == usrId) {
+                                    users[i].setName(usrName);
+                                }
+                            }
+                        }
+                        
+                        usersFetchedCallback(users);
+                    } else {
+                         NSString *errorString = [error userInfo][@"error"];
+                         
+                         string errorStr = errorString ? [errorString UTF8String] : "Error fetching users.";
+                         
+                         failedToFetchUsersCallback("error", errorStr);
+                     }
+                }];
+            }];
+        } else {
+            NSString *errorString = [error userInfo][@"error"];
+            
+            string errorStr = errorString ? [errorString UTF8String] : "Error fetching users.";
+            
+            failedToFetchUsersCallback("error", errorStr);
+        }
+    }];
+}

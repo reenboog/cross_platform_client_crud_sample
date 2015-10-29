@@ -8,6 +8,10 @@
 
 #include "ManagerLayer.h"
 #include "User.h"
+#include "UserItemCell.h"
+#include "LayerBlocker.h"
+#include "Toast.h"
+#include "ServerAPI.h"
 
 #define zBack 0
 
@@ -22,6 +26,7 @@ ManagerLayer::ManagerLayer() {
     _btnSettings = nullptr;
     _labelMail = nullptr;
     _labelRole = nullptr;
+    _usersTableView = nullptr;
 }
 
 ManagerLayer::~ManagerLayer() {
@@ -88,6 +93,20 @@ bool ManagerLayer::init() {
         _headingNode->addChild(_labelRole);
     }
     
+    {
+        Sprite *cell = Sprite::create("bg_item.png");
+        
+        _userCellSize = Size(cell->getContentSize().width, cell->getContentSize().height);
+        _usersTableView = TableView::create(this, Size(_userCellSize.width, visibleSize.height - _mntHead->getContentSize().height));
+        _usersTableView->setDirection(ScrollView::Direction::VERTICAL);
+        _usersTableView->setPosition(Point(0, 0));
+        _usersTableView->setDelegate(this);
+        _usersTableView->setVerticalFillOrder(TableView::VerticalFillOrder::TOP_DOWN);
+        
+        this->addChild(_usersTableView);
+    }
+    
+    this->fetchUsers();
     
     return true;
 }
@@ -103,8 +122,76 @@ Scene* ManagerLayer::scene() {
     return scene;
 }
 
+void ManagerLayer::fetchUsers() {
+    LayerBlocker::block(this);
+    
+    Toast::show(this, "Fetching users...", 2);
+    
+    // call server
+    auto onUsersFetched = [this](const vector<User> &users) {
+        LayerBlocker::unblock(this);
+        
+        Toast::show(this, "Fetched", 1);
+        
+        _users = users;
+        _usersTableView->reloadData();
+    };
+    
+    auto onFailedToFetchUsers = [=](const string &error, const string &description) {
+        LayerBlocker::unblock(this);
+        
+        Toast::show(this, "Network error");
+    };
+    
+    LayerBlocker::block(this);
+    
+    // call api
+    ServerAPI::fetchUsers(onUsersFetched, onFailedToFetchUsers);
+}
+
 #pragma mark - ui callbacks
 
 void ManagerLayer::onBtnSettingsPressed() {
     //
+}
+
+#pragma mark - Table delegates
+
+void ManagerLayer::scrollViewDidScroll(cocos2d::extension::ScrollView *view) {
+}
+
+void ManagerLayer::scrollViewDidZoom(ScrollView *view) {
+}
+
+void ManagerLayer::tableCellTouched(TableView *table, TableViewCell *cell) {
+    // a button pressed?
+    unsigned int idx = cell->getTag();
+    CCLOG("touched: %i", idx);
+
+    // show user goal's page
+//    EditMealItemLayer *editLayer = EditMealItemLayer::create(this, _meals.get(idx).getId());
+//    
+//    this->addChild(editLayer, zEditItem);
+}
+
+ssize_t ManagerLayer::numberOfCellsInTableView(TableView *table) {
+    //return _requests.size();
+    return _users.size();
+}
+
+Size ManagerLayer::tableCellSizeForIndex(TableView *table, ssize_t idx) {
+    return this->_userCellSize;
+}
+
+extension::TableViewCell* ManagerLayer::tableCellAtIndex(TableView *table, ssize_t idx) {
+    TableViewCell *cell = table->cellAtIndex(idx);
+    
+    if(cell == nullptr) {
+        string name = _users[idx].getName();
+
+        cell = UserItemCell::create(name, this);
+        cell->setTag(idx);
+    }
+    
+    return cell;
 }

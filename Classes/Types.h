@@ -4,6 +4,7 @@
 
 #include "Meal.h"
 #include "MealGroup.h"
+#include "User.h"
 
 typedef std::function <void (void)> OnLoggedInCallback;
 typedef std::function <void (const std::string&, const std::string&)> OnFailedToLogInCallback;
@@ -26,6 +27,9 @@ typedef std::function <void (const std::string&, const std::string&)> onFailedTo
 
 typedef std::function <void (const std::string&)> OnMealItemDeletedCallback;
 typedef std::function <void (const std::string&, const std::string&)> onFailedToDeleteMealItemCallback;
+
+typedef std::function <void (const std::vector<User>&)> OnUsersFetchedCallback;
+typedef std::function <void (const std::string&, const std::string&)> OnFailedToFetchUsersCallback;
 
 //
 //typedef std::function <void (const std::string&, const std::string&)> OnUserNameAndLastNameFetchedCallback;
