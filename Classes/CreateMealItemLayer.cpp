@@ -10,6 +10,10 @@
 #include "ServerAPI.h"
 #include "Goal.h"
 #include "User.h"
+#include "LayerBlocker.h"
+#include "Toast.h"
+
+#include "IOnItemCreated.h"
 
 #define zBack 0
 
@@ -162,10 +166,37 @@ bool CreateMealItemLayer::init(IOnItemCreated *delegate) {
 
 void CreateMealItemLayer::onBtnCancelPressed() {
     this->removeFromParent();
+    
+    // do nothin in fact
+    _delegate->onItemCreationCanceled();
 }
 
 void CreateMealItemLayer::onBtnSavePressed() {
     // call API
+    LayerBlocker::block(this);
+    
+    Toast::show(this, "Creating...", 2);
+    
+    auto onItemCreated = [this](const Meal &m) {
+        LayerBlocker::unblock(this);
+        
+        // change models
+        User::sharedInstance()->addMeal(m);
+
+        _delegate->onItemCreated(m);
+        
+        Toast::show(static_cast<Layer*>(this->getParent()), "Created", 1);
+        
+        this->removeFromParent();
+    };
+    
+    auto onFailedToCreateItem = [=](const string &error, const string &description) {
+        LayerBlocker::unblock(this);
+        
+        Toast::show(this, description);
+    };
+    
+    ServerAPI::createMeal(_textCaption->getString(), _sliderCalories->getValue() * kMaxKCaloriesPerIntake, onItemCreated, onFailedToCreateItem);
 }
 
 void CreateMealItemLayer::onSliderCaloriesChanged(cocos2d::Ref *sender, cocos2d::extension::Control::EventType controlEvent) {

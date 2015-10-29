@@ -216,8 +216,6 @@ void ServerAPI::createMeal(const string &caption, int calories, OnMealCreatedCal
         ServerAPI::sharedInstance();
     }
     
-    //
-    
     // start parse stuff here
     PFObject *meal = [PFObject objectWithClassName: @"Meal"];
     [meal setObject: [NSString stringWithUTF8String: caption.c_str()] forKey: @"caption"];
@@ -225,8 +223,6 @@ void ServerAPI::createMeal(const string &caption, int calories, OnMealCreatedCal
     [meal setObject: [NSNumber numberWithInt: calories] forKey: @"calories"];
     
     [meal saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
-        // Kick off the new query, refresh the table, and then - once that's all
-        // taken care of - re-enable the item entry UI.
         if(!error) {
             createdCallback();
         } else {

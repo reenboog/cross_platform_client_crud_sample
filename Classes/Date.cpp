@@ -9,6 +9,9 @@
 #include "Date.h"
 #include "cocos2d.h"
 
+#include <ctime>
+#include <iomanip>
+
 using namespace std;
 using namespace cocos2d;
 
@@ -55,6 +58,42 @@ string Date::timeStrForSeconds(int s) {
     }
     
     time += StringUtils::format("%i", minutes);
+    
+    return time;
+}
+
+Date Date::now() {
+    /*
+     time_t rawtime;
+     struct tm * timeinfo;
+     
+     time ( &rawtime );
+     timeinfo = localtime ( &rawtime );
+     
+     */
+    
+    
+    time_t t = std::time(nullptr);
+    struct tm timeInfo = *std::localtime(&t);
+    
+    Date d(0, 0, 0);
+    
+    d._year = timeInfo.tm_year + 1900;
+    d._month = timeInfo.tm_mon + 1;
+    d._day = timeInfo.tm_mday;
+    
+    return d;
+}
+
+int Date::time() {
+    int time = 0;
+    
+    auto t = std::time(nullptr);
+    auto tm = *std::localtime(&t);
+    
+    time += tm.tm_hour * 3600;
+    time += tm.tm_min * 60;
+    time += tm.tm_sec;
     
     return time;
 }

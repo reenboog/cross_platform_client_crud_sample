@@ -14,7 +14,14 @@ public:
     virtual ~Date() {}
     Date(int year, int month, int day);
     
+    Date() {
+        *this = Date::now();
+    }
+    
     static std::string timeStrForSeconds(int s);
+    
+    static Date now();
+    static int time();
     
     bool isLeapYear();
     bool isValid();
@@ -30,8 +37,6 @@ public:
     unsigned int getDay() const {
         return _day;
     }
-private:
-    Date() {}
 private:
     unsigned int _year;
     unsigned int _month;

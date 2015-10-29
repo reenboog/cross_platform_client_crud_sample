@@ -25,9 +25,7 @@ public:
     static cocos2d::Scene* scene();
     
     virtual bool init();
-    
-    void createMeal(const std::string &caption, int calories);
-    
+        
     void onBtnSettingsPressed();
     void onBtnDateSelectPressed();
     void onBtnAddItemPressed();
@@ -79,6 +77,7 @@ private:
     
     // selection data
     int _currentCalories;
+    Date _selectedDate;
     
     // local model
     MealGroup _meals;

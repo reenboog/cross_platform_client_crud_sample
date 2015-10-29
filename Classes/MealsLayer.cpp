@@ -237,21 +237,7 @@ bool MealsLayer::init() {
     
     ///////////
     
-    //this->createMeal("test", CCRANDOM_0_1() * 100);
-    
     return true;
-}
-
-void MealsLayer::createMeal(const std::string &caption, int calories) {
-    auto onMealCreated = [=]() {
-        CCLOG("created!");
-    };
-    
-    auto onFailedToCreateMEal = [=](const string &error, const string &description) {
-        CCLOG("failed to create!");
-    };
-    
-    ServerAPI::createMeal(caption, calories, onMealCreated, onFailedToCreateMEal);
 }
 
 #pragma mark - UI callbacks
@@ -290,6 +276,8 @@ void MealsLayer::setTotalCaloriesConsumed(int calories) {
 }
 
 void MealsLayer::onItemCreated(const Meal &item) {
+    // reset current date
+    // reset current date label
     // reload data
     // recal calories consumed
 }
