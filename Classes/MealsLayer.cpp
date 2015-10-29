@@ -12,12 +12,14 @@
 #include "UserSettingsLayer.h"
 #include "User.h"
 #include "CreateMealItemLayer.h"
+#include "EditMealItemLayer.h"
 #include "LayerBlocker.h"
 #include "Toast.h"
 
 #define zBack 0
 #define zSettings 10
 #define zCreateItem 10
+#define zEditItem 10
 
 using namespace cocos2d;
 using namespace cocos2d::extension;
@@ -296,6 +298,14 @@ void MealsLayer::onItemCreationCanceled() {
     // In fact, do nothing
 }
 
+void MealsLayer::onItemDeleted(const string &itemId) {
+    
+}
+
+void MealsLayer::onItemUpdated(const string &itemId, const string &newCaption, int newCalories) {
+    
+}
+
 #pragma mark - IOnGoalChanged
 
 void MealsLayer::onGoalChanged(int newGoal) {
@@ -314,7 +324,12 @@ void MealsLayer::scrollViewDidZoom(ScrollView *view) {
 
 void MealsLayer::tableCellTouched(TableView *table, TableViewCell *cell) {
     // a button pressed?
-    CCLOG("touched: %i", cell->getTag());
+    unsigned int idx = cell->getTag();
+    CCLOG("touched: %i", idx);
+    
+    EditMealItemLayer *editLayer = EditMealItemLayer::create(this, _meals.get(idx).getId());
+    
+    this->addChild(editLayer, zEditItem);
 }
 
 ssize_t MealsLayer::numberOfCellsInTableView(TableView *table) {

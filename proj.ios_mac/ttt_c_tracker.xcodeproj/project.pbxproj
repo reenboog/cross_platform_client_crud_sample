@@ -93,6 +93,8 @@
 		B8BBDCE61BE2560E001363BA /* Parse.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B8BBDCE41BE2560E001363BA /* Parse.framework */; };
 		B8BBDCE71BE2562A001363BA /* Parse.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = B8BBDCE41BE2560E001363BA /* Parse.framework */; };
 		B8BBDCE81BE25630001363BA /* Bolts.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = B8BBDCE31BE2560E001363BA /* Bolts.framework */; };
+		B8BBDCEB1BE2946B001363BA /* EditMealItemLayer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B8BBDCE91BE2946B001363BA /* EditMealItemLayer.cpp */; };
+		B8BBDCEC1BE2946B001363BA /* EditMealItemLayer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B8BBDCE91BE2946B001363BA /* EditMealItemLayer.cpp */; };
 		B8C616781B5635AA007519A8 /* ServerAPI.mm in Sources */ = {isa = PBXBuildFile; fileRef = B8C616771B5635AA007519A8 /* ServerAPI.mm */; };
 		B8FAA4AA1BE11236002639AE /* Meal.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B8FAA4A81BE11236002639AE /* Meal.cpp */; };
 		B8FAA4AB1BE11236002639AE /* Meal.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B8FAA4A81BE11236002639AE /* Meal.cpp */; };
@@ -253,6 +255,9 @@
 		B8624D6F1B5A0DF3006B3E3D /* LayerBlocker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LayerBlocker.h; sourceTree = "<group>"; };
 		B8BBDCE31BE2560E001363BA /* Bolts.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Bolts.framework; path = mac/libs_and_frameworks/Bolts.framework; sourceTree = "<group>"; };
 		B8BBDCE41BE2560E001363BA /* Parse.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Parse.framework; path = mac/libs_and_frameworks/Parse.framework; sourceTree = "<group>"; };
+		B8BBDCE91BE2946B001363BA /* EditMealItemLayer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = EditMealItemLayer.cpp; sourceTree = "<group>"; };
+		B8BBDCEA1BE2946B001363BA /* EditMealItemLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EditMealItemLayer.h; sourceTree = "<group>"; };
+		B8BBDCED1BE294D5001363BA /* IOnItemModified.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IOnItemModified.h; sourceTree = "<group>"; };
 		B8C616671B561C63007519A8 /* ServerAPI.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ServerAPI.h; sourceTree = "<group>"; };
 		B8C616771B5635AA007519A8 /* ServerAPI.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = ServerAPI.mm; path = ios/ServerAPI.mm; sourceTree = SOURCE_ROOT; };
 		B8FAA4A81BE11236002639AE /* Meal.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Meal.cpp; sourceTree = "<group>"; };
@@ -549,8 +554,11 @@
 				B840C7FD1BE1CBA300116E94 /* UserSettingsLayer.h */,
 				B840C8001BE2053F00116E94 /* IOnGoalChanged.h */,
 				B840C8051BE234C900116E94 /* IOnItemCreated.h */,
+				B8BBDCED1BE294D5001363BA /* IOnItemModified.h */,
 				B840C8011BE2331500116E94 /* CreateMealItemLayer.cpp */,
 				B840C8021BE2331500116E94 /* CreateMealItemLayer.h */,
+				B8BBDCE91BE2946B001363BA /* EditMealItemLayer.cpp */,
+				B8BBDCEA1BE2946B001363BA /* EditMealItemLayer.h */,
 			);
 			name = layers;
 			sourceTree = "<group>";
@@ -737,6 +745,7 @@
 				B8FAA4AE1BE11289002639AE /* Date.cpp in Sources */,
 				B8FAA4AA1BE11236002639AE /* Meal.cpp in Sources */,
 				B8FAA4BA1BE12171002639AE /* Tests.cpp in Sources */,
+				B8BBDCEB1BE2946B001363BA /* EditMealItemLayer.cpp in Sources */,
 				B82D046A1A641E8600BCEF26 /* AppConfig.cpp in Sources */,
 				503AE10217EB989F00D1A890 /* RootViewController.mm in Sources */,
 				B8041DAC1B5E4782002A4C14 /* User.cpp in Sources */,
@@ -765,6 +774,7 @@
 				B8FAA4B31BE11B22002639AE /* Goal.cpp in Sources */,
 				B8FAA4B71BE11C9E002639AE /* MealGroup.cpp in Sources */,
 				B8FAA4AF1BE11289002639AE /* Date.cpp in Sources */,
+				B8BBDCEC1BE2946B001363BA /* EditMealItemLayer.cpp in Sources */,
 				B82D046D1A641E8600BCEF26 /* LoginLayer.cpp in Sources */,
 				B82D04691A641E8600BCEF26 /* AppDelegate.cpp in Sources */,
 				B8624D6D1B596794006B3E3D /* Toast.cpp in Sources */,
