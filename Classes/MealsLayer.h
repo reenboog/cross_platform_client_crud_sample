@@ -14,7 +14,9 @@
 #include "ui/CocosGUI.h"
 #include "MealGroup.h"
 
-class MealsLayer: public cocos2d::Layer, public cocos2d::extension::TableViewDataSource, public cocos2d::extension::TableViewDelegate {
+#include "IOnGoalChanged.h"
+
+class MealsLayer: public cocos2d::Layer, public cocos2d::extension::TableViewDataSource, public cocos2d::extension::TableViewDelegate, public IOnGoalChanged {
 public:
     MealsLayer();
     ~MealsLayer();
@@ -28,6 +30,9 @@ public:
     void onBtnSettingsPressed();
     void onBtnDateSelectPressed();
     void onBtnAddItemPressed();
+    
+    // IOnGOalCHanged delegates
+    void onGoalChanged(int newGoal);
     
     // table view
     // table view methods

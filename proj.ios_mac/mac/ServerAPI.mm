@@ -117,7 +117,7 @@ void ServerAPI::signUp(const string &mail, const string &password, OnSignedUpCal
     
 }
 
-void ServerAPI::createMeal(const string &caption, int calories, OnMealCreatedCallback createdCallback, onFailedToCreateMeal failedToCreateCallback) {
+void ServerAPI::createMeal(const string &caption, int calories, OnMealCreatedCallback createdCallback, onFailedToCreateMealCallback failedToCreateCallback) {
     if(__sharedInstance == nullptr) {
         ServerAPI::sharedInstance();
     }

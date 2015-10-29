@@ -13,19 +13,22 @@
 #include "extensions/cocos-ext.h"
 #include "ui/CocosGUI.h"
 
+class IOnGoalChanged;
+
 class UserSettingsLayer: public cocos2d::Layer {
 public:
     UserSettingsLayer();
     ~UserSettingsLayer();
     
-    virtual bool init();
+    virtual bool init(IOnGoalChanged *delegate);
     
     void onBtnBackPressed();
     void onBtnSavePressed();
+    void onBtnLogoutPressed();
     
     void onSliderCaloriesChanged(cocos2d::Ref *sender, cocos2d::extension::Control::EventType controlEvent);
     
-    CREATE_FUNC(UserSettingsLayer);
+    static UserSettingsLayer* create(IOnGoalChanged *delegate);
 private:
     void setCaloriesToConsume(unsigned int calories);
 private:
@@ -33,11 +36,14 @@ private:
     cocos2d::Sprite *_mntHeading;
     cocos2d::MenuItemImage *_btnBack;
     cocos2d::MenuItemImage *_btnSave;
+    cocos2d::MenuItemImage *_btnLogout;
     
     cocos2d::Node *_sliderGroupNode;
     cocos2d::extension::ControlSlider *_sliderCalories;
     cocos2d::Label *_labelSliderCaption;
     cocos2d::Label *_labelCaloriesToConsumeCaption;
+    
+    IOnGoalChanged *_goalChangedDelegate;
 };
 
 #endif /* defined(__ttt_c_tracker__UserSettingsLayer__) */

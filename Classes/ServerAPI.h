@@ -27,18 +27,15 @@ public:
 
     static void wakeUp(OnLoggedInCallback logInCallback, OnFailedToLogInCallback failedToWakeUpCallback);
     static void logIn(const std::string &mail, const std::string &password, OnLoggedInCallback logInCallback, OnFailedToLogInCallback loginFailureCallback);
-//
-//    static void fetchUserNameAndLastName(OnUserNameAndLastNameFetchedCallback userNameFetchedCallback,
-//                                         OnFailedToFetchUserNameAndLastNameCallback userNameFetchFailureCallback);
-//    
-//    static void fetchAllSkills(OnSkillsFetchedCallback onSkillsFetchedCallback,
-//                               OnFailedToFetchSkillsCallback onFailedToFetchSkillsCallback);
-//    
-//    static void fetchUserSkills(OnSkillsFetchedCallback onSkillsFetchedCallback,
-//                                OnFailedToFetchSkillsCallback onFailedToFetchSkillsCallback);
-//    
+    static void logout();
     static void signUp(const std::string &mail, const std::string &password, OnSignedUpCallback signUpCallback, OnFailedToSignUpCallback signUpFailureCallback);
-    static void createMeal(const std::string &caption, int calories, OnMealCreatedCallback createdCallback, onFailedToCreateMeal failedToCreateCallback);
+    
+    // meals
+    static void createMeal(const std::string &caption, int calories, OnMealCreatedCallback createdCallback, onFailedToCreateMealCallback failedToCreateCallback);
+    
+    // goals
+    static void updateGoal(int calories, OnGoalUpdatedCallback goalUpdatedCallback, onFailedToUpdateGoalCallback failedToUpdateGoalCallback);
+    static void updateGoalForUser(const std::string &userId, int calories, OnGoalUpdatedCallback goalUpdatedCallback, onFailedToUpdateGoalCallback failedToUpdateGoalCallback);
     
     static ServerAPI* sharedInstance();
 private:

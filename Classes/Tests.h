@@ -25,7 +25,7 @@ using namespace cocos2d;
 static void testGoals() {
     {
         Goal g;
-        Assert("default calories", g.getCalories() == kAverageCaloriesPerDay);
+        Assert("default calories", g.getCalories() == kAverageKCaloriesPerDay);
     }
     
     {
@@ -276,7 +276,7 @@ static void testUsers() {
         User u(User::Role::UR_User, "alex");
         u.setRole(User::Role::UR_Manager);
         
-        Assert("default goal", u.getGoal().getCalories() == kAverageCaloriesPerDay);
+        Assert("default goal", u.getGoal().getCalories() == kAverageKCaloriesPerDay);
     }
     
     {

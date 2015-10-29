@@ -10,6 +10,11 @@
 #include "ServerAPI.h"
 #include "User.h"
 #include "Goal.h"
+#include "LayerBlocker.h"
+#include "Toast.h"
+#include "LoginLayer.h"
+
+#include "MealsLayer.h"
 
 #define zBack 0
 
@@ -30,12 +35,30 @@ UserSettingsLayer::UserSettingsLayer(): Layer() {
     _sliderCalories = nullptr;
     _labelSliderCaption = nullptr;
     _labelCaloriesToConsumeCaption = nullptr;
+    _btnLogout = nullptr;
+    
+    _goalChangedDelegate = nullptr;
 }
 
-bool UserSettingsLayer::init() {
+UserSettingsLayer* UserSettingsLayer::create(IOnGoalChanged *delegate) {
+    UserSettingsLayer *pRet = new UserSettingsLayer();
+
+    if(pRet && pRet->init(delegate)) {
+        pRet->autorelease();
+        return pRet;
+    } else {
+        delete pRet;
+        pRet = NULL;
+        return NULL;
+    }
+}
+
+bool UserSettingsLayer::init(IOnGoalChanged *delegate) {
     if(!Layer::init()) {
         return false;
     }
+    
+    _goalChangedDelegate = delegate;
     
     Size visibleSize = Director::getInstance()->getVisibleSize();
     
@@ -83,10 +106,22 @@ bool UserSettingsLayer::init() {
     }
     
     {
+        // logout button
+        _btnLogout = MenuItemImage::create("btn_logout.png", "btn_logout_on.png", CC_CALLBACK_0(UserSettingsLayer::onBtnLogoutPressed, this));
+        _btnLogout->setAnchorPoint({0.5f, 0});
+        _btnLogout->setPosition({visibleSize.width * 0.5f, 0});
+        
+        Menu *logoutMenu = Menu::create(_btnLogout, nullptr);
+        logoutMenu->setPosition({0, 0});
+        
+        this->addChild(logoutMenu);
+    }
+    
+    {
         // save button
         _btnSave = MenuItemImage::create("btn_settings_save.png", "btn_settings_save_on.png", CC_CALLBACK_0(UserSettingsLayer::onBtnSavePressed, this));
         _btnSave->setAnchorPoint({0.5f, 0});
-        _btnSave->setPosition({visibleSize.width * 0.5f, 0});
+        _btnSave->setPosition({visibleSize.width * 0.5f, _btnLogout->getContentSize().height});
         
         Menu *saveMenu = Menu::create(_btnSave, nullptr);
         saveMenu->setPosition({0, 0});
@@ -129,7 +164,9 @@ bool UserSettingsLayer::init() {
         
         _sliderGroupNode->addChild(_labelCaloriesToConsumeCaption);
         
-        this->setCaloriesToConsume(User::sharedInstance()->getGoal().getCalories());
+        _sliderCalories->setValue(1.0f * User::sharedInstance()->getGoal().getCalories() / kMaxKCaloriesPerDay);
+
+        //this->setCaloriesToConsume(User::sharedInstance()->getGoal().getCalories());
     }
 
     return true;
@@ -137,16 +174,39 @@ bool UserSettingsLayer::init() {
 
 #pragma mark - UI callbacks
 
+void UserSettingsLayer::onBtnLogoutPressed() {
+    ServerAPI::logout();
+    
+    Director::getInstance()->replaceScene(LoginLayer::scene());
+}
+
 void UserSettingsLayer::onBtnBackPressed() {
     this->removeFromParent();
 }
 
 void UserSettingsLayer::onBtnSavePressed() {
-    // change model
-    // call server api
-    // remove from parent
-    // multiply by kMaxCaloriesPerDay
+    LayerBlocker::block(this);
+        
+    Toast::show(this, "Saving...", 2);
     
+    auto onGoalChanged = [this](unsigned int newGoal) {
+        LayerBlocker::unblock(this);
+
+        User::sharedInstance()->setGoal(newGoal);
+        _goalChangedDelegate->onGoalChanged(newGoal);
+        
+        Toast::show(static_cast<Layer*>(this->getParent()), "Saved", 1);
+        
+        this->removeFromParent();
+    };
+    
+    auto onFaileToChangeGoal = [=](const string &error, const string &description) {
+        LayerBlocker::unblock(this);
+        
+        Toast::show(this, "Error updating goal");
+    };
+    
+    ServerAPI::updateGoal(_sliderCalories->getValue() * kMaxKCaloriesPerDay, onGoalChanged, onFaileToChangeGoal);
 }
 
 void UserSettingsLayer::onSliderCaloriesChanged(Ref *sender, Control::EventType controlEvent) {

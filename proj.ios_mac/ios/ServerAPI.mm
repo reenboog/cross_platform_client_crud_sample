@@ -39,13 +39,8 @@ void ServerAPI::purge() {
     __sharedInstance = nullptr;
 }
 
-//void ServerAPI::onHttpResponse(cocos2d::network::HttpClient *sender, cocos2d::network::HttpResponse *response) {
-//}
-//
-//void ServerAPI::onLoggedInWithSocialNetwork(const string &snUserId, const string &snAccessToken) {
-//};
-//
-//
+#pragma mark - Login/Signup
+
 void ServerAPI::logIn(const string &mail, const string &password, OnLoggedInCallback logInCallback, OnFailedToLogInCallback logInFailureCallback) {
     if(__sharedInstance == nullptr) {
         ServerAPI::sharedInstance();
@@ -55,13 +50,35 @@ void ServerAPI::logIn(const string &mail, const string &password, OnLoggedInCall
                                  password: [NSString stringWithUTF8String: password.c_str()]
                                     block:^(PFUser *user, NSError *error) {
                                         if(user) {
-                                            logInCallback();
+                                            User::sharedInstance()->setId([[PFUser currentUser].objectId UTF8String]);
+                                            // get goals
+                                            PFQuery *query = [PFQuery queryWithClassName: @"DailyGoal"];
+                                            [query whereKey: @"userId" equalTo: user.objectId];
+                                            [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
+                                                if(!error) {
+                                                    int goal = kAverageKCaloriesPerDay;
+                                                    if([objects count] != 0) {
+                                                        PFObject *goalObj = [objects firstObject];
+                                                        
+                                                        goal = [goalObj[@"caloriesToConsume"] intValue];
+                                                    }
+                                                    
+                                                    User::sharedInstance()->setGoal(goal);
+                                                }
+                                                
+                                                logInCallback();
+                                            }];
                                         } else {
                                             NSString *errorString = [error userInfo][@"error"];
 
                                             logInFailureCallback("error", [errorString UTF8String]);
                                         }
                                     }];
+}
+
+void ServerAPI::logout() {
+    [PFUser logOut];
+    User::purge();
 }
 
 void ServerAPI::wakeUp(OnLoggedInCallback logInCallback, OnFailedToLogInCallback failedToWakeUpCallback) {
@@ -71,6 +88,7 @@ void ServerAPI::wakeUp(OnLoggedInCallback logInCallback, OnFailedToLogInCallback
     
     PFUser *currentUser = [PFUser currentUser];
     if(currentUser) {
+        User::sharedInstance()->setId([currentUser.objectId UTF8String]);
         logInCallback();
     } else {
         failedToWakeUpCallback("", "");
@@ -101,32 +119,7 @@ void ServerAPI::signUp(const string &mail, const string &password, OnSignedUpCal
     }];
 }
 
-void ServerAPI::createMeal(const string &caption, int calories, OnMealCreatedCallback createdCallback, onFailedToCreateMeal failedToCreateCallback) {
-    if(__sharedInstance == nullptr) {
-        ServerAPI::sharedInstance();
-    }
-    
-    //
-    
-    // start parse stuff here
-    PFObject *meal = [PFObject objectWithClassName: @"Meal"];
-    [meal setObject: [NSString stringWithUTF8String: caption.c_str()] forKey: @"caption"];
-    [meal setObject: [PFUser currentUser] forKey: @"consumedBy"];
-    [meal setObject: [NSNumber numberWithInt: calories] forKey: @"calories"];
-    
-    [meal saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
-        // Kick off the new query, refresh the table, and then - once that's all
-        // taken care of - re-enable the item entry UI.
-        if(!error) {
-            createdCallback();
-        } else {
-            NSString *errorString = [error userInfo][@"error"];
-            
-            failedToCreateCallback("error", [errorString UTF8String]);
-        }
-        
-    }];
-}
+#pragma mark - Roles
 
 void ServerAPI::applyDefaultRole(OnSignedUpCallback signUpCallback, OnFailedToSignUpCallback signUpFailureCallback) {
     PFQuery *queryRole = [PFRole query];
@@ -150,12 +143,14 @@ void ServerAPI::applyDefaultRole(OnSignedUpCallback signUpCallback, OnFailedToSi
     }];
 }
 
+#pragma mark - Goals
+
 void ServerAPI::createDefaultGoal(OnSignedUpCallback signUpCallback, OnFailedToSignUpCallback signUpFailureCallback) {
     PFObject *goalObj = [PFObject objectWithClassName: @"DailyGoal"];
-
+    
     goalObj[@"caloriesToConsume"] = [NSNumber numberWithInt: User::sharedInstance()->getGoal().getCalories()];
     goalObj[@"userId"] = [NSString stringWithUTF8String: User::sharedInstance()->getId().c_str()];
-
+    
     [goalObj saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
         if(succeeded) {
             signUpCallback();
@@ -163,5 +158,68 @@ void ServerAPI::createDefaultGoal(OnSignedUpCallback signUpCallback, OnFailedToS
             NSString *errorString = [error userInfo][@"error"];
             signUpFailureCallback("error", [errorString UTF8String]);
         }
+    }];
+}
+
+void ServerAPI::updateGoal(int calories, OnGoalUpdatedCallback goalUpdatedCallback, onFailedToUpdateGoalCallback failedToUpdateGoalCallback) {
+    ServerAPI::updateGoalForUser(User::sharedInstance()->getId(), calories, goalUpdatedCallback, failedToUpdateGoalCallback);
+}
+
+void ServerAPI::updateGoalForUser(const string &userId, int calories, OnGoalUpdatedCallback goalUpdatedCallback, onFailedToUpdateGoalCallback failedToUpdateGoalCallback) {
+    if(__sharedInstance == nullptr) {
+        ServerAPI::sharedInstance();
+    }
+    
+    // get goal !
+    // set values
+    // save in background
+    PFQuery *query = [PFQuery queryWithClassName: @"DailyGoal"];
+    [query whereKey: @"userId" equalTo: [NSString stringWithUTF8String: userId.c_str()]];
+    [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
+        if(!error) {
+            PFObject *goalObj = [objects firstObject];
+            goalObj[@"caloriesToConsume"] = [NSNumber numberWithInt: calories];
+            
+            [goalObj saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
+                if(succeeded) {
+                    goalUpdatedCallback(calories);
+                } else {
+                    NSString *errorString = [error userInfo][@"error"];
+                    failedToUpdateGoalCallback("error", [errorString UTF8String]);
+                }
+            }];
+        } else {
+            NSString *errorString = [error userInfo][@"error"];
+            failedToUpdateGoalCallback("error", [errorString UTF8String]);
+        }
+    }];
+}
+
+#pragma mark - Meals
+
+void ServerAPI::createMeal(const string &caption, int calories, OnMealCreatedCallback createdCallback, onFailedToCreateMealCallback failedToCreateCallback) {
+    if(__sharedInstance == nullptr) {
+        ServerAPI::sharedInstance();
+    }
+    
+    //
+    
+    // start parse stuff here
+    PFObject *meal = [PFObject objectWithClassName: @"Meal"];
+    [meal setObject: [NSString stringWithUTF8String: caption.c_str()] forKey: @"caption"];
+    [meal setObject: [PFUser currentUser] forKey: @"consumedBy"];
+    [meal setObject: [NSNumber numberWithInt: calories] forKey: @"calories"];
+    
+    [meal saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
+        // Kick off the new query, refresh the table, and then - once that's all
+        // taken care of - re-enable the item entry UI.
+        if(!error) {
+            createdCallback();
+        } else {
+            NSString *errorString = [error userInfo][@"error"];
+            
+            failedToCreateCallback("error", [errorString UTF8String]);
+        }
+        
     }];
 }

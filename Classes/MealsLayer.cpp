@@ -12,6 +12,7 @@
 #include "UserSettingsLayer.h"
 
 #define zBack 0
+#define zSettings 10
 
 using namespace cocos2d;
 using namespace cocos2d::extension;
@@ -213,7 +214,7 @@ bool MealsLayer::init() {
             
             // add settings layer
             // just for tests
-            UserSettingsLayer *s = UserSettingsLayer::create();
+            UserSettingsLayer *s = UserSettingsLayer::create(this);
             this->addChild(s);
             //
         }
@@ -242,7 +243,9 @@ void MealsLayer::createMeal(const std::string &caption, int calories) {
 #pragma mark - UI callbacks
 
 void MealsLayer::onBtnSettingsPressed() {
+    UserSettingsLayer *settings = UserSettingsLayer::create(this);
     
+    this->addChild(settings, zSettings);
 }
 
 void MealsLayer::onBtnDateSelectPressed() {
@@ -251,6 +254,13 @@ void MealsLayer::onBtnDateSelectPressed() {
 
 void MealsLayer::onBtnAddItemPressed() {
     
+}
+
+#pragma mark - IOnGoalChanged
+
+void MealsLayer::onGoalChanged(int newGoal) {
+    // recalc the data here
+    // move the progress
 }
 
 #pragma mark - Table delegates

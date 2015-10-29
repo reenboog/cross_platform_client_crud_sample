@@ -26,7 +26,7 @@ public:
     // id
     void setId(const std::string &userId);
     const std::string& getId() const;
-    
+        
     // name
     std::string getName() const;
     void setName(const std::string &name);

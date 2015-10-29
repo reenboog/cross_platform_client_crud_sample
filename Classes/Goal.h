@@ -10,8 +10,8 @@
 #define __ttt_c_tracker__Goal__
 
 #define kMaxKCaloriesPerDay 10000
-#define kAverageCaloriesPerDay 2500
-#define kMinCaloriesPerDay 800
+#define kAverageKCaloriesPerDay 2500
+#define kMinKCaloriesPerDay 800
 
 class Goal {
 public:
@@ -25,7 +25,7 @@ public:
     void setCalories(int c);
     
     Goal() {
-        _calories = kAverageCaloriesPerDay;
+        _calories = kAverageKCaloriesPerDay;
     }
 private:
     unsigned int _calories;

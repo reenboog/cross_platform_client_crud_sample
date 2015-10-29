@@ -240,6 +240,7 @@
 		B82D04721A641EB400BCEF26 /* Res */ = {isa = PBXFileReference; lastKnownFileType = folder; name = Res; path = ../Res; sourceTree = "<group>"; };
 		B840C7FC1BE1CBA300116E94 /* UserSettingsLayer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = UserSettingsLayer.cpp; sourceTree = "<group>"; };
 		B840C7FD1BE1CBA300116E94 /* UserSettingsLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserSettingsLayer.h; sourceTree = "<group>"; };
+		B840C8001BE2053F00116E94 /* IOnGoalChanged.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IOnGoalChanged.h; sourceTree = "<group>"; };
 		B845C8A41B615DD200551122 /* MainLayer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = MainLayer.cpp; sourceTree = "<group>"; };
 		B845C8A51B615DD200551122 /* MainLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MainLayer.h; sourceTree = "<group>"; };
 		B8624D651B5915D9006B3E3D /* Types.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Types.h; sourceTree = "<group>"; };
@@ -541,6 +542,7 @@
 				B814A17C1BDFB678006F6E71 /* MealsLayer.h */,
 				B840C7FC1BE1CBA300116E94 /* UserSettingsLayer.cpp */,
 				B840C7FD1BE1CBA300116E94 /* UserSettingsLayer.h */,
+				B840C8001BE2053F00116E94 /* IOnGoalChanged.h */,
 			);
 			name = layers;
 			sourceTree = "<group>";

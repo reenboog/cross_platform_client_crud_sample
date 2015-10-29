@@ -10,10 +10,13 @@
 #include "Constants.h"
 #include "Shared.h"
 #include "Localized.h"
+#include "User.h"
 
 #include "json/document.h"
 
 #include <string>
+
+#define kUserGoalKey "userGoal"
 
 using namespace std;
 using namespace cocos2d;
@@ -43,10 +46,15 @@ void AppConfig::purge() {
 }
 
 void AppConfig::load() {
+    int goal = UserDefault::getInstance()->getIntegerForKey(kUserGoalKey, 0);
+    
+    if(goal != 0) {
+        User::sharedInstance()->setGoal(goal);
+    }
 }
 
 void AppConfig::save() {
-    //UserDefault::getInstance()->setIntegerForKey(kCharacterCurrentGogglesPrefixKey, CharacterAccessories<AppConfig>::getCurrentGoggles());
+    UserDefault::getInstance()->setIntegerForKey(kUserGoalKey, User::sharedInstance()->getGoal().getCalories());
 }
 
 void AppConfig::loadFilePaths() {
