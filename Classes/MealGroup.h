@@ -10,6 +10,7 @@
 #define __ttt_c_tracker__MealGroup__
 
 #include "Meal.h"
+#include "Date.h"
 
 #include <vector>
 
@@ -23,6 +24,10 @@ public:
     
     // basic crud operations
     Meal* getById(const std::string &mealId);
+    
+    MealGroup selectForDate(const Date &date) const;
+    
+    int getTotalCalories() const;
 
     bool update(const std::string &mealId, const Meal &m);
     bool remove(const std::string &mealId);

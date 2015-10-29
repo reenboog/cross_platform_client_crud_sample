@@ -87,3 +87,7 @@ bool User::removeMeal(const std::string &mealId) {
 const MealGroup& User::getAllMeal() const {
     return _allMealConsumed;
 }
+
+void User::setMeals(const MealGroup &g) {
+    _allMealConsumed = g;
+}

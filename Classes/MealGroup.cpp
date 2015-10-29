@@ -53,3 +53,25 @@ bool MealGroup::remove(const std::string &mealId) {
     
     return false;
 }
+
+MealGroup MealGroup::selectForDate(const Date &date) const {
+    MealGroup g;
+    
+    for(int i = 0; i < _meals.size(); ++i) {
+        if(_meals[i].getConsumptioDate() == date) {
+            g.add(_meals[i]);
+        }
+    }
+    
+    return g;
+}
+
+int MealGroup::getTotalCalories() const {
+    int calories = 0;
+    
+    for(int i = 0; i < _meals.size(); ++i) {
+        calories += _meals[i].getCalories();
+    }
+    
+    return calories;
+}

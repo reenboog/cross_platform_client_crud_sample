@@ -40,6 +40,7 @@ public:
     const Goal& getGoal() const;
     
     // meal
+    void setMeals(const MealGroup &g);
     void addMeal(const Meal &m);
     Meal* getMeal(const std::string &mealId);
     bool setMeal(const std::string &mealId, const Meal &m);

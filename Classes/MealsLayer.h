@@ -39,8 +39,10 @@ public:
     // IOnGOalCHanged delegates
     void onGoalChanged(int newGoal);
     
+    // get meals
+    void fetchAvailableMeals();
+    
     // table view
-    // table view methods
     void scrollViewDidScroll(cocos2d::extension::ScrollView *view);
     void scrollViewDidZoom(cocos2d::extension::ScrollView *view);
     
@@ -54,6 +56,10 @@ public:
     //
     
     CREATE_FUNC(MealsLayer);
+    
+private:
+    void setCurrentDateLabel(const Date &date);
+    void setMealsUpToDate();
 private:
     cocos2d::Sprite *_back;
     cocos2d::Layer *_layout;

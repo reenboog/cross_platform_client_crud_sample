@@ -263,3 +263,47 @@ void ServerAPI::createMeal(const string &caption, int calories, OnMealCreatedCal
         
     }];
 }
+
+void ServerAPI::fetchAvailableMeals(OnMealsFetchedCallback mealsFetchedCallback, onFailedToFetchMealsCallback mealsFetchFailedCallback) {
+    if(__sharedInstance == nullptr) {
+        ServerAPI::sharedInstance();
+    }
+    
+    PFQuery *query = [PFQuery queryWithClassName: @"Meal"];
+    [query whereKey: @"consumedBy" equalTo: [NSString stringWithUTF8String: User::sharedInstance()->getId().c_str()]];
+    [query orderByAscending: @"consumedAtDate"];
+    [query addAscendingOrder: @"consumedAtTime"];
+    [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
+        if(!error) {
+            for(PFObject *object in objects) {
+                int time = object[@"consumedAtTime"] ? [object[@"consumedAtTime"] intValue] : 0;
+                string caption = object[@"caption"] ? [object[@"caption"] UTF8String] : "undefined";
+                string userId = object[@"consumedBy"] ? [object[@"consumedBy"] UTF8String] : "user x";
+                string mealId = object.objectId ? [object.objectId UTF8String] : "unknown id";
+                int calories = object[@"calories"] ? [object[@"calories"] intValue] : 0;
+                
+                NSDate *date = object[@"consumedAtDate"] ? object[@"consumedAtDate"] : [NSDate date];
+                
+                NSDateComponents *components = [[NSCalendar currentCalendar] components: NSCalendarUnitDay | NSCalendarUnitMonth | NSCalendarUnitYear
+                                                                               fromDate: date];
+                
+                int day = [components day];
+                int month = [components month];
+                int year = [components year];
+                
+                // Meal(const Date &date, unsigned int time, const std::string &caption, const std::string userId, unsigned int calories, const std::string mealId);
+                Meal meal(Date(year, month, day), time, caption, userId, calories, mealId);
+                
+                User::sharedInstance()->addMeal(meal);
+            }
+            
+            mealsFetchedCallback(User::sharedInstance()->getAllMeal());
+        } else {
+            NSString *errorString = [error userInfo][@"error"];
+            
+            string errorStr = errorString ? [errorString UTF8String] : "Error fetching meals.";
+            
+            mealsFetchFailedCallback("error", errorStr);
+        }
+    }];
+}

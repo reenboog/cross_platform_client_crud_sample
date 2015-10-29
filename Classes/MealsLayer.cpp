@@ -12,6 +12,8 @@
 #include "UserSettingsLayer.h"
 #include "User.h"
 #include "CreateMealItemLayer.h"
+#include "LayerBlocker.h"
+#include "Toast.h"
 
 #define zBack 0
 #define zSettings 10
@@ -172,11 +174,13 @@ bool MealsLayer::init() {
         _mntDate->addChild(addItemMenu);
         
         // date label
-        _labelDate = Label::createWithTTF("28.10.2015", "helvetica.ttf", 18);
+        _labelDate = Label::createWithTTF("0", "helvetica.ttf", 18);
         _labelDate->setColor({255, 255, 255});
         _labelDate->setPosition({_mntDate->getContentSize().width * 0.5f, _mntDate->getContentSize().height * 0.5f});
         
         _mntDate->addChild(_labelDate);
+        
+        this->setCurrentDateLabel(Date::now());
         
         //
         {
@@ -194,50 +198,23 @@ bool MealsLayer::init() {
             
             this->addChild(_mealsTableView);
             
-            
-            // fake data
-            ///////////
-            
-            Meal m1(Date(2015, 10, 28), 13, "Some soup", "111", 999, "111");
-            Meal m2(Date(2015, 10, 29), 0, "A glass of orange juice", "112", 450, "222");
-            Meal m3(Date(2015, 10, 29), 63, "Fried chicken", "113", 120, "333");
-            Meal m4(Date(2015, 10, 29), 5520, "Veggi pizza", "114", 1000, "444");
-            Meal m5(Date(2015, 10, 29), 39720, "m5", "115", 70, "555");
-            Meal m6(Date(2015, 10, 29), 13, "Glass of milk", "116", 111, "666");
-            Meal m7(Date(2015, 10, 29), 39725, "m7", "117", 111, "777");
-            
-            _meals.add(m1);
-            _meals.add(m2);
-            _meals.add(m3);
-            _meals.add(m4);
-            _meals.add(m5);
-            _meals.add(m6);
-            _meals.add(m7);
-            
-            _mealsTableView->reloadData();
-            ///////////
-            
-            // fetch data for today
-            // cal total calories for today
-            // rolead data
-            
-            
-            
-            // add settings layer
+            ///////////////////////////////////////////////////////////////////////////////////////////////////////////
             // just for tests
             UserSettingsLayer *s = UserSettingsLayer::create(this);
             this->addChild(s);
-            
-            this->setTotalCaloriesConsumed(1500);
-            
-            //
         }
     }
     
-    
-    ///////////
+    this->fetchAvailableMeals();
+    this->setTotalCaloriesConsumed(0);
     
     return true;
+}
+
+#pragma mark - UI
+
+void MealsLayer::setCurrentDateLabel(const Date &date) {
+    _labelDate->setString(StringUtils::format("%i.%i.%i", date.getYear(), date.getMonth(), date.getDay()));
 }
 
 #pragma mark - UI callbacks
@@ -259,7 +236,43 @@ void MealsLayer::onBtnAddItemPressed() {
     this->addChild(layer, zCreateItem);
 }
 
+#pragma mark - Meals
+
+void MealsLayer::setMealsUpToDate() {
+    _selectedDate = Date::now();
+    this->setCurrentDateLabel(_selectedDate);
+    
+    _meals = User::sharedInstance()->getAllMeal().selectForDate(_selectedDate);
+    
+    this->setTotalCaloriesConsumed(_meals.getTotalCalories());
+    
+    _mealsTableView->reloadData();
+}
+
 #pragma mark - Meal CRUD
+
+void MealsLayer::fetchAvailableMeals() {
+    LayerBlocker::block(this);
+    
+    Toast::show(this, "Fetching meals...", 2);
+    
+    // call server
+    auto onMealsFetched = [this](const MealGroup &meals) {
+        LayerBlocker::unblock(this);
+        
+        this->setMealsUpToDate();
+    };
+    
+    auto onFailedToFetchMeals = [=](const string &error, const string &description) {
+        LayerBlocker::unblock(this);
+        
+        Toast::show(this, "Network error");
+    };
+
+    LayerBlocker::block(this);
+    
+    ServerAPI::fetchAvailableMeals(onMealsFetched, onFailedToFetchMeals);
+}
 
 void MealsLayer::setTotalCaloriesConsumed(int calories) {
     int goal = User::sharedInstance()->getGoal().getCalories();
@@ -276,10 +289,7 @@ void MealsLayer::setTotalCaloriesConsumed(int calories) {
 }
 
 void MealsLayer::onItemCreated(const Meal &item) {
-    // reset current date
-    // reset current date label
-    // reload data
-    // recal calories consumed
+    this->setMealsUpToDate();
 }
 
 void MealsLayer::onItemCreationCanceled() {

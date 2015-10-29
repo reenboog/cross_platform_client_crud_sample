@@ -15,6 +15,14 @@
 using namespace std;
 using namespace cocos2d;
 
+bool operator==(const Date &l, const Date &r) {
+    if(&l == &r) {
+        return true;
+    }
+    
+    return l._year == r._year && l._month == r._month && l._day == r._day;
+}
+
 Date::Date(int year, int month, int day) {
     _year = year;
     _month = month;

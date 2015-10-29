@@ -3,6 +3,7 @@
 #define TTT_Types_h
 
 #include "Meal.h"
+#include "MealGroup.h"
 
 typedef std::function <void (void)> OnLoggedInCallback;
 typedef std::function <void (const std::string&, const std::string&)> OnFailedToLogInCallback;
@@ -13,6 +14,9 @@ typedef std::function <void (void)> OnLoggedOutCallback;
 
 typedef std::function <void (const Meal&)> OnMealCreatedCallback;
 typedef std::function <void (const std::string&, const std::string&)> onFailedToCreateMealCallback;
+
+typedef std::function <void (const MealGroup&)> OnMealsFetchedCallback;
+typedef std::function <void (const std::string&, const std::string&)> onFailedToFetchMealsCallback;
 
 typedef std::function <void (unsigned int)> OnGoalUpdatedCallback;
 typedef std::function <void (const std::string&, const std::string&)> onFailedToUpdateGoalCallback;
