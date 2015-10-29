@@ -39,13 +39,8 @@ void ServerAPI::purge() {
     __sharedInstance = nullptr;
 }
 
-//void ServerAPI::onHttpResponse(cocos2d::network::HttpClient *sender, cocos2d::network::HttpResponse *response) {
-//}
-//
-//void ServerAPI::onLoggedInWithSocialNetwork(const string &snUserId, const string &snAccessToken) {
-//};
-//
-//
+#pragma mark - Login/Signup
+
 void ServerAPI::logIn(const string &mail, const string &password, OnLoggedInCallback logInCallback, OnFailedToLogInCallback logInFailureCallback) {
     if(__sharedInstance == nullptr) {
         ServerAPI::sharedInstance();
@@ -55,13 +50,35 @@ void ServerAPI::logIn(const string &mail, const string &password, OnLoggedInCall
                                  password: [NSString stringWithUTF8String: password.c_str()]
                                     block:^(PFUser *user, NSError *error) {
                                         if(user) {
-                                            logInCallback();
+                                            User::sharedInstance()->setId([[PFUser currentUser].objectId UTF8String]);
+                                            // get goals
+                                            PFQuery *query = [PFQuery queryWithClassName: @"DailyGoal"];
+                                            [query whereKey: @"userId" equalTo: user.objectId];
+                                            [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
+                                                if(!error) {
+                                                    int goal = kAverageKCaloriesPerDay;
+                                                    if([objects count] != 0) {
+                                                        PFObject *goalObj = [objects firstObject];
+                                                        
+                                                        goal = [goalObj[@"caloriesToConsume"] intValue];
+                                                    }
+                                                    
+                                                    User::sharedInstance()->setGoal(goal);
+                                                }
+                                                
+                                                logInCallback();
+                                            }];
                                         } else {
                                             NSString *errorString = [error userInfo][@"error"];
-
+                                            
                                             logInFailureCallback("error", [errorString UTF8String]);
                                         }
                                     }];
+}
+
+void ServerAPI::logout() {
+    [PFUser logOut];
+    User::purge();
 }
 
 void ServerAPI::wakeUp(OnLoggedInCallback logInCallback, OnFailedToLogInCallback failedToWakeUpCallback) {
@@ -71,6 +88,7 @@ void ServerAPI::wakeUp(OnLoggedInCallback logInCallback, OnFailedToLogInCallback
     
     PFUser *currentUser = [PFUser currentUser];
     if(currentUser) {
+        User::sharedInstance()->setId([currentUser.objectId UTF8String]);
         logInCallback();
     } else {
         failedToWakeUpCallback("", "");
@@ -88,34 +106,96 @@ void ServerAPI::signUp(const string &mail, const string &password, OnSignedUpCal
     
     [user signUpInBackgroundWithBlock: ^(BOOL succeeded, NSError *error) {
         if(!error) {
-            ///
+            // get user id
+            NSString *userId = [PFUser currentUser].objectId;
+            User::sharedInstance()->setId([userId UTF8String]);
             
-            PFQuery *queryRole = [PFRole query];
-            
-            [queryRole whereKey: @"name" equalTo: @"user"];
-            [queryRole getFirstObjectInBackgroundWithBlock: ^(PFObject *object, NSError *error) {
-                PFRole *role = (PFRole *)object;
-                
-                [role.users addObject: [PFUser currentUser]];
-                [role saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
-                    if(!error) {
-                        signUpCallback();
-                    } else {
-                        NSString *errorString = [error userInfo][@"error"];
-                        
-                        signUpFailureCallback("error", [errorString UTF8String]);
-                    }
-                }];
-            }];
+            ServerAPI::sharedInstance()->applyDefaultRole(signUpCallback, signUpFailureCallback);
         } else {
             NSString *errorString = [error userInfo][@"error"];
             
             signUpFailureCallback("error", [errorString UTF8String]);
         }
     }];
-    
-    
 }
+
+#pragma mark - Roles
+
+void ServerAPI::applyDefaultRole(OnSignedUpCallback signUpCallback, OnFailedToSignUpCallback signUpFailureCallback) {
+    PFQuery *queryRole = [PFRole query];
+    
+    [queryRole whereKey: @"name" equalTo: @"user"];
+    [queryRole getFirstObjectInBackgroundWithBlock: ^(PFObject *object, NSError *error) {
+        PFRole *role = (PFRole *)object;
+        
+        [role.users addObject: [PFUser currentUser]];
+        [role saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
+            if(!error) {
+                User::sharedInstance()->setRole(User::Role::UR_User);
+                
+                ServerAPI::sharedInstance()->createDefaultGoal(signUpCallback, signUpFailureCallback);
+            } else {
+                NSString *errorString = [error userInfo][@"error"];
+                
+                signUpFailureCallback("error", [errorString UTF8String]);
+            }
+        }];
+    }];
+}
+
+#pragma mark - Goals
+
+void ServerAPI::createDefaultGoal(OnSignedUpCallback signUpCallback, OnFailedToSignUpCallback signUpFailureCallback) {
+    PFObject *goalObj = [PFObject objectWithClassName: @"DailyGoal"];
+    
+    goalObj[@"caloriesToConsume"] = [NSNumber numberWithInt: User::sharedInstance()->getGoal().getCalories()];
+    goalObj[@"userId"] = [NSString stringWithUTF8String: User::sharedInstance()->getId().c_str()];
+    
+    [goalObj saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
+        if(succeeded) {
+            signUpCallback();
+        } else {
+            NSString *errorString = [error userInfo][@"error"];
+            signUpFailureCallback("error", [errorString UTF8String]);
+        }
+    }];
+}
+
+void ServerAPI::updateGoal(int calories, OnGoalUpdatedCallback goalUpdatedCallback, onFailedToUpdateGoalCallback failedToUpdateGoalCallback) {
+    ServerAPI::updateGoalForUser(User::sharedInstance()->getId(), calories, goalUpdatedCallback, failedToUpdateGoalCallback);
+}
+
+void ServerAPI::updateGoalForUser(const string &userId, int calories, OnGoalUpdatedCallback goalUpdatedCallback, onFailedToUpdateGoalCallback failedToUpdateGoalCallback) {
+    if(__sharedInstance == nullptr) {
+        ServerAPI::sharedInstance();
+    }
+    
+    // get goal !
+    // set values
+    // save in background
+    PFQuery *query = [PFQuery queryWithClassName: @"DailyGoal"];
+    [query whereKey: @"userId" equalTo: [NSString stringWithUTF8String: userId.c_str()]];
+    [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
+        if(!error) {
+            PFObject *goalObj = [objects firstObject];
+            goalObj[@"caloriesToConsume"] = [NSNumber numberWithInt: calories];
+            
+            [goalObj saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
+                if(succeeded) {
+                    goalUpdatedCallback(calories);
+                } else {
+                    NSString *errorString = [error userInfo][@"error"];
+                    failedToUpdateGoalCallback("error", [errorString UTF8String]);
+                }
+            }];
+        } else {
+            NSString *errorString = [error userInfo][@"error"];
+            failedToUpdateGoalCallback("error", [errorString UTF8String]);
+        }
+    }];
+}
+
+#pragma mark - Meals
 
 void ServerAPI::createMeal(const string &caption, int calories, OnMealCreatedCallback createdCallback, onFailedToCreateMealCallback failedToCreateCallback) {
     if(__sharedInstance == nullptr) {
@@ -143,28 +223,3 @@ void ServerAPI::createMeal(const string &caption, int calories, OnMealCreatedCal
         
     }];
 }
-
-//
-//void ServerAPI::fetchUserNameAndLastName(OnUserNameAndLastNameFetchedCallback userNameFetchedCallback,
-//                              OnFailedToFetchUserNameAndLastNameCallback userNameFetchFailureCallback) {
-//    
-//    if(__sharedInstance == nullptr) {
-//        ServerAPI::sharedInstance();
-//    }
-//    
-//    
-//}
-//
-//void ServerAPI::fetchAllSkills(OnSkillsFetchedCallback onSkillsFetchedCallback,
-//                                    OnFailedToFetchSkillsCallback onFailedToFetchSkillsCallback) {
-//    if(__sharedInstance == nullptr) {
-//        ServerAPI::sharedInstance();
-//    }
-//}
-//
-//void ServerAPI::fetchUserSkills(OnSkillsFetchedCallback onSkillsFetchedCallback,
-//                            OnFailedToFetchSkillsCallback onFailedToFetchSkillsCallback) {
-//    if(__sharedInstance == nullptr) {
-//        ServerAPI::sharedInstance();
-//    }
-//}

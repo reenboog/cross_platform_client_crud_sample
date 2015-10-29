@@ -161,11 +161,11 @@ bool CreateMealItemLayer::init(IOnItemCreated *delegate) {
 }
 
 void CreateMealItemLayer::onBtnCancelPressed() {
-    
+    this->removeFromParent();
 }
 
 void CreateMealItemLayer::onBtnSavePressed() {
-    
+    // call API
 }
 
 void CreateMealItemLayer::onSliderCaloriesChanged(cocos2d::Ref *sender, cocos2d::extension::Control::EventType controlEvent) {
