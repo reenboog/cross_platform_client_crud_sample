@@ -34,6 +34,7 @@ private:
     
     cocos2d::Node *_sliderGroupNode;
     cocos2d::extension::ControlSlider *_sliderCalories;
+    cocos2d::Label *_labelSliderCaption;
 };
 
 #endif /* defined(__ttt_c_tracker__UserSettingsLayer__) */

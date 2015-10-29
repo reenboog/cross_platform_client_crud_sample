@@ -28,6 +28,7 @@ UserSettingsLayer::UserSettingsLayer(): Layer() {
     _btnSave = nullptr;
     _sliderGroupNode = nullptr;
     _sliderCalories = nullptr;
+    _labelSliderCaption = nullptr;
 }
 
 bool UserSettingsLayer::init() {
@@ -106,6 +107,17 @@ bool UserSettingsLayer::init() {
         _sliderCalories->setMinimumAllowedValue(0.1);
         
         _sliderGroupNode->addChild(_sliderCalories);
+    }
+    
+    {
+        // captions
+        _labelSliderCaption = Label::createWithTTF("Daily goal", "helvetica.ttf", 26);
+        _labelSliderCaption->setColor({53, 172, 225});
+        _labelSliderCaption->setAnchorPoint({0, 0.0});
+        _labelSliderCaption->setPosition({-_sliderCalories->getContentSize().width * 0.5f, _labelSliderCaption->getContentSize().height});
+        
+        _sliderGroupNode->addChild(_labelSliderCaption);
+
     }
 
     return true;
