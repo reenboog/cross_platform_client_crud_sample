@@ -28,6 +28,8 @@ public:
     void onSliderCaloriesChanged(cocos2d::Ref *sender, cocos2d::extension::Control::EventType controlEvent);
     void setCaloriesToConsume(unsigned int calories);
     
+    void onTextMailEvent(cocos2d::Ref *sender, cocos2d::ui::TextField::EventType event);
+    
     static CreateMealItemLayer* create(IOnItemCreated *delegate);
 private:
     IOnItemCreated *_delegate;
@@ -40,6 +42,8 @@ private:
     cocos2d::Node *_sliderGroupNode;
     cocos2d::extension::ControlSlider *_sliderCalories;
     cocos2d::Label *_labelCaloriesToConsumeCaption;
+    
+    cocos2d::ui::TextField *_textCaption;
 };
 
 #endif /* defined(__ttt_c_tracker__CreateMealItemLayer__) */

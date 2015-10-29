@@ -15,6 +15,7 @@
 
 using namespace cocos2d;
 using namespace cocos2d::extension;
+using namespace ui;
 using namespace std;
 
 CreateMealItemLayer::~CreateMealItemLayer() {
@@ -30,6 +31,7 @@ CreateMealItemLayer::CreateMealItemLayer(): Layer() {
     _sliderGroupNode = nullptr;
     _sliderCalories = nullptr;
     _labelCaloriesToConsumeCaption = nullptr;
+    _textCaption = nullptr;
 }
 
 CreateMealItemLayer* CreateMealItemLayer::create(IOnItemCreated *delegate) {
@@ -141,6 +143,20 @@ bool CreateMealItemLayer::init(IOnItemCreated *delegate) {
         //this->setCaloriesToConsume(User::sharedInstance()->getGoal().getCalories());
     }
     
+    {
+        // caption
+        _textCaption = TextField::create("A short description", "helvetica.ttf", 22);
+        _mntHeading->addChild(_textCaption);
+        
+        _textCaption->addEventListener(CC_CALLBACK_2(CreateMealItemLayer::onTextMailEvent, this));
+        _textCaption->setPosition({_mntHeading->getContentSize().width * 0.07f, _mntHeading->getContentSize().height * 0.45f});
+        _textCaption->setMaxLength(26);
+        _textCaption->setMaxLengthEnabled(true);
+        _textCaption->setAnchorPoint({0, 0.5});
+        _textCaption->setColor({93, 93, 93});
+        _textCaption->setPlaceHolderColor({93, 93, 93, 100});
+    }
+    
     return true;
 }
 
@@ -159,4 +175,7 @@ void CreateMealItemLayer::onSliderCaloriesChanged(cocos2d::Ref *sender, cocos2d:
 
 void CreateMealItemLayer::setCaloriesToConsume(unsigned int calories) {
     _labelCaloriesToConsumeCaption->setString(StringUtils::format("%i kCal", calories));
+}
+
+void CreateMealItemLayer::onTextMailEvent(cocos2d::Ref *sender, TextField::EventType event) {
 }
