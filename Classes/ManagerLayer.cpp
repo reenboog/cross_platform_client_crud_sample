@@ -12,8 +12,10 @@
 #include "LayerBlocker.h"
 #include "Toast.h"
 #include "ServerAPI.h"
+#include "ManagerSettingsLayer.h"
 
 #define zBack 0
+#define zSettings 10
 
 using namespace cocos2d;
 using namespace cocos2d::extension;
@@ -153,6 +155,8 @@ void ManagerLayer::fetchUsers() {
 
 void ManagerLayer::onBtnSettingsPressed() {
     //
+    ManagerSettingsLayer *settings = ManagerSettingsLayer::create();
+    this->addChild(settings, zSettings);
 }
 
 #pragma mark - Table delegates
