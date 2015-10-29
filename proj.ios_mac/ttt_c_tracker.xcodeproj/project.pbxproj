@@ -85,6 +85,8 @@
 		B82D04741A641EB400BCEF26 /* Res in Resources */ = {isa = PBXBuildFile; fileRef = B82D04721A641EB400BCEF26 /* Res */; };
 		B840C7FE1BE1CBA300116E94 /* UserSettingsLayer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B840C7FC1BE1CBA300116E94 /* UserSettingsLayer.cpp */; };
 		B840C7FF1BE1CBA300116E94 /* UserSettingsLayer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B840C7FC1BE1CBA300116E94 /* UserSettingsLayer.cpp */; };
+		B840C8031BE2331500116E94 /* CreateMealItemLayer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B840C8011BE2331500116E94 /* CreateMealItemLayer.cpp */; };
+		B840C8041BE2331600116E94 /* CreateMealItemLayer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B840C8011BE2331500116E94 /* CreateMealItemLayer.cpp */; };
 		B845C8A61B615DD200551122 /* MainLayer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B845C8A41B615DD200551122 /* MainLayer.cpp */; };
 		B845C8A71B615DD200551122 /* MainLayer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B845C8A41B615DD200551122 /* MainLayer.cpp */; };
 		B8624D6C1B596794006B3E3D /* Toast.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B8624D6A1B596794006B3E3D /* Toast.cpp */; };
@@ -241,6 +243,9 @@
 		B840C7FC1BE1CBA300116E94 /* UserSettingsLayer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = UserSettingsLayer.cpp; sourceTree = "<group>"; };
 		B840C7FD1BE1CBA300116E94 /* UserSettingsLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserSettingsLayer.h; sourceTree = "<group>"; };
 		B840C8001BE2053F00116E94 /* IOnGoalChanged.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IOnGoalChanged.h; sourceTree = "<group>"; };
+		B840C8011BE2331500116E94 /* CreateMealItemLayer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CreateMealItemLayer.cpp; sourceTree = "<group>"; };
+		B840C8021BE2331500116E94 /* CreateMealItemLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CreateMealItemLayer.h; sourceTree = "<group>"; };
+		B840C8051BE234C900116E94 /* IOnItemCreated.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IOnItemCreated.h; sourceTree = "<group>"; };
 		B845C8A41B615DD200551122 /* MainLayer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = MainLayer.cpp; sourceTree = "<group>"; };
 		B845C8A51B615DD200551122 /* MainLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MainLayer.h; sourceTree = "<group>"; };
 		B8624D651B5915D9006B3E3D /* Types.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Types.h; sourceTree = "<group>"; };
@@ -543,6 +548,9 @@
 				B840C7FC1BE1CBA300116E94 /* UserSettingsLayer.cpp */,
 				B840C7FD1BE1CBA300116E94 /* UserSettingsLayer.h */,
 				B840C8001BE2053F00116E94 /* IOnGoalChanged.h */,
+				B840C8051BE234C900116E94 /* IOnItemCreated.h */,
+				B840C8011BE2331500116E94 /* CreateMealItemLayer.cpp */,
+				B840C8021BE2331500116E94 /* CreateMealItemLayer.h */,
 			);
 			name = layers;
 			sourceTree = "<group>";
@@ -723,6 +731,7 @@
 				B8624D701B5A0DF3006B3E3D /* LayerBlocker.cpp in Sources */,
 				B840C7FE1BE1CBA300116E94 /* UserSettingsLayer.cpp in Sources */,
 				B8FAA4B61BE11C9E002639AE /* MealGroup.cpp in Sources */,
+				B840C8031BE2331500116E94 /* CreateMealItemLayer.cpp in Sources */,
 				B82D046E1A641E8600BCEF26 /* Localized.cpp in Sources */,
 				B8624D6C1B596794006B3E3D /* Toast.cpp in Sources */,
 				B8FAA4AE1BE11289002639AE /* Date.cpp in Sources */,
@@ -761,6 +770,7 @@
 				B8624D6D1B596794006B3E3D /* Toast.cpp in Sources */,
 				B8FAA4BB1BE12171002639AE /* Tests.cpp in Sources */,
 				503AE10517EB98FF00D1A890 /* main.cpp in Sources */,
+				B840C8041BE2331600116E94 /* CreateMealItemLayer.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

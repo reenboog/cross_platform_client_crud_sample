@@ -15,8 +15,9 @@
 #include "MealGroup.h"
 
 #include "IOnGoalChanged.h"
+#include "IOnItemCreated.h"
 
-class MealsLayer: public cocos2d::Layer, public cocos2d::extension::TableViewDataSource, public cocos2d::extension::TableViewDelegate, public IOnGoalChanged {
+class MealsLayer: public cocos2d::Layer, public cocos2d::extension::TableViewDataSource, public cocos2d::extension::TableViewDelegate, public IOnGoalChanged, public IOnItemCreated {
 public:
     MealsLayer();
     ~MealsLayer();
@@ -34,7 +35,8 @@ public:
     void setTotalCaloriesConsumed(int calories);
     
     // items CRUD
-    void onItemCreated(const Meal &item);
+    void onItemCreated(const Meal &m);
+    void onItemCreationCanceled();
     
     // IOnGOalCHanged delegates
     void onGoalChanged(int newGoal);

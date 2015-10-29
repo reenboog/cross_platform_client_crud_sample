@@ -11,9 +11,11 @@
 #include "MealItemCell.h"
 #include "UserSettingsLayer.h"
 #include "User.h"
+#include "CreateMealItemLayer.h"
 
 #define zBack 0
 #define zSettings 10
+#define zCreateItem 10
 
 using namespace cocos2d;
 using namespace cocos2d::extension;
@@ -266,6 +268,9 @@ void MealsLayer::onBtnDateSelectPressed() {
 
 void MealsLayer::onBtnAddItemPressed() {
     // pop up CreateMealItemLayer
+    CreateMealItemLayer *layer = CreateMealItemLayer::create(this);
+    
+    this->addChild(layer, zCreateItem);
 }
 
 #pragma mark - Meal CRUD
@@ -285,7 +290,12 @@ void MealsLayer::setTotalCaloriesConsumed(int calories) {
 }
 
 void MealsLayer::onItemCreated(const Meal &item) {
-    //
+    // reload data
+    // recal calories consumed
+}
+
+void MealsLayer::onItemCreationCanceled() {
+    // In fact, do nothing
 }
 
 #pragma mark - IOnGoalChanged
