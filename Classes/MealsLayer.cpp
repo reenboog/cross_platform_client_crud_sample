@@ -9,6 +9,7 @@
 #include "MealsLayer.h"
 #include "ServerAPI.h"
 #include "MealItemCell.h"
+#include "UserSettingsLayer.h"
 
 #define zBack 0
 
@@ -209,6 +210,11 @@ bool MealsLayer::init() {
             
             _mealsTableView->reloadData();
             ///////////
+            
+            // add settings layer
+            // just for tests
+            UserSettingsLayer *s = UserSettingsLayer::create();
+            this->addChild(s);
             //
         }
     }
