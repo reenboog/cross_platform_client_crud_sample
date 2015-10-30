@@ -66,6 +66,21 @@ MealGroup MealGroup::selectForDate(const Date &date) const {
     return g;
 }
 
+MealGroup MealGroup::selectBetweenDates(const Date &dateFrom, const Date &dateTo, int timeFrom, int timeTo) {
+    MealGroup g;
+    
+    for(int i = 0; i < _meals.size(); ++i) {
+        Date date = _meals[i].getConsumptioDate();
+        int time = _meals[i].getConsumptionTime();
+
+        if(dateFrom <= date && timeFrom <= time && date <= dateTo && time <= timeTo) {
+            g.add(_meals[i]);
+        }
+    }
+    
+    return g;
+}
+
 int MealGroup::getTotalCalories() const {
     int calories = 0;
     

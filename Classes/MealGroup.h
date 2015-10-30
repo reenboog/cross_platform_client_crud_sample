@@ -26,6 +26,7 @@ public:
     Meal* getById(const std::string &mealId);
     
     MealGroup selectForDate(const Date &date) const;
+    MealGroup selectBetweenDates(const Date &dateFrom, const Date &dateTo, int timeFrom = 0, int timeTo = 24 * 3600);
     
     int getTotalCalories() const;
 

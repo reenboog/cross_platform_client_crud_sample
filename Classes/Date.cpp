@@ -23,6 +23,22 @@ bool operator==(const Date &l, const Date &r) {
     return l._year == r._year && l._month == r._month && l._day == r._day;
 }
 
+bool operator<=(const Date &l, const Date &r) {
+    if(&l == &r) {
+        return true;
+    }
+    
+    return l._year <= r._year || l._month <= r._month || l._day <= r._day;
+}
+
+bool operator>=(const Date &l, const Date &r) {
+    if(&l == &r) {
+        return true;
+    }
+    
+    return l._year >= r._year || l._month >= r._month || l._day >= r._day;
+}
+
 Date::Date(int year, int month, int day) {
     _year = year;
     _month = month;
@@ -91,6 +107,41 @@ Date Date::now() {
     d._day = timeInfo.tm_mday;
     
     return d;
+}
+
+Date Date::dateFromString(const string &str) {
+    Date d;
+    
+    d._year = 0;
+    d._month = 0;
+    d._day = 0;
+    
+    struct tm tm;
+    //time_t t;
+    
+    // "6 Dec 2001 12:33:45"
+    if(strptime(str.c_str(), "%d %b %Y %H:%M", &tm) != NULL) {
+        d._year = tm.tm_year + 1900;
+        d._month = tm.tm_mon + 1;
+        d._day = tm.tm_mday;
+    }
+    
+    return d;
+}
+
+int Date::timeFromDateString(const string &str) {
+    int time = 0;
+    
+    struct tm tm;
+    //time_t t;
+    
+    // "6 Dec 2001 12:33:45"
+    if(strptime(str.c_str(), "%d %b %Y %H:%M", &tm) != NULL) {
+        time += tm.tm_hour * 3600;
+        time += tm.tm_min * 60;
+    }
+    
+    return time;
 }
 
 int Date::time() {

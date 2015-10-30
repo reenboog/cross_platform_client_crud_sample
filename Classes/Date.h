@@ -19,6 +19,8 @@ public:
     }
     
     static std::string timeStrForSeconds(int s);
+    static Date dateFromString(const std::string &str);
+    static int timeFromDateString(const std::string &str);
     
     static Date now();
     static int time();
@@ -39,6 +41,8 @@ public:
     }
     
     friend bool operator==(const Date &l, const Date &r);
+    friend bool operator <=(const Date &l, const Date &r);
+    friend bool operator >=(const Date &l, const Date &r);
 private:
     unsigned int _year;
     unsigned int _month;
