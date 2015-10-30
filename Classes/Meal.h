@@ -44,4 +44,18 @@ private:
     std::string _id;
 };
 
+struct CaloriesPerDay {
+    CaloriesPerDay(const Date &d, int c) {
+        _date = d;
+        _calories = c;
+    }
+    
+    CaloriesPerDay() {
+        _calories = 0;
+    }
+    
+    Date _date;
+    int _calories;
+};
+
 #endif /* defined(__ttt_c_tracker__Meal__) */

@@ -105,6 +105,8 @@
 		B8BBDCFE1BE2E47A001363BA /* ManagerToUserSettingsLayer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B8BBDCFB1BE2E47A001363BA /* ManagerToUserSettingsLayer.cpp */; };
 		B8BBDD011BE30473001363BA /* ItemFilterLayer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B8BBDCFF1BE30473001363BA /* ItemFilterLayer.cpp */; };
 		B8BBDD021BE30473001363BA /* ItemFilterLayer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B8BBDCFF1BE30473001363BA /* ItemFilterLayer.cpp */; };
+		B8BBDD061BE30ACE001363BA /* FilteredResultCell.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B8BBDD041BE30ACE001363BA /* FilteredResultCell.cpp */; };
+		B8BBDD071BE30ACE001363BA /* FilteredResultCell.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B8BBDD041BE30ACE001363BA /* FilteredResultCell.cpp */; };
 		B8C616781B5635AA007519A8 /* ServerAPI.mm in Sources */ = {isa = PBXBuildFile; fileRef = B8C616771B5635AA007519A8 /* ServerAPI.mm */; };
 		B8FAA4AA1BE11236002639AE /* Meal.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B8FAA4A81BE11236002639AE /* Meal.cpp */; };
 		B8FAA4AB1BE11236002639AE /* Meal.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B8FAA4A81BE11236002639AE /* Meal.cpp */; };
@@ -280,6 +282,8 @@
 		B8BBDCFF1BE30473001363BA /* ItemFilterLayer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ItemFilterLayer.cpp; sourceTree = "<group>"; };
 		B8BBDD001BE30473001363BA /* ItemFilterLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ItemFilterLayer.h; sourceTree = "<group>"; };
 		B8BBDD031BE304BA001363BA /* IOnFilterApplied.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IOnFilterApplied.h; sourceTree = "<group>"; };
+		B8BBDD041BE30ACE001363BA /* FilteredResultCell.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = FilteredResultCell.cpp; sourceTree = "<group>"; };
+		B8BBDD051BE30ACE001363BA /* FilteredResultCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FilteredResultCell.h; sourceTree = "<group>"; };
 		B8C616671B561C63007519A8 /* ServerAPI.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ServerAPI.h; sourceTree = "<group>"; };
 		B8C616771B5635AA007519A8 /* ServerAPI.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = ServerAPI.mm; path = ios/ServerAPI.mm; sourceTree = SOURCE_ROOT; };
 		B8FAA4A81BE11236002639AE /* Meal.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Meal.cpp; sourceTree = "<group>"; };
@@ -619,6 +623,8 @@
 				B8FAA4BF1BE1A1BC002639AE /* MealItemCell.h */,
 				B8BBDCF31BE2CE08001363BA /* UserItemCell.cpp */,
 				B8BBDCF41BE2CE08001363BA /* UserItemCell.h */,
+				B8BBDD041BE30ACE001363BA /* FilteredResultCell.cpp */,
+				B8BBDD051BE30ACE001363BA /* FilteredResultCell.h */,
 			);
 			name = views;
 			sourceTree = "<group>";
@@ -792,6 +798,7 @@
 				B8C616781B5635AA007519A8 /* ServerAPI.mm in Sources */,
 				B82D046C1A641E8600BCEF26 /* LoginLayer.cpp in Sources */,
 				B8FAA4B21BE11B22002639AE /* Goal.cpp in Sources */,
+				B8BBDD061BE30ACE001363BA /* FilteredResultCell.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -807,6 +814,7 @@
 				B8BBDCFE1BE2E47A001363BA /* ManagerToUserSettingsLayer.cpp in Sources */,
 				B8BBDD021BE30473001363BA /* ItemFilterLayer.cpp in Sources */,
 				B8624D711B5A0DF3006B3E3D /* LayerBlocker.cpp in Sources */,
+				B8BBDD071BE30ACE001363BA /* FilteredResultCell.cpp in Sources */,
 				B840C7FF1BE1CBA300116E94 /* UserSettingsLayer.cpp in Sources */,
 				B82D04711A641E8600BCEF26 /* Shared.cpp in Sources */,
 				B82D046F1A641E8600BCEF26 /* Localized.cpp in Sources */,

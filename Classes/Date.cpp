@@ -39,6 +39,10 @@ bool operator>=(const Date &l, const Date &r) {
     return l._year >= r._year || l._month >= r._month || l._day >= r._day;
 }
 
+bool operator <(const Date &l, const Date &r) {
+    return l._year < r._year || l._month < r._month || l._day < r._day;
+}
+
 Date::Date(int year, int month, int day) {
     _year = year;
     _month = month;

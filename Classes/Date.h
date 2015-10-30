@@ -43,6 +43,7 @@ public:
     friend bool operator==(const Date &l, const Date &r);
     friend bool operator <=(const Date &l, const Date &r);
     friend bool operator >=(const Date &l, const Date &r);
+    friend bool operator <(const Date &l, const Date &r);
 private:
     unsigned int _year;
     unsigned int _month;
