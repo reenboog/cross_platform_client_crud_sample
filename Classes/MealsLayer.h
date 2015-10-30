@@ -17,6 +17,7 @@
 #include "IOnGoalChanged.h"
 #include "IOnItemCreated.h"
 #include "IOnItemModified.h"
+#include "IOnFilterApplied.h"
 
 class MealsLayer:
 
@@ -27,7 +28,8 @@ public cocos2d::extension::TableViewDelegate,
 
 public IOnGoalChanged,
 public IOnItemCreated,
-public IOnItemModified {
+public IOnItemModified,
+public IOnFilterApplied {
 
 public:
     MealsLayer();
@@ -49,6 +51,9 @@ public:
     
     void onItemDeleted(const std::string &itemId);
     void onItemUpdated(const std::string &itemId, const std::string &newCaption, int newCalories);
+    
+    // filtering
+    void onFilterApplied(IOnDateFilterResultFetched *fetcher, const Date &dateFrom, const Date &dateTo, int timeFrom, int timeTo);
     
     // IOnGOalCHanged delegates
     void onGoalChanged(int newGoal);

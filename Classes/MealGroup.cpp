@@ -66,7 +66,7 @@ MealGroup MealGroup::selectForDate(const Date &date) const {
     return g;
 }
 
-MealGroup MealGroup::selectBetweenDates(const Date &dateFrom, const Date &dateTo, int timeFrom, int timeTo) {
+MealGroup MealGroup::selectBetweenDates(const Date &dateFrom, const Date &dateTo, int timeFrom, int timeTo) const {
     MealGroup g;
     
     for(int i = 0; i < _meals.size(); ++i) {

@@ -103,6 +103,8 @@
 		B8BBDCFA1BE2E142001363BA /* ManagerSettingsLayer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B8BBDCF71BE2E142001363BA /* ManagerSettingsLayer.cpp */; };
 		B8BBDCFD1BE2E47A001363BA /* ManagerToUserSettingsLayer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B8BBDCFB1BE2E47A001363BA /* ManagerToUserSettingsLayer.cpp */; };
 		B8BBDCFE1BE2E47A001363BA /* ManagerToUserSettingsLayer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B8BBDCFB1BE2E47A001363BA /* ManagerToUserSettingsLayer.cpp */; };
+		B8BBDD011BE30473001363BA /* ItemFilterLayer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B8BBDCFF1BE30473001363BA /* ItemFilterLayer.cpp */; };
+		B8BBDD021BE30473001363BA /* ItemFilterLayer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B8BBDCFF1BE30473001363BA /* ItemFilterLayer.cpp */; };
 		B8C616781B5635AA007519A8 /* ServerAPI.mm in Sources */ = {isa = PBXBuildFile; fileRef = B8C616771B5635AA007519A8 /* ServerAPI.mm */; };
 		B8FAA4AA1BE11236002639AE /* Meal.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B8FAA4A81BE11236002639AE /* Meal.cpp */; };
 		B8FAA4AB1BE11236002639AE /* Meal.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B8FAA4A81BE11236002639AE /* Meal.cpp */; };
@@ -275,6 +277,9 @@
 		B8BBDCF81BE2E142001363BA /* ManagerSettingsLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ManagerSettingsLayer.h; sourceTree = "<group>"; };
 		B8BBDCFB1BE2E47A001363BA /* ManagerToUserSettingsLayer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ManagerToUserSettingsLayer.cpp; sourceTree = "<group>"; };
 		B8BBDCFC1BE2E47A001363BA /* ManagerToUserSettingsLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ManagerToUserSettingsLayer.h; sourceTree = "<group>"; };
+		B8BBDCFF1BE30473001363BA /* ItemFilterLayer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ItemFilterLayer.cpp; sourceTree = "<group>"; };
+		B8BBDD001BE30473001363BA /* ItemFilterLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ItemFilterLayer.h; sourceTree = "<group>"; };
+		B8BBDD031BE304BA001363BA /* IOnFilterApplied.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IOnFilterApplied.h; sourceTree = "<group>"; };
 		B8C616671B561C63007519A8 /* ServerAPI.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ServerAPI.h; sourceTree = "<group>"; };
 		B8C616771B5635AA007519A8 /* ServerAPI.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = ServerAPI.mm; path = ios/ServerAPI.mm; sourceTree = SOURCE_ROOT; };
 		B8FAA4A81BE11236002639AE /* Meal.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Meal.cpp; sourceTree = "<group>"; };
@@ -572,6 +577,7 @@
 				B840C8001BE2053F00116E94 /* IOnGoalChanged.h */,
 				B840C8051BE234C900116E94 /* IOnItemCreated.h */,
 				B8BBDCED1BE294D5001363BA /* IOnItemModified.h */,
+				B8BBDD031BE304BA001363BA /* IOnFilterApplied.h */,
 				B840C8011BE2331500116E94 /* CreateMealItemLayer.cpp */,
 				B840C8021BE2331500116E94 /* CreateMealItemLayer.h */,
 				B8BBDCE91BE2946B001363BA /* EditMealItemLayer.cpp */,
@@ -583,6 +589,8 @@
 				B8BBDCF81BE2E142001363BA /* ManagerSettingsLayer.h */,
 				B8BBDCFB1BE2E47A001363BA /* ManagerToUserSettingsLayer.cpp */,
 				B8BBDCFC1BE2E47A001363BA /* ManagerToUserSettingsLayer.h */,
+				B8BBDCFF1BE30473001363BA /* ItemFilterLayer.cpp */,
+				B8BBDD001BE30473001363BA /* ItemFilterLayer.h */,
 			);
 			name = layers;
 			sourceTree = "<group>";
@@ -770,6 +778,7 @@
 				B8BBDCF91BE2E142001363BA /* ManagerSettingsLayer.cpp in Sources */,
 				B8BBDCF51BE2CE08001363BA /* UserItemCell.cpp in Sources */,
 				B82D046E1A641E8600BCEF26 /* Localized.cpp in Sources */,
+				B8BBDD011BE30473001363BA /* ItemFilterLayer.cpp in Sources */,
 				B8624D6C1B596794006B3E3D /* Toast.cpp in Sources */,
 				B8FAA4AE1BE11289002639AE /* Date.cpp in Sources */,
 				B8FAA4AA1BE11236002639AE /* Meal.cpp in Sources */,
@@ -796,6 +805,7 @@
 				B8FAA4AB1BE11236002639AE /* Meal.cpp in Sources */,
 				B8FAA4C11BE1A1BC002639AE /* MealItemCell.cpp in Sources */,
 				B8BBDCFE1BE2E47A001363BA /* ManagerToUserSettingsLayer.cpp in Sources */,
+				B8BBDD021BE30473001363BA /* ItemFilterLayer.cpp in Sources */,
 				B8624D711B5A0DF3006B3E3D /* LayerBlocker.cpp in Sources */,
 				B840C7FF1BE1CBA300116E94 /* UserSettingsLayer.cpp in Sources */,
 				B82D04711A641E8600BCEF26 /* Shared.cpp in Sources */,

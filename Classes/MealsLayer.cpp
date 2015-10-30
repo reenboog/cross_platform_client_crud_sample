@@ -15,11 +15,13 @@
 #include "EditMealItemLayer.h"
 #include "LayerBlocker.h"
 #include "Toast.h"
+#include "ItemFilterLayer.h"
 
 #define zBack 0
 #define zSettings 10
 #define zCreateItem 10
 #define zEditItem 10
+#define zFilter 10
 
 using namespace cocos2d;
 using namespace cocos2d::extension;
@@ -228,7 +230,9 @@ void MealsLayer::onBtnSettingsPressed() {
 }
 
 void MealsLayer::onBtnDateSelectPressed() {
+    ItemFIlterLayer *l = ItemFIlterLayer::create(this);
     
+    this->addChild(l, zFilter);
 }
 
 void MealsLayer::onBtnAddItemPressed() {
@@ -312,6 +316,14 @@ void MealsLayer::onGoalChanged(int newGoal) {
     // recalc the data here
     // move the progress
     this->setTotalCaloriesConsumed(_currentCalories);
+}
+
+#pragma mark - filtering
+
+void MealsLayer::onFilterApplied(IOnDateFilterResultFetched *fetcher, const Date &dateFrom, const Date &dateTo, int timeFrom, int timeTo) {
+    MealGroup filtered = User::sharedInstance()->getAllMeal().selectBetweenDates(dateFrom, dateTo, timeFrom, timeTo);
+    
+    fetcher->onResutFetched(filtered);
 }
 
 #pragma mark - Table delegates
